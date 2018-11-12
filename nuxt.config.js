@@ -1,8 +1,8 @@
 const pkg = require('./package')
+// require('dotenv').config()
 
 module.exports = {
   mode: 'universal',
-
   /*
   ** Headers of the page
   */
@@ -18,52 +18,111 @@ module.exports = {
       { rel: 'stylesheet', href: 'https://use.fontawesome.com/releases/v5.0.13/css/all.css' }
     ]
   },
-
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#fff' },
-
+  loading: false,
   /*
   ** Global CSS
   */
   css: [
     '@/assets/css/main.css',
-    '@/assets/css/variables.css'
+    '@/assets/css/variables.css',
+    'cetacea-design-system/dist/system/system.css'
   ],
-
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
     { src: '~/plugins/design-system', ssr: true },
-    '@/plugins/portal-vue',
     '@/mixins/mixins',
+    '@/plugins/directives',
+    { src: '~/plugins/segment', ssr: false },
+    { src: '~/plugins/optimizely', ssr: true },
+    { src: '~/plugins/flickity', ssr: false },
   ],
-
   /*
   ** Nuxt.js modules
   */
   modules: [
+    '@nuxtjs/dotenv',
     '@/modules/typescript',
-    '@nuxtjs/apollo'
+    '@nuxtjs/onesignal',
+    '@nuxtjs/apollo',
+    '@nuxtjs/pwa',
+    ['nuxt-sass-resources-loader', 'cetacea-design-system/dist/system/system.css']
   ],
-
+  /*
+  ** Sitemap
+  */
+  sitemap: {
+    path: '/sitemap.xml',
+    hostname: process.env.BASE_URL, //change for BASE_URL
+    cacheTime: 1000 * 60 * 15,
+    gzip: true,
+    generate: true,
+    exclude: [
+      '/secret',  //change
+      '/admin/**' //change
+    ],
+    routes() {
+      return app.apolloProvider.defaultClient.query({
+        query: gql`
+          query projects {
+            projects {
+              title
+            }
+          }
+        `,
+      })
+      .then(res => res.data.map(project => '/projects/' + project.title ))
+    }
+  },
+  /*
+  **  One Signal Push Notifications
+  */
+  oneSignal: {
+    init: {
+      appId: process.env.ONE_SIGNAL_ID,
+      allowLocalhostAsSecureOrigin: true,
+      welcomeNotification: {
+        disable: false
+      }
+    }
+  },
+  /*
+  **  Apollo module
+  */
   apollo: {
     authenticationType: 'JWT',
     clientConfigs: {
       default: {
-        httpEndpoint: 'http://localhost:9000/graphql/'
+        httpEndpoint: process.env.DEV_GRAPH
       }
     }
   },
-
+  /*
+  ** Render function
+  */
+  render: {
+    compressor: {
+      treshold: 0
+    }
+  },
+  srcDir: 'client/',
+  router: {
+    base: `/`
+  },
   /*
   ** Build configuration
   */
   build: {
     /*
     ** You can extend webpack config here
+    */
+    publicPath: `/${require('./secrets.json').NODE_ENV}/_nuxt/`,
+    /*
+    ** PostCSS
     */
     postcss: {
       plugins: {
@@ -93,5 +152,12 @@ module.exports = {
         })
       }
     }
+  },
+  env: {
+    BASE_URL: process.env.BASE_URL,
+    DEV_GRAPH: process.env.DEV_GRAPH,
+    ONE_SIGNAL_ID: process.env.ONE_SIGNAL_ID,
+    SEGMENT_KEY: process.env.SEGMENT_KEY,
+    OPTIMIZELY_DATAFILE: process.env.OPTIMIZELY_DATAFILE
   }
 }

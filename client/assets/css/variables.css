@@ -1,0 +1,15 @@
+:root {
+    --black: #030c1a;
+    --blue: #315ee8;
+    --space: 2rem;
+    --blick: rgb(9, 172, 31);
+    --blue-dark: color-mod(var(--blue) a(20%));
+    --custom-border-radius: 10px;
+}
+
+body{
+    background-color: #000;
+    /* #080e15 */
+}
+
+@custom-media --narrow-window (max-width: 30em);

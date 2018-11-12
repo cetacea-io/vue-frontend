@@ -1,0 +1,10 @@
+query projects{
+  projects {
+    id
+    title
+    coverImage
+    category
+    location
+    quickDesc
+  }
+}

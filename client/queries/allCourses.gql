@@ -1,0 +1,11 @@
+query courses ($area: String!) {
+  courses (area: $area) {
+    id
+    title
+    category
+    coverImage
+    url
+    creatorImage
+    startDate
+  }
+}
