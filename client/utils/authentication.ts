@@ -23,10 +23,9 @@ export function loginRequired() {
       var context = this;
       var args = arguments;
       if(this.$store.getters['auth/isAuthenticated']){
-        alert('Estas logeado, ya le diste follow');
         originalMethod.apply(context, args);
       } else {
-        alert('Debes registrarte para poder completar la accion');
+        this.$loginModal.show()
       }
     };
 

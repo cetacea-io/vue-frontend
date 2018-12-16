@@ -3,11 +3,11 @@
     ref="navbar"
     :style="{ top: computedTop }"
     class="navbar-container">
-    <div 
+    <div
       v-if="user"
       class="secondary-section container">
-      <!-- <Avatar 
-        icon 
+      <!-- <Avatar
+        icon
         image="/no-avatar.svg"/>
       {{ user.email }} -->
       <i class="selected fas fa-home"/>
@@ -15,10 +15,10 @@
       <i class="fas fa-bell"/>
       <i class="fas fa-envelope"/>
     </div>
-    <div 
+    <div
       v-else
       class="normal container">
-      <img 
+      <img
         style="height:50px;"
         src="~/static/icon.png">
       <nuxt-link to="/signup">
@@ -32,8 +32,6 @@
 </template>
 
 <script>
-// import AppAvatar from '~/components/atoms/AppAvatar'
-
 export default {
   name: 'TheNavbar',
   data() {
@@ -48,7 +46,8 @@ export default {
       return this.top
     },
     user() {
-      return this.$store.getters['auth/isAuthenticated']
+      // return this.$store.getters['auth/isAuthenticated']
+      return this.$apolloHelpers.getToken()
     }
   },
   beforeMount() {

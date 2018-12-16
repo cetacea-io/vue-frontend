@@ -1,6 +1,6 @@
 <template>
   <div 
-    :style="{ 'background-image': 'url(' + image + ')' }" 
+    :style="{ 'background-image': 'url(' + image + ')' }"
     class="cover-image">
     <button class="button" />
   </div>

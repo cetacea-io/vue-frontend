@@ -1,5 +1,68 @@
 <template>
-  <div>
+  <div class="landing">
+
+    <TheHeader />
+
+    <div class="container">
+      <div class="tag">
+        Me interesa el arte
+      </div>
+      <div class="tag">
+        Me interesa la investigacion
+      </div>
+      <div class="tag">
+        Me interesa la sociedad
+      </div>
+    </div>
+
+
+    <div style="padding: 50px 50px;">
+      <div class="container">
+        <div class="hzGroup">
+          <div class="left">
+            <h2>Colabora en proyectos</h2>
+            <p>
+              Colabora en proyectos de tu interes con tus habilidades o crea tu propio proyecto
+              y haz que los demas se interesen en tu idea
+            </p>
+          </div>
+          <div class="right">
+            <m-k-t-section />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="padding: 50px 50px;">
+      <div class="container">
+        <projects-section />
+      </div>
+    </div>
+
+    <div>
+      <m-k-t-like />
+    </div>
+
+    <div style="padding: 50px 50px;">
+      <m-k-t-profile-card
+        :tags="[
+          'Musica',
+          'Piano',
+          'Jazz'
+        ]"
+        :portfolio="[
+          'https://pbs.twimg.com/profile_images/1012506332639965184/DujLseg3_400x400.jpg',
+          'https://bandonthewall.org/app/uploads/2016/07/4.jpg',
+          'https://images.sk-static.com/images/media/profile_images/artists/3084391/huge_avatar',
+          'https://upload.wikimedia.org/wikipedia/commons/2/2c/Cory_Henry_%26_The_Funk_Apostles_Cosmopolite_2017_%28214625%29.jpg'
+        ]"
+        name="Cory Henry"
+        skill="Músico" />
+      <m-k-t-course-card
+        image="https://teatrodeltemple.com/wp-content/uploads/2018/06/1971-Teatro-del-Temple-6.jpg"
+        title="Heartbreaking" />
+
+    </div>
 
     <div 
       v-if="enabled"
@@ -40,8 +103,6 @@
         </AppCarrousel>
       </no-ssr>
     </div>
-
-
 
     <div class="section">
       <div class="head-title">
@@ -131,54 +192,6 @@
       </a>
     </div>
 
-    <!-- <div style="margin: 40px 16px 0;">
-      <a href="https://www.facebook.com/isemcultura/photos/a.300389383404072/1691352120974451/?type=3&theater">
-        <NewsSlider
-          :id="1"
-          :likes="45"
-          :shares="24"
-          image="https://edge.cwtv-egress.top.comcast.net/image-service/CWTV/The_CW/254/596/WBITV_Marketing_WHOSE_LINE_IS_IT_ANYWAY_YR02_99_00_SHOW_202_NTSC_2997fps_4x3_7513224_a3c04c840_CWtv_1920x1080.jpg"
-          title="Taller de Improv"
-          category="Teatro"
-          description="Conoce el mundo de la improvisación escénica. Por ISEM Cultura"
-        />
-      </a>
-    </div> -->
-    <!-- <AppIdea title="Teatro: Fantasma de la opera" author="Ivan Castellanos" date="hace 3 minutos"/> -->
-    <!-- <AppProjectsList :projects="projects"/> -->
-    <!-- {{ projects }} -->
-    <!-- <div style="margin: 40px 16px;">
-      <ProjectCard
-        :id="3"
-        :likes="45"
-        :shares="24"
-        image="https://i.redd.it/x12pys0090q11.jpg"
-        title="Fountain of Salmacis: Album"
-        category="Musica"
-        description="Album conceptual de Rock Progresivo, inspirado en sonidos de los 80's.
-          La trama relata la historia de dos astronautas perdidos en el espacio, entre el silencio
-          del espacio profundo, de pronto se escucha que tocan la puerta de la nave espacial"
-      />
-    </div> -->
-
-
-    <!-- <div 
-      class="container"
-      style="max-width:400px; margin-top:80px;">
-      <AppProjectsList
-        :projects="projects"
-        :contributors-images="[
-          'https://s3.us-east-2.amazonaws.com/temporarycetacea/carlosbarajas.jpeg',
-          'https://s3.us-east-2.amazonaws.com/temporarycetacea/edgarzapata.png'
-        ]"
-        :contributors-extras="12"
-        author-image="https://s3.us-east-2.amazonaws.com/temporarycetacea/juegos1.png"
-        author-title="Juegos de Azar"
-        date="18 de Julio"
-        @click="clicky"
-      />
-    </div> -->
-
   </div>
 </template>
 
@@ -188,9 +201,20 @@ import AppProjectsList from '@/components/project/AppProjectsList'
 import TheHeader from '@/components/layout/TheHeader'
 import AppCarrousel from '@/components/AppCarrousel'
 
+import FacebookButton from '@/components/FacebookButton'
+import GoogleButton from '@/components/GoogleButton'
+
 import gql from 'graphql-tag'
 import ALL_PROJECTS from '@/queries/allProjects.gql'
 import ALL_COURSES from '@/queries/allCourses.gql'
+
+
+import MKTSection from '@/components/marketing/MKTSection'
+import ProjectsSection from '@/components/marketing/ProjectsSection'
+import MKTLike from '@/components/marketing/MKTLike'
+import MKTProfileCard from '@/components/marketing/MKTProfileCard'
+import MKTCourseCard from '@/components/marketing/MKTCourseCard'
+
 
 export default {
   async asyncData ({error, app, params}) {
@@ -200,9 +224,17 @@ export default {
   },
   components: {
     // AppIdea,
+    MKTSection,
+    ProjectsSection,
+    MKTLike,
+    MKTProfileCard,
+    MKTCourseCard,
+
     AppProjectsList,
     TheHeader,
-    AppCarrousel
+    AppCarrousel,
+    FacebookButton,
+    GoogleButton
   },
   apollo: {
     projects: {
@@ -282,7 +314,60 @@ export default {
 }
 </script>
 
-<style>
+<style scoped lang="scss">
+.tag {
+  background: rgb(161, 180, 206);
+  color: #000;
+  padding: 5px 10px;
+  margin-left: 10px;
+  border-radius: 50px;
+  display: inline;
+}
+</style>
+
+
+<style scoped lang="scss">
+.landing {
+  /* background: #22314e; */
+  background: #000;
+}
+
+.hzGroup {
+  @media only screen and (min-width: 960px) {
+    flex-direction: row;
+  }
+  display: flex;
+  align-items: center;
+  height: 100%;
+  flex-direction: column-reverse;
+}
+
+.left {
+  @media only screen and (min-width: 960px) {
+    width: 40%;
+    text-align: right;
+    max-width: auto;
+  }
+  width: 100%;
+  text-align: center;
+  max-width: 500px;
+}
+
+.right {
+  @media only screen and (min-width: 960px) {
+    width: 60%;
+    justify-content: flex-end;
+    display: flex;
+    position: relative;
+    margin-bottom: 0;
+    max-width: auto;
+  }
+  margin-bottom: 450px;
+  width: 100%;
+  text-align: center;
+  max-width: 500px;
+}
+
 .mini{
   width: 252px;
   padding: 5px;

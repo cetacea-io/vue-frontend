@@ -1,7 +1,15 @@
 <template>
-  <div class="fullscreen">
+  <div class="container">
 
     <h1>Login</h1>
+
+    <div
+      v-if="alert"
+      class="">
+      Hubo un error grave
+      {{ alert.message }}
+    </div>
+
     <form
       v-if="!isAuthenticated"
       @submit.prevent="submit">
@@ -12,12 +20,14 @@
         value="true">
         {{ alert.message }}
       </h2>
-      <p>Email</p>
+      <facebook-button/>
+      <google-button/>
+      <p>Email/teléfono/nombre de usuario</p>
       <input
-        v-model="credentials.username" 
+        v-model="credentials.id" 
         type="text"
         name="email">
-      <p>Password</p>
+      <p>Contraseña</p>
       <input
         v-model="credentials.password"
         type="password"
@@ -29,15 +39,19 @@
 </template>
 
 <script>
-import gql from 'graphql-tag'
-// import {tokenAuth} from '~/queries/tokenAuth'
+import FacebookButton from '@/components/FacebookButton'
+import GoogleButton from '@/components/GoogleButton'
 
 export default {
-  // middleware: 'notAuthenticated',
+  // middleware: 'isAuthenticated',
+  components: {
+    FacebookButton,
+    GoogleButton
+  },
   data () {
     return {
       credentials: {
-        username: null,
+        id: null,
         password: null,
       },
       alert: null,
@@ -53,10 +67,24 @@ export default {
   methods: {
     async submit() {
       const credentials = this.credentials
+      this.alert = null
+      this.loading = true
 
-      this.$store.dispatch('auth/login', credentials)
-      .then(() => this.$router.push('/'))
-      .catch(err => console.log(err))
+      this.$store.dispatch('auth/login', 'ivan', '60a7e5c4')
+      .then(result => {
+        this.alert = {type: 'success', message: result.data.message}
+        this.loading = false
+        // this.$router.push('/')
+      })
+      .catch(error => {
+        this.loading = false
+        if (error.response && error.response.data) {
+          this.alert = {
+            type: 'error',
+            message: error.response.data.message || error.response.status
+          }
+        }
+      })
 
       // try{
       //   const res = await this.$apollo.mutate({

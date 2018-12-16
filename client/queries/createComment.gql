@@ -1,0 +1,5 @@
+mutation createComment($content: String!, $project: Int!) {
+  createComment(content: $content, project: $project) {
+    content
+  }
+}

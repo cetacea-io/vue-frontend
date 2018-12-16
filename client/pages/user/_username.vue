@@ -21,6 +21,9 @@
 
     <div class="bio">
       {{ user.bio }}
+      <!-- <div v-if="user.id == $store.getters['auth/actualUser'].id"> -->
+      {{ user.id }} {{ $store.getters['auth/actualUser'].id }}
+      <!-- </div> -->
     </div>
 
     <div
@@ -129,6 +132,7 @@ export default {
       query: gql`
         query user($username: String!) {
           user(username: $username) {
+            id
             firstName
             lastName
             username
@@ -145,33 +149,6 @@ export default {
     }
     return {user}
   },
-  // apollo: {
-  //   user: {
-  //     query: gql`
-  //       query user($username: String!) {
-  //         user(username: $username) {
-  //           firstName
-  //           lastName
-  //           username
-  //           email
-  //         }
-  //       }
-  //     `,
-  //     prefetch: ({ route }) => {
-  //       return {
-  //         username: route.params.username,
-  //       }
-  //     },
-  //     variables () {
-  //       return {
-  //         username: this.$route.params.username,
-  //       }
-  //     },
-  //     error(error) {
-  //       error({statusCode: 404, message: 'Page not found'})
-  //     }
-  //   }
-  // },
   computed: {
     player() {
       return this.$refs.videoPlayer.player

@@ -17,7 +17,9 @@
     <div class="temp">
       <p>Categoría: {{ project.category }}</p>
 
-      <p v-if="project.location">Locación: {{ project.location }}</p>
+      <p>Fechas y Horarios: {{ project.category }}</p>
+
+      <p v-if="project.location">Lugar: {{ project.location }}</p>
       <p v-else>No se requiere ubicación</p>
 
       <!-- <i class="fas fa-eye"/> 4541
@@ -46,7 +48,7 @@
         size="small"
       />
       <div class="desc">
-        <div>Juegos de Azar</div>
+        <div>CONARTE</div>
         <div class="date">{{ shortTimestamp(project.creationDate) }}</div>
       </div>
       <Button 
@@ -55,13 +57,6 @@
         Seguir
       </Button>
     </div>
-
-    <AppSections 
-      :id="project.id"
-      :overview="project.overview"
-      :positions="project.positions"
-      :comments="project.comments"
-    />
 
     <login-modal/>
 
@@ -111,7 +106,6 @@ import {
 export default class Index extends Vue {
 
   async asyncData ({error, app, params}) {
-    console.log('esta entrando')
     try {
       const { data } = await app.apolloProvider.defaultClient.query({
         query: gql`

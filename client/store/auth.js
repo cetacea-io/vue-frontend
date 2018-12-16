@@ -1,56 +1,91 @@
 // import Cookies from 'js-cookie'
-const Cookie = process.client ? require('js-cookie') : undefined 
+const cookie = process.client ? require('js-cookie') : undefined 
 import gql from 'graphql-tag'
+
+import { tokenAuth } from '@/queries/tokenAuth.gql'
+import { me } from '@/queries/me.gql'
 
 export const state = () => ({
   // token: process.client ? cookies.get('apollo-token') : null,
-  token: process.client ? Cookie.get('apollo-token') || null : null,
+  token: process.client ? cookie.get('apollo-token') || null : null,
+  // token: !!this.app.$apolloHelpers.getToken(),
   status: '',
-  user: {}
+  user: null
 })
 
 export const getters = {
   isAuthenticated: state => !!state.token,
   authStatus: state => state.status,
+  actualUser: state => state.user
+}
+
+export const mutations = {
+  set_user (store, data) {
+    store.user = data
+    // Identify analytics user
+    analytics.identify(data.id, {
+      username: data.username,
+      email: data.email
+    })
+  },
+  reset_user (store) {
+    store.user = null
+  }
 }
 
 export const actions = {
 
-  login({commit}, user) {
-    return new Promise((resolve, reject) => {
-      this.app.apolloProvider.defaultClient.mutate({
-
-        mutation: gql`
-          mutation tokenAuth($username: String!, $password: String!) {
-            tokenAuth(username: $username, password: $password) {
-              token
-            }
-          }
-        `,
-        variables: user
-
+  async fetch ({commit}) {
+    try {
+      const response = await this.app.apolloProvider.defaultClient.query({
+        query: me
       })
-      .then(resp => {
-        const token = resp.data.tokenAuth.token
-        this.app.$apolloHelpers.onLogin(token)
-        console.log(Cookie.get('apollo-token'))
+      .then(({data}) => data)
+    } catch (e) {
+      console.error(e)
+    }
+  },
 
-        resolve(resp)
-
-        // this.app.apolloProvider.defaultClient.query({
-        //   query: gql`
-        //     query me {
-        //       me {
-        //         id
-        //         username
-        //       }
-        //     }
-        //   `,
-        // })
-
+  async login({commit}, id, password) {
+    try {
+      const response = await this.app.apolloProvider.defaultClient.mutate({
+        mutation: tokenAuth,
+        variables: {
+          username: 'ivan',
+          password: '60a7e5c4'
+        },
+        error(error){
+          resolve(error)
+        }
       })
+      .then(({data}) => data)
+      await this.app.$apolloHelpers.onLogin(response.tokenAuth.token)
+      
+      try {
+        const response = await this.app.apolloProvider.defaultClient.query({
+          query: me
+        })
+        .then(({data}) => data)
 
-    })
+        commit('set_user', response.me)
+
+      } catch (e) {
+        console.error(e)
+      }
+
+    } catch (e) {
+      console.error(e)
+    }
+
+  },
+  //TODO: fix this
+  async register({commit}, data) {
+    try{
+      //TODO: Fix this
+      this.app.$optimizely.track('user_registered', userID)
+    } catch (e) {
+      console.error(e)
+    }
   }
 
 }

@@ -1,28 +1,20 @@
 <template>
   <div>
 
-    <!-- <div class="form-wrapper">
+    <div class="form-wrapper">
       <form>
         <div class="register-wrapper">
           <div>
             <h1 class="title">Crea tu cuenta</h1>
           </div>
-          <p>Registrate con Google</p>
+          <div>
+            <GoogleButton/>
+            <FacebookButton/>
+          </div>
           <p>o</p>
 
-          <div class="form-container">
-            <input
-              id=""
-              type="email"
-              name="">
-          </div>
-
-          <div class="form-container">
-            <Button
-              class="button"
-              type="a">
-              Registrate en Cetacea
-            </Button>
+          <div>
+            <a href="#">Registrate con correo</a>
           </div>
 
         </div>
@@ -41,8 +33,8 @@
           </div>
         </div>
       </div>
-    </div> -->
-    <h1>Registrate en Cetacea</h1>
+    </div>
+    <!-- <h1>Registrate en Cetacea</h1>
     <iframe 
       class="google-forms"
       src="https://docs.google.com/forms/d/e/1FAIpQLSdl5fZfCj0HwOz7_1POoITFJA_fkuW5G26WgRf2zzLfv4_sig/viewform?embedded=true"
@@ -51,7 +43,7 @@
       marginheight="0"
       marginwidth="0">
       Cargando…
-    </iframe>
+    </iframe> -->
   </div>
 </template>
 
@@ -59,11 +51,15 @@
   import gql from 'graphql-tag'
 
   import AppInputField from '@/components/ui/AppInputField'
+  import GoogleButton from '@/components/GoogleButton'
+  import FacebookButton from '@/components/FacebookButton'
 
   export default {
     layout: 'blank',
     components: {
       AppInputField,
+      GoogleButton,
+      FacebookButton
     },
     data () {
       return{

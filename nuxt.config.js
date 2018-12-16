@@ -36,10 +36,12 @@ module.exports = {
   plugins: [
     { src: '~/plugins/design-system', ssr: true },
     '@/mixins/mixins',
-    '@/plugins/directives',
+    '@/plugins/login-modal',
+    { src: '~/plugins/localStorage', ssr: false },
     { src: '~/plugins/segment', ssr: false },
     { src: '~/plugins/optimizely', ssr: true },
     { src: '~/plugins/flickity', ssr: false },
+    { src: '~/plugins/installationPromptPWA', ssr: false },
   ],
   /*
   ** Nuxt.js modules
