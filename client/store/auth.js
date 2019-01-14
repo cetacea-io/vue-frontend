@@ -10,13 +10,15 @@ export const state = () => ({
   token: process.client ? cookie.get('apollo-token') || null : null,
   // token: !!this.app.$apolloHelpers.getToken(),
   status: '',
-  user: null
+  user: null,
+  funnelResponded: false
 })
 
 export const getters = {
   isAuthenticated: state => !!state.token,
   authStatus: state => state.status,
-  actualUser: state => state.user
+  actualUser: state => state.user,
+  funnelResponded: state => state.funnelResponded
 }
 
 export const mutations = {

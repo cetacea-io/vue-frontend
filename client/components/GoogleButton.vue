@@ -54,6 +54,6 @@
   padding: 0 24px;
   font-size: 14px;
   font-weight: bold;
-  font-family: 'Roboto',arial,sans-serif;
+  font-family: 'Soleil';
 }
 </style>

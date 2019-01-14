@@ -1,13 +1,13 @@
 <template>
   <div class="container">
-    <AppCover :image="project.coverImage"/>
+    <AppCover :image="course.coverImage"/>
 
     <div class="temp">
       <h1 
         class="title">
-        {{ project.title }}
+        {{ course.title }}
       </h1>
-      <!-- <p>{{ project.quickDesc }}</p> -->
+      <!-- <p>{{ course.quickDesc }}</p> -->
       <nuxt-link to="/register">
         <Button type="a">
           Registrate en Cetacea
@@ -15,11 +15,11 @@
       </nuxt-link>
     </div>
     <div class="temp">
-      <p>Categoría: {{ project.category }}</p>
+      <p>Categoría: {{ course.category }}</p>
 
-      <p>Fechas y Horarios: {{ project.category }}</p>
+      <p>Fechas y Horarios: {{ course.category }}</p>
 
-      <p v-if="project.location">Lugar: {{ project.location }}</p>
+      <p v-if="course.location">Lugar: {{ course.location }}</p>
       <p v-else>No se requiere ubicación</p>
 
       <!-- <i class="fas fa-eye"/> 4541
@@ -44,12 +44,12 @@
 
     <div class="temp meta">
       <Avatar 
-        image="https://s3.us-east-2.amazonaws.com/temporarycetacea/juegos1.png"
+        :image="course.creatorImage"
         size="small"
       />
       <div class="desc">
         <div>CONARTE</div>
-        <div class="date">{{ shortTimestamp(project.creationDate) }}</div>
+        <div class="date">{{ shortTimestamp(course.creationDate) }}</div>
       </div>
       <Button 
         size="small"
@@ -58,7 +58,11 @@
       </Button>
     </div>
 
-    <login-modal/>
+    <div class="content-container">
+      <div v-if="course.overview">{{ course.overview }}</div>
+      <div v-else>Por el momento no hay una descripcion disponible.</div>
+      <google-map name="example"/>
+    </div>
 
   </div>
 </template>
@@ -69,38 +73,25 @@ import AppCover from '@/components/project/AppCover'
 // @ts-ignore
 import AppSections from '@/components/project/AppSections'
 // @ts-ignore
-import LoginModal from '@/components/LoginModal'
-// @ts-ignore
 import { loginRequired } from '@/utils/authentication'
-// import AppRangeSlider from '~/components/atoms/AppRangeSlider'
 
-// import AppCreateComment from '~/components/molecules/AppCreateComment'
-// import AppCommentsList from '~/components/organisms/AppCommentsList'
+//@ts-ignore
+import { course } from '@/queries/course'
 
-// import AppFeed from '~/components/molecules/AppFeed'
-
-// import AppPositionsList from '~/components/organisms/AppPositionsList'
-
-// import project from '~/queries/project'
-import gql from 'graphql-tag'
+//@ts-ignore
+import GoogleMap from '@/components/GoogleMap'
 
 import {
-  Component, 
+  Component,
   Vue
 } from 'nuxt-property-decorator'
 
 @Component({
-  name: 'project',
+  name: 'course',
   components: {
     AppCover,
     AppSections,
-    LoginModal
-    // AppRangeSlider,
-    // AppPositionsList,
-    // AppAvatarList,
-    // AppCreateComment,
-    // AppCommentsList,
-    // AppFeed
+    GoogleMap
   }
 })
 export default class Index extends Vue {
@@ -108,82 +99,57 @@ export default class Index extends Vue {
   async asyncData ({error, app, params}) {
     try {
       const { data } = await app.apolloProvider.defaultClient.query({
-        query: gql`
-          query project($id: Int!) {
-            project(id: $id) {
-              id
-              title
-              coverImage
-              category
-              location
-              creationDate
-              overview
-              positions {
-                title
-                description
-                compensation
-                time
-                requirements
-                form
-              }
-              # likes {
-              #   id
-              # }
-              # comments {
-              #   owner {
-              #     username
-              #   }
-              #   content
-              #   published
-              #   likes {
-              #     id
-              #   }
-              # }
-            }
-          }
-        `,
+        query: course,
         variables: { id: params.id }
       })
-      return {project: data.project}
+      return {course: data.course}
     } catch(err) {
       error({statusCode: 404, message: 'Not found'})
     }
   }
 
-  head = {
-    // title: `${this.project.title}`,
-    meta: [
-      {
-        hid: 'description',
-        name: 'description',
-        // content: `${this.project.description}`
-      },
-      {
-        hid: 'og:url',
-        property: 'og:url',
-        // content: 'actual url complete with https', PROJECT URL
-      },
-      {
-        hid: 'og:type',
-        name: 'og:type',
-        content: 'website'
-      },
-      {
-        hid: 'og:title',
-        name: 'og:title',
-        // content: `${this.project.title}`
-      },
-      {
-        hid: 'og:description',
-        name: 'og:description',
-        // content: `${this.project.description}`
-      },
-      {
-        hid: 'og:image',
-        name: 'og:image',
-        // content: `${this.project.image}` //ej. https://cetacea.io/project/id/image.jpg
-      }
-    ]
+  head() {
+    return {
+      //@ts-ignore
+      title: `${this.course.title}`,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          //@ts-ignore
+          content: `${this.course.description}`
+        },
+        {
+          hid: 'og:url',
+          property: 'og:url',
+          //@ts-ignore
+          content: `${this.$route.fullPath}`
+        },
+        {
+          hid: 'og:type',
+          name: 'og:type',
+          content: 'website'
+        },
+        {
+          hid: 'og:title',
+          name: 'og:title',
+          //@ts-ignore
+          content: `${this.course.title}`
+        },
+        {
+          hid: 'og:description',
+          name: 'og:description',
+          //@ts-ignore
+          content: `${this.course.description}`
+        },
+        {
+          hid: 'og:image',
+          name: 'og:image',
+          //@ts-ignore
+          content: `${this.course.coverImage}`
+        }
+      ]
+    }
   }
 
   @loginRequired()
@@ -191,7 +157,7 @@ export default class Index extends Vue {
     //@ts-ignore
     analytics.track('Followed User', {
       user: 'Some user',
-      project: 'Some project'
+      course: 'Some course'
     })
   }
 
@@ -227,5 +193,11 @@ export default class Index extends Vue {
 }
 .date{
   color: #8fa0b9;
+}
+
+.content-container{
+  background: hsl(217, 32%, 15%);
+  padding: 1em;
+  border-radius: 10px;
 }
 </style>

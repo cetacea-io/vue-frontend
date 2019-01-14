@@ -45,26 +45,5 @@ Vue.mixin({
         return descriptor
       }
     }
-    // loginRequired(wrapped) {
-    //   if (this.$store.getters['auth/isAuthenticated']){
-    //     console.log()
-    //     wrapped()
-    //   }
-    //   else{
-    //     console.log('no esta authenticated')
-    //     var componentClass = Vue.extend(AppJoinModal)
-    //     var modalInstance = new componentClass({})
-    //     modalInstance.$mount()
-    //     console.log(context.app)
-    //     // $refs.container.appendChild(modalInstance.$el)
-    //     return None
-    //   }
-    //   // return function() {
-    //   //   console.log('Starting');
-    //   //   const result = wrapped.apply(this, arguments);
-    //   //   console.log('Finished');
-    //   //   return result;
-    //   // }
-    // }
   }
 })

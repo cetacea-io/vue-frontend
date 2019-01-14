@@ -8,6 +8,7 @@
         role="dialog"
         aria-labelledby="modalTitle"
         aria-describedby="modalDescription"
+        @click.stop
       >
         <!-- <header
           id="modalTitle"
@@ -56,9 +57,20 @@
 <script>
 export default {
   name: 'Modal',
+  data() {
+    return {
+      closable: {
+        type: Boolean,
+        required: false,
+        default: true
+      }
+    }
+  },
   methods: {
     close() {
-      this.$emit('close')
+      if (this.closable) {
+        this.$emit('close')
+      }
     }
   }
 }

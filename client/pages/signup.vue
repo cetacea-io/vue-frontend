@@ -21,19 +21,7 @@
       </form>
     </div>
 
-    <div class="back-wrapper">
-      <div class="back-bg">
-        <div class="step-column">
-          <img 
-            src="https://static.hsappstatic.net/ui-images/static-2.101/optimized/hubspot-wordmark--light.svg" 
-            style="width: 92px; margin-bottom: 10px;">
-          <div 
-            style="font-size: 22px; line-height: 1.5; padding-left: 15px; padding-right: 15px;">
-            HubSpot CRM is 100% free.<br><b>Forever.</b>
-          </div>
-        </div>
-      </div>
-    </div>
+
     <!-- <h1>Registrate en Cetacea</h1>
     <iframe 
       class="google-forms"
@@ -48,52 +36,52 @@
 </template>
 
 <script>
-  import gql from 'graphql-tag'
+import gql from 'graphql-tag'
 
-  import AppInputField from '@/components/ui/AppInputField'
-  import GoogleButton from '@/components/GoogleButton'
-  import FacebookButton from '@/components/FacebookButton'
+import AppInputField from '@/components/ui/AppInputField'
+import GoogleButton from '@/components/GoogleButton'
+import FacebookButton from '@/components/FacebookButton'
 
-  export default {
-    layout: 'blank',
-    components: {
-      AppInputField,
-      GoogleButton,
-      FacebookButton
-    },
-    data () {
-      return{
-        username: null,
-        email: null,
-        password: null,
-      }
-    },
-    methods: {
-      register() {
-        console.log('entro')
+export default {
+  layout: 'blank',
+  components: {
+    AppInputField,
+    GoogleButton,
+    FacebookButton
+  },
+  data () {
+    return{
+      username: null,
+      email: null,
+      password: null,
+    }
+  },
+  methods: {
+    register() {
+      console.log('entro')
 
-        this.$apollo.mutate({
-          mutation: gql`mutation ($username: String!, $email: String!, $password: String!) {
-            createUser(username: $username, email: $email, password: $password){
-              user{
-                id
-                username
-                email
-              }
+      this.$apollo.mutate({
+        mutation: gql`mutation ($username: String!, $email: String!, $password: String!) {
+          createUser(username: $username, email: $email, password: $password){
+            user{
+              id
+              username
+              email
             }
-          }`,
-          variables: {
-            username: this.username,
-            email: this.email,
-            password: this.password,
-          },
-        })
+          }
+        }`,
+        variables: {
+          username: this.username,
+          email: this.email,
+          password: this.password,
+        },
+      })
 
-      }
+    }
 
-    },
-    // middleware: 'notAuthenticated',
-  }
+  },
+  // middleware: 'notAuthenticated',
+}
 </script>
 
 <style scoped lang="scss">
@@ -126,14 +114,6 @@
 
 .button {
   width: 100%;
-}
-
-.back-wrapper{
-  background-image: linear-gradient(to top, rgb(56, 83, 255), rgb(170, 93, 255));
-}
-
-.back-bg {
-  background-image: url(https://static.hsappstatic.net/signup-ui/static-7.317/images/sidebar-background.svg);
 }
 
 .step-column{

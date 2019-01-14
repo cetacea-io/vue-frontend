@@ -31,201 +31,238 @@
       name="Feed">
 
       <article class="">
-        <!-- <AppFeed
+        <AppFeed
           likes="54"
           facebook="245"
           twitter="124"
-          date="04/Julio/2018"
-          >
+          date="04/Julio/2018">
           GRACIAS! LO LOGRAMOS!
-          <video style="margin:40px 0;" width="400" controls>
-              <source src="https://s3.us-east-2.amazonaws.com/temporarycetacea/38496927_231858200991266_6460253948514140160_n.mp4" type="video/mp4">
-              Your browser does not support HTML5 video.
+          <video
+            style="margin:40px 0;"
+            width="400"
+            controls>
+            <source 
+              src="https://s3.us-east-2.amazonaws.com/temporarycetacea/38496927_231858200991266_6460253948514140160_n.mp4"
+              type="video/mp4">
+            Your browser does not support HTML5 video.
           </video>
         </AppFeed>
 
-          <div style="
-            width: 2px;
-            height: 50px;
-            background: #2c384a;
-            margin: 0 auto;
-          "></div>
-          <h1 style="
-            margin: 0 auto;
-            text-align: center;
-            font-size: 2.0em;
-          ">JUNIO</h1>
-          <div style="
-            width: 2px;
-            height: 50px;
-            background: #2c384a;
-            margin: 0 auto;
-          "></div>
+        <div
+          style="
+          width: 2px;
+          height: 50px;
+          background: #2c384a;
+          margin: 0 auto;
+        "/>
+        <h1
+          style="
+          margin: 0 auto;
+          text-align: center;
+          font-size: 2.0em;
+        ">JUNIO</h1>
+        <div 
+          style="
+          width: 2px;
+          height: 50px;
+          background: #2c384a;
+          margin: 0 auto;
+        "/>
           
-          <AppFeed
+        <AppFeed
           likes="54"
           facebook="245"
           twitter="124"
           date="04/Julio/2018"
-          >
-            Gracias a el ISEM por prestarnos un lugar, podremos presentar la obra dentro de dos semanas!
-            <div><img src="http://www.isem.edu.mx/img/emblema_nombre.svg" width="200" alt=""></div>
-          </AppFeed>
+        >
+          Gracias a el ISEM por prestarnos un lugar, podremos presentar la obra dentro de dos semanas!
+          <div>
+            <img
+              src="http://www.isem.edu.mx/img/emblema_nombre.svg" 
+              width="200"
+              alt="">
+          </div>
+        </AppFeed>
 
-          <div style="
-              width: 2px;
-              height: 50px;
-              background: #2c384a;
-              margin: 0 auto;
-          "></div>
+        <div
+          style="
+          width: 2px;
+          height: 50px;
+          background: #2c384a;
+          margin: 0 auto;
+        "/>
 
-          <AppFeed
+        <AppFeed
           likes="54"
           facebook="245"
           twitter="124"
           date="04/Julio/2018"
-          >
+        >
           Nos cancelaron el lugar donde teniamos planeado presentar la obra, necesitamos un lugar.
-          </AppFeed>
+        </AppFeed>
 
-          <div style="
-              width: 2px;
-              height: 50px;
-              background: #2c384a;
-              margin: 0 auto;
-          "></div>
-          <h1 style="
-              margin: 0 auto;
-              text-align: center;
-              font-size: 2.0em;
-          ">MAYO</h1>
-          <div style="
-              width: 2px;
-              height: 50px;
-              background: #2c384a;
-              margin: 0 auto;
-          "></div>
+        <div
+          style="
+          width: 2px;
+          height: 50px;
+          background: #2c384a;
+          margin: 0 auto;
+        "/>
+        <h1
+          style="
+          margin: 0 auto;
+          text-align: center;
+          font-size: 2.0em;
+        ">MAYO</h1>
+        <div
+          style="
+          width: 2px;
+          height: 50px;
+          background: #2c384a;
+          margin: 0 auto;
+        "/>
 
-          <AppFeed
+        <AppFeed
           likes="54"
           facebook="245"
           twitter="124"
           date="04/Julio/2018"
-          >
+        >
           Necesitamos mejorar nuestra publicidad. Buscamos a un Social Media Manager.
-          </AppFeed>
-          
-          <div style="
-              width: 2px;
-              height: 50px;
-              background: #2c384a;
-              margin: 0 auto;
-          "></div>
+        </AppFeed>
+        
+        <div
+          style="
+          width: 2px;
+          height: 50px;
+          background: #2c384a;
+          margin: 0 auto;
+        "/>
 
-          <AppFeed
+        <AppFeed
           likes="54"
           facebook="245"
           twitter="124"
           date="04/Julio/2018"
-          >
+        >
           En ensayos!
-          <video style="margin:40px 0;" width="400" controls>
-              <source src="https://s3.us-east-2.amazonaws.com/temporarycetacea/31264886_163245914341513_220426083932045312_n.mp4" type="video/mp4">
-              Your browser does not support HTML5 video.
+          <video
+            style="margin:40px 0;"
+            width="400"
+            controls>
+            <source
+              src="https://s3.us-east-2.amazonaws.com/temporarycetacea/31264886_163245914341513_220426083932045312_n.mp4"
+              type="video/mp4">
+            Your browser does not support HTML5 video.
           </video>
-          </AppFeed>
+        </AppFeed>
 
-          <div style="
-              width: 2px;
-              height: 50px;
-              background: #2c384a;
-              margin: 0 auto;
-          "></div>
+        <div
+          style="
+          width: 2px;
+          height: 50px;
+          background: #2c384a;
+          margin: 0 auto;
+        "/>
 
-          <AppFeed
+        <AppFeed
           likes="54"
           facebook="245"
           twitter="124"
           date="04/Julio/2018"
-          >
+        >
           Logramos conseguir un nuevo patrocinador!
-          <div><img src="http://cdn.museoamparo.com/patrocinadores/candida-hofer-en-mexico_180305_014748exposicion-patrocinador.png" width="200" alt=""></div>
-          </AppFeed>
+          <div>
+            <img
+              src="http://cdn.museoamparo.com/patrocinadores/candida-hofer-en-mexico_180305_014748exposicion-patrocinador.png"
+              width="200"
+              alt="">
+          </div>
+        </AppFeed>
 
-          <div style="
-              width: 2px;
-              height: 50px;
-              background: #2c384a;
-              margin: 0 auto;
-          "></div>
+        <div
+          style="
+          width: 2px;
+          height: 50px;
+          background: #2c384a;
+          margin: 0 auto;
+        "/>
 
-          <AppFeed
+        <AppFeed
           likes="54"
           facebook="245"
           twitter="124"
-          date="04/Julio/2018"
-          >
+          date="04/Julio/2018">
           Necesitamos un actor que pueda hacer el papel del hermano mayor, que este en Monterrey Nuevo Leon
           y tenga mucha deshinibicion
         </AppFeed>
 
-        <div style="
-            width: 2px;
-            height: 50px;
-            background: #2c384a;
-            margin: 0 auto;
-        "></div>
+        <div
+          style="
+          width: 2px;
+          height: 50px;
+          background: #2c384a;
+          margin: 0 auto;
+        "/>
         <AppFeed
-        likes="54"
-        facebook="245"
-        twitter="124"
-        date="04/Julio/2018"
+          likes="54"
+          facebook="245"
+          twitter="124"
+          date="04/Julio/2018"
         >
-        <video style="margin:40px 0;" width="400" controls>
-            <source src="https://s3.us-east-2.amazonaws.com/temporarycetacea/27803448_167611933872958_6719233870803238912_n.mp4" type="video/mp4">
+          <video 
+            style="margin:40px 0;"
+            width="400"
+            controls>
+            <source
+              src="https://s3.us-east-2.amazonaws.com/temporarycetacea/27803448_167611933872958_6719233870803238912_n.mp4"
+              type="video/mp4">
             Your browser does not support HTML5 video.
-        </video>
+          </video>
         </AppFeed>
 
 
-        <div style="
-            width: 2px;
-            height: 50px;
-            background: #2c384a;
-            margin: 0 auto;
-        "></div>
-        <h1 style="
-            margin: 0 auto;
-            text-align: center;
-            font-size: 2.0em;
+        <div 
+          style="
+          width: 2px;
+          height: 50px;
+          background: #2c384a;
+          margin: 0 auto;
+        "/>
+        <h1
+          style="
+          margin: 0 auto;
+          text-align: center;
+          font-size: 2.0em;
         ">ABRIL</h1>
-        <div style="
-            width: 2px;
-            height: 50px;
-            background: #2c384a;
-            margin: 0 auto;
-        "></div>
+        <div
+          style="
+          width: 2px;
+          height: 50px;
+          background: #2c384a;
+          margin: 0 auto;
+        "/>
 
         <AppFeed
-        likes="54"
-        facebook="245"
-        twitter="124"
-        date="04/Julio/2018"
+          likes="54"
+          facebook="245"
+          twitter="124"
+          date="04/Julio/2018"
         >
-        Estamos comenzando con el proyecto
-        </AppFeed> -->
+          Estamos comenzando con el proyecto
+        </AppFeed>
 
       </article>
     </AppTabPane>
 
-    <!-- <AppTabPane 
+    <AppTabPane 
       :id-key="4"
       name="Comentarios">
 
       <AppCreateComment :project="parseInt(id)" />
       <AppCommentsList :comments="comments"/>
 
-    </AppTabPane> -->
+    </AppTabPane>
 
     <!-- <AppTabPane
       :id-key="5"
@@ -256,8 +293,9 @@ import AppTabs from '@/components/AppTabs'
 import AppCreateComment from '@/components/AppCreateComment'
 import AppCommentsList from '@/components/AppCommentsList'
 import AppPositionsList from '@/components/project/AppPositionsList'
+import AppFeed from '@/components/project/AppFeed'
 
-import VueMarkdown from 'vue-markdown'
+import { loginRequired } from '@/utils/authentication';
 
 export default {
   name: 'AppSections',
@@ -267,7 +305,7 @@ export default {
     AppCreateComment,
     AppCommentsList,
     AppPositionsList,
-    VueMarkdown
+    AppFeed,
   },
   props: {
     id: {
@@ -285,6 +323,12 @@ export default {
     comments: {
       type: Array,
       required: true
+    }
+  },
+  methods: {
+    @loginRequired()
+    hello(){
+      console.log('hey')
     }
   }
 }

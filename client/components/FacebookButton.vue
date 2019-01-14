@@ -13,8 +13,8 @@
 .google-button {
   height: 40px;
   border-width: 0;
-  background: white;
-  color: #737373;
+  background: #0687fc;
+  color: #ffffff;
   border-radius: 5px;
   white-space: nowrap;
   box-shadow: 1px 1px 0px 1px rgba(0,0,0,0.05);
@@ -54,7 +54,7 @@
   padding: 0 24px;
   font-size: 14px;
   font-weight: bold;
-  font-family: 'Roboto',arial,sans-serif;
+  font-family: 'Soleil';
 }
 
 button ~ button {

@@ -20,24 +20,7 @@
       <p v-if="project.location">Locación: {{ project.location }}</p>
       <p v-else>No se requiere ubicación</p>
 
-      <!-- <i class="fas fa-eye"/> 4541
-      <i class="fas fa-heart"/> 24
-      <i class="fas fa-comment-dots"/> 214
-      <i class="fas fa-share-alt"/> 214 -->
     </div>
-
-    <!-- <p>Equipo:</p> <AppAvatarList/> -->
-
-    <!-- <div class="buttons-wrapper">
-      <AppButton :circle="true"><i class="fas fa-heart"/></AppButton>
-      <AppButton :circle="true"><i class="fas fa-share-alt"/></AppButton>
-      <AppButton 
-        :circle="true"
-        @click.native="loginRequired(showModal)">
-        <i class="fas fa-donate"/>
-      </AppButton>
-      <AppButton :circle="true"><i class="fas fa-user-plus"/></AppButton>
-    </div> -->
 
 
     <div class="temp meta">
@@ -63,8 +46,6 @@
       :comments="project.comments"
     />
 
-    <login-modal/>
-
   </div>
 </template>
 
@@ -74,20 +55,10 @@ import AppCover from '@/components/project/AppCover'
 // @ts-ignore
 import AppSections from '@/components/project/AppSections'
 // @ts-ignore
-import LoginModal from '@/components/LoginModal'
-// @ts-ignore
 import { loginRequired } from '@/utils/authentication'
-// import AppRangeSlider from '~/components/atoms/AppRangeSlider'
 
-// import AppCreateComment from '~/components/molecules/AppCreateComment'
-// import AppCommentsList from '~/components/organisms/AppCommentsList'
-
-// import AppFeed from '~/components/molecules/AppFeed'
-
-// import AppPositionsList from '~/components/organisms/AppPositionsList'
-
-// import project from '~/queries/project'
-import gql from 'graphql-tag'
+//@ts-ignore
+import { project } from '@/queries/project'
 
 import {
   Component, 
@@ -98,62 +69,26 @@ import {
   name: 'project',
   components: {
     AppCover,
-    AppSections,
-    LoginModal
-    // AppRangeSlider,
-    // AppPositionsList,
-    // AppAvatarList,
-    // AppCreateComment,
-    // AppCommentsList,
-    // AppFeed
+    AppSections
   }
 })
 export default class Index extends Vue {
 
-  async asyncData ({error, app, params}) {
-    console.log('esta entrando')
+  async asyncData ({store, error, app, params}) {
     try {
       const { data } = await app.apolloProvider.defaultClient.query({
-        query: gql`
-          query project($id: Int!) {
-            project(id: $id) {
-              id
-              title
-              coverImage
-              category
-              location
-              creationDate
-              overview
-              positions {
-                title
-                description
-                compensation
-                time
-                requirements
-                form
-              }
-              # likes {
-              #   id
-              # }
-              # comments {
-              #   owner {
-              #     username
-              #   }
-              #   content
-              #   published
-              #   likes {
-              #     id
-              #   }
-              # }
-            }
-          }
-        `,
+        query: project,
         variables: { id: params.id }
       })
       return {project: data.project}
     } catch(err) {
       error({statusCode: 404, message: 'Not found'})
     }
+    //@ts-ignore
+    analytics.track('Looked project', {
+      user: store.getters['user/user'].id,
+      project: project.id
+    })
   }
 
   head = {

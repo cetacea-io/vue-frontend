@@ -1,0 +1,29 @@
+query project ($id: Int!) {
+  project (id: $id) {
+    id
+    title
+    coverImage
+    category
+    location
+    creationDate
+    overview
+    positions {
+      title
+      description
+      compensation
+      time
+      requirements
+      form
+    }
+    comments {
+      owner {
+        username
+      }
+      content
+      published
+      likes {
+        id
+      }
+    }
+  }
+}

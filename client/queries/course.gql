@@ -1,0 +1,12 @@
+query course ($id: Int!) {
+  course (id: $id) {
+    id
+    title
+    coverImage
+    creatorImage
+    category
+    location
+    creationDate
+    overview
+  }
+}

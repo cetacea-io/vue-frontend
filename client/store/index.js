@@ -24,3 +24,21 @@
 //     })
 //   }
 // }
+
+import Vuex from 'vuex'
+import userModule from './user'
+import coursesModule from './courses'
+import authenticationModule from './authentication'
+
+const createStore = () => {
+  return new Vuex.Store({
+    namespaced: true,
+    modules: {
+      user: userModule,
+      courses: coursesModule,
+      authentication: authenticationModule
+    }
+  })
+}
+
+export default createStore

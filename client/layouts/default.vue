@@ -63,17 +63,30 @@
     </div> -->
 
     <TheNavbar/>
+    <!-- <DataModal v-if="true"/> -->
+    <login-modal/>
     <nuxt/>
   </div>
 </template>
 
 <script>
 import TheNavbar from '@/components/layout/TheNavbar'
+import LoginModal from '@/components/LoginModal'
+import DataModal from '@/components/DataModal'
 
 export default {
+  async asyncData({store}){
+    return {
+      // form: !store.getters.funnelResponded
+      form: true
+    }
+  },
   components: {
-    TheNavbar
-  }
+    TheNavbar,
+    LoginModal,
+    DataModal
+  },
+  // middleware: ['form-modal']
 }
 </script>
 

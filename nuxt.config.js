@@ -37,6 +37,7 @@ module.exports = {
     { src: '~/plugins/design-system', ssr: true },
     '@/mixins/mixins',
     '@/plugins/login-modal',
+    '@/plugins/form-modal',
     { src: '~/plugins/localStorage', ssr: false },
     { src: '~/plugins/segment', ssr: false },
     { src: '~/plugins/optimizely', ssr: true },
@@ -160,6 +161,7 @@ module.exports = {
     DEV_GRAPH: process.env.DEV_GRAPH,
     ONE_SIGNAL_ID: process.env.ONE_SIGNAL_ID,
     SEGMENT_KEY: process.env.SEGMENT_KEY,
-    OPTIMIZELY_DATAFILE: process.env.OPTIMIZELY_DATAFILE
+    OPTIMIZELY_DATAFILE: process.env.OPTIMIZELY_DATAFILE,
+    GOOGLE_MAPS_KEY: process.env.GOOGLE_MAPS_KEY
   }
 }

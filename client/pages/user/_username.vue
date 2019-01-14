@@ -22,7 +22,7 @@
     <div class="bio">
       {{ user.bio }}
       <!-- <div v-if="user.id == $store.getters['auth/actualUser'].id"> -->
-      {{ user.id }} {{ $store.getters['auth/actualUser'].id }}
+      <!-- {{ user.id }} {{ $store.getters['auth/actualUser'].id }} -->
       <!-- </div> -->
     </div>
 
@@ -45,13 +45,13 @@
       <h2>Intereses</h2>
 
       <Tag 
-        v-for="interest in user.interests"
+        v-for="interest in interests"
         :key="interest">
         {{ interest }}
       </Tag>
     </div>
 
-    <!-- <div class="portfolio">
+    <div class="portfolio">
       <h1>Portafolio</h1>
 
       <div class="portfolio-grid">
@@ -83,7 +83,7 @@
         thumbnail="http://www.ivancdg.com/images/etudeno1_videostill_stefan_botez_2017.jpg"
         title="Musica" />
 
-    </div> -->
+    </div>
 
     <!-- <div class="education">
 
@@ -124,7 +124,8 @@ export default {
     return {
       list: null,
       isModalVisible: false,
-      links: ''
+      links: '',
+      interests: ['Piano', 'Musica', 'Teatro']
     }
   },
   async asyncData({error, app, params}) {

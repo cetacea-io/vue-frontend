@@ -18,7 +18,6 @@
         <div class="button-container">
           <facebook-button class="button"/>
           <google-button class="button"/>
-          <google-button class="button"/>
         </div>
 
         <div style="margin-top: 15px;">
@@ -26,16 +25,16 @@
             class="burocracy"
             style="-webkit-font-smoothing: antialiased; font-size: 11px; font-weight: normal; text-align: center; transition: opacity 0.2s linear; color: rgb(170, 170, 170); width: 224px;">
             <span>Al continuar, estas de acuerdo con los
-              <a
-                href="/_/_/about/terms-service/"
+              <nuxt-link
+                to="/terms"
                 target="_blank">
                 Terminos y condiciones
-              </a> y la
-              <a
-                href="/_/_/about/privacy/"
+              </nuxt-link> y la
+              <nuxt-link
+                to="/privacy"
                 target="_blank">
                 Política de Privacidad
-              </a>
+              </nuxt-link>
               de Cetacea
             </span>
           </span>
@@ -114,6 +113,7 @@ export default {
 }
 
 .button-container{
+  display: inline-block;
   .button {
     width: 100%;
     &:not(:first-child):not(:last-child){

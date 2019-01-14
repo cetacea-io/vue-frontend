@@ -61,7 +61,7 @@ export default {
   computed: {
     isAuthenticated() {
       // return !!this.$apolloHelpers.getToken()
-      return this.$store.getters['auth/isAuthenticated']
+      return this.$store.getters['authentication/isAuthenticated']
     }
   },
   methods: {
@@ -70,11 +70,12 @@ export default {
       this.alert = null
       this.loading = true
 
-      this.$store.dispatch('auth/login', 'ivan', '60a7e5c4')
+      this.$store.dispatch(
+        'authentication/login', {id: 'ivan', password: '60a7e5c4'})
       .then(result => {
         this.alert = {type: 'success', message: result.data.message}
         this.loading = false
-        // this.$router.push('/')
+        this.$router.push('/')
       })
       .catch(error => {
         this.loading = false
@@ -85,34 +86,6 @@ export default {
           }
         }
       })
-
-      // try{
-      //   const res = await this.$apollo.mutate({
-      //     mutation: gql`
-      //       mutation tokenAuth($username: String!, $password: String!) {
-      //           tokenAuth(username: $username, password: $password) {
-      //               token
-      //           }
-      //       }
-      //   `,
-      //   variables: credentials
-      //   }).then(({data}) => data && data.tokenAuth)
-      //   await this.$apolloHelpers.onLogin(res.token)
-      //   this.isAuthenticated = true
-      //   /*
-      //   ** Identify user in Segment
-      //   */
-      //   analytics.identify('f4ca1248', {
-      //     name: 'El ivans',
-      //     email: 'elivans@yahoo.com.mx.it.ru.jp.io'
-      //   })
-      //   this.$router.replace('/')
-      // }
-      // catch (e) {
-      //   console.error(e)
-      // }
-
-
     }
   }
 }
