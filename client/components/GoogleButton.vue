@@ -9,7 +9,7 @@
   </button>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .google-button {
   height: 40px;
   border-width: 0;

@@ -30,9 +30,16 @@ import userModule from './user'
 import coursesModule from './courses'
 import authenticationModule from './authentication'
 
+import state from './state'
+import getters from './getters'
+import mutations from './mutations'
+
 const createStore = () => {
   return new Vuex.Store({
     namespaced: true,
+    getters,
+    state,
+    mutations,
     modules: {
       user: userModule,
       courses: coursesModule,

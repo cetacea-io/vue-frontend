@@ -1,14 +1,24 @@
 <template>
-  <flickity
-    :options="flickityOptions">
-    <slot>
-      <div
-        v-for="(item, index) in filteredItems"
-        :item="item"
-        :key="index"
-        class="item" />
-    </slot>
-  </flickity>
+  <div
+    style="
+      position: relative;
+    ">
+    <div 
+      style="
+      width: 26%;
+      height: 100%;
+      display: block;
+      background: linear-gradient(270deg, #000,#fff0);
+      position: absolute;
+      z-index: 1;
+      pointer-events: none;
+      right:0;
+      "/>
+    <flickity
+      :options="flickityOptions">
+      <slot/>
+    </flickity>
+  </div>
 </template>
 
 <script>
@@ -31,10 +41,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.item{
-  width: 252px;
-  padding: 5px;
-}
-</style>

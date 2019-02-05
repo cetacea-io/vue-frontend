@@ -18,6 +18,10 @@
     </div>
 
     <div v-show="step === 2">
+      <h2>Tienes algun interes que no se menciono?</h2>
+    </div>
+
+    <div v-show="step === 3">
       <h2>¿Cuáles son tus habilidades?</h2>
       <h3>A qué te dedicas, que estudias(o estudiaste), que sabes hacer en general. Ej. Actuación, Piano, Dibujo, Arquitectura, Ilustración, etc. Sé tan específico como gustes.</h3>
       <form>
@@ -27,7 +31,7 @@
       </form>
     </div>
 
-    <div v-show="step === 3">
+    <div v-show="step === 4">
       <h2>A que tipo de proyectos te gustaria contribuir</h2>
       <form>
         <input
@@ -47,6 +51,8 @@
 <script>
 import AppOption from '@/components/AppOption'
 
+import { mapGetters } from 'vuex';
+
 export default {
   components: {
     AppOption
@@ -55,62 +61,13 @@ export default {
     return {
       step: 1,
       interestsLiked: [],
-      maxSelected: 3,
-      interests: [
-        {
-          title: 'Teatro',
-          image: 'https://upload.wikimedia.org/wikipedia/commons/e/e6/Noh3.jpg',
-          checked: false
-        },
-        {
-          title: 'Cine',
-          image: 'http://profiles.sulekhalive.com/mstore/25509323/albums/default/thumbnailfull/film-production.jpg',
-          checked: false
-        },
-        {
-          title: 'Musica',
-          image: 'https://listasspotify.es/wp-content/uploads/2018/03/Jazz.jpg',
-          checked: false
-        },
-        {
-          title: 'Videojuegos',
-          image: 'https://upload.wikimedia.org/wikipedia/commons/e/e6/Noh3.jpg',
-          checked: false
-        },
-        {
-          title: 'Educación',
-          image: 'https://upload.wikimedia.org/wikipedia/commons/e/e6/Noh3.jpg',
-          checked: false
-        },
-        {
-          title: 'Literatura',
-          image: 'https://upload.wikimedia.org/wikipedia/commons/e/e6/Noh3.jpg',
-          checked: false
-        },
-        {
-          title: 'Activismo',
-          image: 'https://upload.wikimedia.org/wikipedia/commons/e/e6/Noh3.jpg',
-          checked: false
-        },
-        {
-          title: 'Tecnología',
-          image: 'https://upload.wikimedia.org/wikipedia/commons/e/e6/Noh3.jpg',
-          checked: false
-        },
-        {
-          title: 'Danza',
-          image: 'http://www.madrimasd.org/blogs/matematicas/files/2016/01/danzaclasica.jpg',
-          checked: false
-        },
-        {
-          title: 'Fotografía',
-          image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Fountain_pen_writing_%28literacy%29.jpg/300px-Fountain_pen_writing_%28literacy%29.jpg',
-          checked: false
-        }
-      ]
+      maxSelected: 3
     }
   },
   computed: {
+    ...mapGetters({
+      interests: 'user/categories'
+    }),
     checkedInterests: {
       get () {
         return this.interestsLiked

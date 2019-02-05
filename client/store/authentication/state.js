@@ -4,5 +4,5 @@ export default () => ({
   token: process.client ? cookie.get('apollo-token') || null : null,
   status: '',
   user: null,
-  funnelResponded: false
+  funnelResponded: true
 })

@@ -1,8 +1,8 @@
 <template>
   <div class="container list">
     <AppComment
-      v-for="comment in comments"
-      :key="parseInt(comment.id)"
+      v-for="(comment, key) in comments"
+      :key="key"
       :id="parseInt(comment.id)"
       :likes="comment.likes"
       :date="shortTimestamp(comment.published)"
@@ -29,7 +29,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .list {
   display: flex;
   flex-direction: row;

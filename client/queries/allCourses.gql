@@ -4,8 +4,8 @@ query courses ($area: String!) {
     title
     category
     coverImage
-    url
-    creatorImage
-    startDate
+    author{
+      profilePicture
+    }
   }
 }

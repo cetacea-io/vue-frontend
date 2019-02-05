@@ -19,5 +19,25 @@ export default {
     } catch (e) {
       // Aqui va el error
     }
+  },
+  async poblate_courses ({dispatch, state}){
+    if (state.courses.length <= 0){
+      try{
+        for(let interest of state.interests) {
+          await dispatch('get_courses', interest)
+        }
+      } catch (e) {
+        //aqqui va el error gg
+      }
+    }
+  },
+  async load_courses ({dispatch, state}){
+    try{
+      for(let interest of state.interests) {
+        await dispatch('get_courses', interest)
+      }
+    } catch (e) {
+      //aqqui va el error gg
+    }
   }
 }

@@ -13,7 +13,6 @@ query project ($id: Int!) {
       compensation
       time
       requirements
-      form
     }
     comments {
       owner {

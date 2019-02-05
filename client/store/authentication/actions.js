@@ -35,7 +35,7 @@ export default {
         })
         .then(({data}) => data)
   
-        await commit('user/set_user', response.me.user, {root: true})
+        await commit('user/set_user', response.me, {root: true})
   
       } catch (e) {
         console.error(e)

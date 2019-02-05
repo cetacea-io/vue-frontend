@@ -3,10 +3,25 @@ query course ($id: Int!) {
     id
     title
     coverImage
-    creatorImage
     category
-    location
     creationDate
     overview
+    author {
+      title
+      profilePicture
+    }
+    instructors {
+      id
+      profilePicture
+      user {
+        firstName
+        lastName
+      }
+    }
+    location {
+      text
+      latitude
+      longitude
+    }
   }
 }

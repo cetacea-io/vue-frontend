@@ -26,7 +26,7 @@
 export default {
   props: {
     likes: {
-      type: String,
+      type: Array,
       required: true
     },
     content: {
@@ -49,7 +49,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .liked {
   color: #1890ff;
 }

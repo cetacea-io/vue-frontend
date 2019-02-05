@@ -1,12 +1,10 @@
 <template>
   <div class="container">
-    <AppCover :image="project.coverImage"/>
+    <AppCover
+      :title="project.title" 
+      :image="project.coverImage"/>
 
     <div class="temp">
-      <h1 
-        class="title">
-        {{ project.title }}
-      </h1>
       <!-- <p>{{ project.quickDesc }}</p> -->
       <nuxt-link to="/register">
         <Button type="a">
@@ -56,7 +54,8 @@ import AppCover from '@/components/project/AppCover'
 import AppSections from '@/components/project/AppSections'
 // @ts-ignore
 import { loginRequired } from '@/utils/authentication'
-
+// @ts-ignore
+import { meta } from '@/utils/seo/meta'
 //@ts-ignore
 import { project } from '@/queries/project'
 
@@ -85,46 +84,23 @@ export default class Index extends Vue {
       error({statusCode: 404, message: 'Not found'})
     }
     //@ts-ignore
-    analytics.track('Looked project', {
-      user: store.getters['user/user'].id,
-      project: project.id
-    })
+    // analytics.track('Looked project', {
+    //   user: store.getters['user/user'].id,
+    //   project: project.id
+    // })
   }
 
-  head = {
-    // title: `${this.project.title}`,
-    meta: [
-      {
-        hid: 'description',
-        name: 'description',
-        // content: `${this.project.description}`
-      },
-      {
-        hid: 'og:url',
-        property: 'og:url',
-        // content: 'actual url complete with https', PROJECT URL
-      },
-      {
-        hid: 'og:type',
-        name: 'og:type',
-        content: 'website'
-      },
-      {
-        hid: 'og:title',
-        name: 'og:title',
-        // content: `${this.project.title}`
-      },
-      {
-        hid: 'og:description',
-        name: 'og:description',
-        // content: `${this.project.description}`
-      },
-      {
-        hid: 'og:image',
-        name: 'og:image',
-        // content: `${this.project.image}` //ej. https://cetacea.io/project/id/image.jpg
-      }
-    ]
+  head() {
+    return meta(
+      //@ts-ignore
+      this.project.title,
+      //@ts-ignore
+      this.project.description,
+      //@ts-ignore
+      this.project.coverImage,
+      //@ts-ignore
+      this.$route.fullPath
+    )
   }
 
   @loginRequired()
@@ -140,10 +116,6 @@ export default class Index extends Vue {
 </script>
 
 <style scoped>
-.title {
-  line-height: 1.19;
-  margin-bottom: 1em;
-}
 .temp {
   padding: 1em;
   border-color: hsl(217, 32%, 15%);

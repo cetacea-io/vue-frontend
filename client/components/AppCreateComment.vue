@@ -2,7 +2,9 @@
   <div>
 
     <div>
-      <AppTextarea v-model="content"/>
+      <AppTextarea
+        v-model="content"
+        placeholder="Ingresa un comentario..."/>
     </div>
 
     <div>
@@ -14,8 +16,7 @@
 
 <script>
 import AppTextarea from '@/components/ui/AppTextarea'
-
-// import { createComment } from '@/queries/createComment'
+import { mapActions } from 'vuex'
 
 export default {
   components: {
@@ -33,20 +34,13 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      submitComment: 'user/submit_comment'
+    }),
     async submit() {
       const content = this.content
       const project = this.project
-      //   try {
-      //     const res = await this.$apollo.mutate({
-      //       mutation: createComment,
-      //       variables: {
-      //         content: this.content,
-      //         project: this.project
-      //       }
-      //     })
-      //   } catch (e) {
-      //     console.error(e)
-      //   }
+      this.submitComment({content, project})
     }
   }
 }

@@ -1,4 +1,6 @@
 export default () => ({
-  // interests: ['teatro', '', '', ''],
+  interests: ['teatro', 'general'],
+  interestIterator: 0,
+  isPopulated: false,
   courses: []
 })

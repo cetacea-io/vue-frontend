@@ -26,21 +26,7 @@
       <!-- </div> -->
     </div>
 
-    <div
-      class="skills"
-      style="margin: 20px 0;">
-      <h2>Habilidades</h2>
-
-      <Tag
-        v-for="skill in user.skills"
-        :key="skill">
-        {{ skill }}
-      </Tag>
-    </div>
-
-    <div
-      class="interests"
-      style="margin: 20px 0;">
+    <Card class="card-wrapper">
 
       <h2>Intereses</h2>
 
@@ -49,9 +35,17 @@
         :key="interest">
         {{ interest }}
       </Tag>
-    </div>
 
-    <div class="portfolio">
+      <h2>Habilidades</h2>
+
+      <Tag 
+        v-for="interest in interests"
+        :key="interest">
+        {{ interest }}
+      </Tag>
+    </Card>
+
+    <Card class="card-wrapper">
       <h1>Portafolio</h1>
 
       <div class="portfolio-grid">
@@ -83,7 +77,7 @@
         thumbnail="http://www.ivancdg.com/images/etudeno1_videostill_stefan_botez_2017.jpg"
         title="Musica" />
 
-    </div>
+    </Card>
 
     <!-- <div class="education">
 
@@ -96,10 +90,32 @@
 
     <div class="created"/>
 
-    <div class="contributed">
+    <Card class="card-wrapper">
       <h1>Colaboraciones</h1>
-      <AppProjectsList :projects="user.projects"/>
-    </div>
+      <!-- <AppProjectsList :projects="user.projects"/> -->
+      <div 
+        v-for="(course, index) in courses"
+        :key="index">
+        <no-ssr>
+          <AppCarrousel 
+            class="scrolling-wrapper">
+            <MiniProjectCard
+              v-for="(item, index) in course.items"
+              :key="index"
+              :image="item.coverImage"
+              :title="item.title"
+              :category="item.category"
+              :author-image="item.creatorImage"
+              :date="shortTimestamp(item.startDate)"
+              :route="`course/${item.id}`"
+              type="nuxt-link"
+              class="mini"
+            />
+          </AppCarrousel>
+        </no-ssr>
+
+      </div>
+    </Card>
 
   </div>
 </template>
@@ -113,12 +129,16 @@ import gql from 'graphql-tag'
 // import AppEducationCertificateList from '~/components/organisms/AppEducationCertificateList'
 
 import AppProjectsList from '@/components/project/AppProjectsList'
+import AppCarrousel from '@/components/AppCarrousel'
+
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
     // AppPortfolioItem,
     // AppEducationCertificateList,
-    AppProjectsList
+    AppProjectsList,
+    AppCarrousel
   },
   data() {
     return {
@@ -153,7 +173,10 @@ export default {
   computed: {
     player() {
       return this.$refs.videoPlayer.player
-    }
+    },
+    ...mapGetters({
+      courses: 'courses/courses'
+    })
   },
   mounted() {
     // console.log(this.$apollo.queries.user)
@@ -164,6 +187,10 @@ export default {
 </script>
 
 <style scoped>
+.card-wrapper{
+  margin: 20px;
+}
+
 .portfolio-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -200,6 +227,8 @@ export default {
     justify-content: center;
 
     .user-avatar {
+      height: 200px !important;
+      width: 200px !important;
       margin: 0 auto;
     }
 

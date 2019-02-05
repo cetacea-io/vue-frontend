@@ -63,7 +63,10 @@
     </div> -->
 
     <TheNavbar/>
-    <!-- <DataModal v-if="true"/> -->
+
+    <div v-if="form">
+      <!-- <DataModal/> -->
+    </div>
     <login-modal/>
     <nuxt/>
   </div>
@@ -74,18 +77,19 @@ import TheNavbar from '@/components/layout/TheNavbar'
 import LoginModal from '@/components/LoginModal'
 import DataModal from '@/components/DataModal'
 
+import { mapGetters } from 'vuex'
+
 export default {
-  async asyncData({store}){
-    return {
-      // form: !store.getters.funnelResponded
-      form: true
-    }
-  },
   components: {
     TheNavbar,
     LoginModal,
     DataModal
   },
+  computed:{
+    ...mapGetters({
+      form: 'authentication/funnelResponded'
+    })
+  }
   // middleware: ['form-modal']
 }
 </script>
