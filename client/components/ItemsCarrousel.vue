@@ -28,7 +28,7 @@
         :category="item.category"
         :author-image="item.author.profilePicture"
         :date="shortTimestamp(item.startDate)"
-        :route="`course/${item.id}`"
+        :route="`/course/${item.id}`"
         type="nuxt-link"
         class="mini"
       />

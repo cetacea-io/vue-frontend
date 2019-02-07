@@ -80,8 +80,6 @@ import AppPositionsList from '@/components/project/AppPositionsList'
 import AppFeedList from '@/components/project/AppFeedList'
 import VueMarkdown from 'vue-markdown'
 
-import { loginRequired } from '@/utils/authentication';
-
 export default {
   name: 'AppSections',
   components: {
@@ -136,7 +134,6 @@ export default {
     }
   },
   methods: {
-    @loginRequired()
     hello(){
       console.log('hey')
     }

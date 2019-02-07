@@ -47,7 +47,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 //@ts-ignore
 import AppCover from '@/components/project/AppCover'
 // @ts-ignore
@@ -59,20 +59,7 @@ import { meta } from '@/utils/seo/meta'
 //@ts-ignore
 import { project } from '@/queries/project'
 
-import {
-  Component, 
-  Vue
-} from 'nuxt-property-decorator'
-
-@Component({
-  name: 'project',
-  components: {
-    AppCover,
-    AppSections
-  }
-})
-export default class Index extends Vue {
-
+export default {
   async asyncData ({store, error, app, params}) {
     try {
       const { data } = await app.apolloProvider.defaultClient.query({
@@ -88,8 +75,7 @@ export default class Index extends Vue {
     //   user: store.getters['user/user'].id,
     //   project: project.id
     // })
-  }
-
+  },
   head() {
     return meta(
       //@ts-ignore
@@ -101,17 +87,11 @@ export default class Index extends Vue {
       //@ts-ignore
       this.$route.fullPath
     )
+  },
+  components: {
+    AppCover,
+    AppSections
   }
-
-  @loginRequired()
-  join():void {
-    //@ts-ignore
-    analytics.track('Followed User', {
-      user: 'Some user',
-      project: 'Some project'
-    })
-  }
-
 }
 </script>
 

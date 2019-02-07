@@ -5,7 +5,7 @@
     <span class="twitter__logo">
       <img :src="net.icon">
     </span>
-    <span class="twitter__text">{{ net.name }}</span>
+    <!-- <span class="twitter__text">{{ net.name }}</span> -->
   </div>
 </template>
 

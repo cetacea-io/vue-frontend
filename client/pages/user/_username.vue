@@ -3,7 +3,7 @@
 
     <div class="user-wrapper">
       <Avatar
-        :image="user.picture"
+        :image="user.profile.profilePicture"
         class="user-avatar" />
 
       <div class="username-wrapper">
@@ -21,8 +21,8 @@
 
     <div class="bio">
       {{ user.bio }}
-      <!-- <div v-if="user.id == $store.getters['auth/actualUser'].id"> -->
-      <!-- {{ user.id }} {{ $store.getters['auth/actualUser'].id }} -->
+      <!-- <div v-if="user.id == $store.getters['authentication/actualUser'].id"> -->
+      <!-- {{ user.id }} {{ $store.getters['authentication/actualUser'].id }} -->
       <!-- </div> -->
     </div>
 
@@ -121,9 +121,7 @@
 </template>
 
 <script>
-// import { ALL_LINKS_QUERY } from '~/queries/graphql'
-
-import gql from 'graphql-tag'
+import { user } from '@/queries/user'
 
 // import AppPortfolioItem from '~/components/molecules/AppPortfolioItem'
 // import AppEducationCertificateList from '~/components/organisms/AppEducationCertificateList'
@@ -149,31 +147,17 @@ export default {
     }
   },
   async asyncData({error, app, params}) {
-    const user = await app.apolloProvider.defaultClient.query({
-      query: gql`
-        query user($username: String!) {
-          user(username: $username) {
-            id
-            firstName
-            lastName
-            username
-            picture
-            bio
-          }
-        }
-      `,
-      variables: { username: params.username }
-    })
-    .then(({data}) => data && data.user)
-    if(!user) {
-      return error({statusCode: 404, message: 'Not found'})
+    try {
+      const { data } = await app.apolloProvider.defaultClient.query({
+        query: user,
+        variables: { username: params.username }
+      })
+      return { user: data.user }
+    } catch(err) {
+      error({statusCode: 404, message: 'Not found'})
     }
-    return {user}
   },
   computed: {
-    player() {
-      return this.$refs.videoPlayer.player
-    },
     ...mapGetters({
       courses: 'courses/courses'
     })

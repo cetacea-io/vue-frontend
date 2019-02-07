@@ -22,7 +22,7 @@ export function loginRequired() {
     descriptor.value = function() {
       var context = this;
       var args = arguments;
-      if(this.$store.getters['auth/isAuthenticated']){
+      if(this.$store.getters['authentication/isAuthenticated']){
         originalMethod.apply(context, args);
       } else {
         this.$loginModal.show()

@@ -7,7 +7,7 @@ module.exports = {
   ** Headers of the page
   */
   head: {
-    title: 'Cetacea',
+    title: 'Cetacea — Colabora en proyectos',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -53,7 +53,8 @@ module.exports = {
     '@nuxtjs/onesignal',
     '@nuxtjs/apollo',
     '@nuxtjs/pwa',
-    ['nuxt-sass-resources-loader', 'cetacea-design-system/dist/system/system.css']
+    ['nuxt-sass-resources-loader', 'cetacea-design-system/dist/system/system.css'],
+    '@nuxtjs/sitemap'
   ],
   /*
   ** Sitemap
@@ -63,7 +64,7 @@ module.exports = {
     hostname: process.env.BASE_URL, //change for BASE_URL
     cacheTime: 1000 * 60 * 15,
     gzip: true,
-    generate: true,
+    generate: false,
     exclude: [
       '/secret',  //change
       '/admin/**' //change

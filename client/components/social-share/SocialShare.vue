@@ -12,16 +12,23 @@
       <div
         style="display: flex; flex-direction: row;">
         <network network="facebook">
-          <TwitterShare network="facebook"/>
+          <TwitterShare
+            network="facebook"/>
         </network>
         <network network="whatsapp">
-          <TwitterShare network="whatsapp"/>
+          <TwitterShare
+            network="whatsapp"
+            style="margin-left: 6px;"/>
         </network>
         <network network="twitter">
-          <TwitterShare network="twitter"/>
+          <TwitterShare
+            network="twitter"
+            style="margin-left: 6px;"/>
         </network>
         <network network="email">
-          <TwitterShare network="email"/>
+          <TwitterShare
+            network="email"
+            style="margin-left: 6px;"/>
         </network>
       </div>
     </social-sharing>
@@ -46,7 +53,7 @@ export default {
      */
     url: {
       type: String,
-      default: inBrowser ? window.location.href : ''
+      default: ''
     },
 
     /**
@@ -105,3 +112,9 @@ export default {
   }
 }
 </script>
+
+<style scoped lang="scss">
+.share-comp {
+  margin-left: 10px;
+}
+</style>

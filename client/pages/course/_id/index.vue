@@ -48,9 +48,9 @@
         :date="course.date"/>
 
       <SocialShare
-        url="https://vuejs.org/"
-        title="The Progressive JavaScript Framework"
-        description="Intuitive, Fast and Composable MVVM for building interactive interfaces."
+        :url="getFullPath"
+        :title="getTitle"
+        :description="getDescription"
         quote="Vue is a progressive framework for building user interfaces."
         hashtags="vuejs,javascript,framework"
         twitter-user="cetacea"/>
@@ -84,8 +84,10 @@
         </Card>
         <Card class="card-wrapper">
           <h2 class="title">Cooperación</h2>
-          <span style="font-size: 50px; font-weight: 600;">$600</span>
-          <span style="color: hsl(217, 17%, 44%);font-size: 22px;">MXN</span>
+          <div style="text-align:center;">
+            <span style="font-size: 30px; font-weight: 600;">$600</span>
+            <span style="color: hsl(216, 16%, 64%);font-size: 15px;">MXN</span>
+          </div>
           <Button
             style="width: 100%;"
             @click.native="register">
@@ -107,55 +109,46 @@
       </div>
     </div>
 
+
+    <div>
+
+      <ItemsCarrousel
+        :items="similarCourses"/>
+
+    </div>
+
   </div>
 </template>
 
-<script lang="ts">
+<script>
 //@ts-ignore
-import AppCover from '@/components/project/AppCover'
+import AppCover from '@/components/project/AppCover';
 // @ts-ignore
-import AppSections from '@/components/project/AppSections'
+import AppSections from '@/components/project/AppSections';
 // @ts-ignore
-import UserSnippet from '@/components/UserSnippet'
+import UserSnippet from '@/components/UserSnippet';
 // @ts-ignore
-import VueMarkdown from 'vue-markdown'
+import VueMarkdown from 'vue-markdown';
 // @ts-ignore
-import SocialShare from '@/components/social-share/SocialShare'
+import SocialShare from '@/components/social-share/SocialShare';
 // @ts-ignore
-import { loginRequired } from '@/utils/authentication'
+import { loginRequired } from '@/utils/authentication';
 // @ts-ignore
-import { meta } from '@/utils/seo/meta'
-
-//@ts-ignore
-import { course } from '@/queries/course'
+import { meta } from '@/utils/seo/meta';
 
 //@ts-ignore
-import GoogleMap from '@/components/GoogleMap'
+import { course } from '@/queries/course';
 
-import {
-  Component,
-  Vue
-} from 'nuxt-property-decorator'
-import { mapActions } from 'vuex';
+//@ts-ignore
+import GoogleMap from '@/components/GoogleMap';
 
-@Component({
-  name: 'course',
-  components: {
-    AppCover,
-    AppSections,
-    UserSnippet,
-    GoogleMap,
-    VueMarkdown,
-    SocialShare
-  },
-  methods: {
-    ...mapActions({
-      registerUser: 'user/register'
-    })
-  }
-})
-export default class Index extends Vue {
+//@ts-ignore
+import { mapActions, mapGetters } from 'vuex';
 
+//@ts-ignore
+import ItemsCarrousel from '@/components/ItemsCarrousel';
+
+export default {
   async asyncData ({error, app, params}) {
     try {
       const { data } = await app.apolloProvider.defaultClient.query({
@@ -166,8 +159,7 @@ export default class Index extends Vue {
     } catch(err) {
       error({statusCode: 404, message: 'Not found'})
     }
-  }
-
+  },
   head() {
     return meta(
       //@ts-ignore
@@ -179,12 +171,34 @@ export default class Index extends Vue {
       //@ts-ignore
       this.$route.fullPath
     )
-  }
-
-  @loginRequired()
-  register():void {
-    //@ts-ignore
-    this.registerUser()
+  },
+  components: {
+    AppCover,
+    AppSections,
+    UserSnippet,
+    GoogleMap,
+    VueMarkdown,
+    SocialShare,
+    ItemsCarrousel
+  },
+  computed: {
+    getFullPath(){
+      return `${process.env.BASE_URL}${this.$route.fullPath}`
+    },
+    getTitle(){
+      return this.course.title
+    },
+    getDescription(){
+      return this.course.description
+    },
+    ...mapGetters({
+      similarCourses: 'courses/similarCourses'
+    })
+  },
+  methods: {
+    ...mapActions({
+      registerUser: 'user/register'
+    })
   }
 }
 </script>
