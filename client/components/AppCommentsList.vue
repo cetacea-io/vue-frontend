@@ -7,7 +7,7 @@
       :likes="comment.likes"
       :date="shortTimestamp(comment.published)"
       :content="comment.content"
-      :username="comment.owner.username"
+      :username="comment.author.username"
       class="item"
     />
   </div>

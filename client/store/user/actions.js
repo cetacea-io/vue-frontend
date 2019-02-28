@@ -18,7 +18,6 @@ export default {
           user: 'Some user',
           course: 'Some course'
         })
-        alert('oh se mamo la verga')
       })
     } catch (e) {
       // Aqui va el error
@@ -31,11 +30,15 @@ export default {
       //
     }
   },
-  async register ({course}) {
-    try{
-      alert('hola')
-    } catch (e) {
-      //
+  async register ({commit}, {course}) {
+    if(false) {
+      // 
+      try{
+      } catch (e) {
+        //
+      }
+    } else {
+      commit('showModal', 'ModalLogin', { root: true })
     }
   },
   async join_project ({project}) {

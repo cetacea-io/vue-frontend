@@ -3,13 +3,6 @@
 
     <h1>Login</h1>
 
-    <div
-      v-if="alert"
-      class="">
-      Hubo un error grave
-      {{ alert.message }}
-    </div>
-
     <form
       v-if="!isAuthenticated"
       @submit.prevent="submit">
@@ -24,7 +17,7 @@
       <google-button/>
       <p>Email/teléfono/nombre de usuario</p>
       <input
-        v-model="credentials.id" 
+        v-model="credentials.username" 
         type="text"
         name="email">
       <p>Contraseña</p>
@@ -51,7 +44,7 @@ export default {
   data () {
     return {
       credentials: {
-        id: null,
+        username: null,
         password: null,
       },
       alert: null,
@@ -71,7 +64,7 @@ export default {
       this.loading = true
 
       this.$store.dispatch(
-        'authentication/login', {id: 'ivan', password: '60a7e5c4'})
+        'authentication/login', {id: credentials.username, password: credentials.password})
       .then(result => {
         this.alert = {type: 'success', message: result.data.message}
         this.loading = false
@@ -79,12 +72,7 @@ export default {
       })
       .catch(error => {
         this.loading = false
-        if (error.response && error.response.data) {
-          this.alert = {
-            type: 'error',
-            message: error.response.data.message || error.response.status
-          }
-        }
+        this.alert = { message: 'Hubo un error, comprueba tu usuario y tu contrasena'}
       })
     }
   }

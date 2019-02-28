@@ -3,7 +3,10 @@ query course ($id: Int!) {
     id
     title
     coverImage
-    category
+    category {
+      id
+      title
+    }
     creationDate
     overview
     author {

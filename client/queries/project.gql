@@ -4,6 +4,15 @@ query project ($id: Int!) {
     title
     coverImage
     category
+    author {
+      id
+      profilePicture
+      user {
+        username
+        firstName
+        lastName
+      }
+    }
     location
     creationDate
     overview
@@ -15,7 +24,7 @@ query project ($id: Int!) {
       requirements
     }
     comments {
-      owner {
+      author {
         username
       }
       content

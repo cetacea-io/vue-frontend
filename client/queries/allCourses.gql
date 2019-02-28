@@ -1,8 +1,11 @@
-query courses ($area: String!) {
-  courses (area: $area) {
+query courses ($category: Int!) {
+  courses (category: $category) {
     id
     title
-    category
+    category {
+      id
+      title
+    }
     coverImage
     author{
       profilePicture

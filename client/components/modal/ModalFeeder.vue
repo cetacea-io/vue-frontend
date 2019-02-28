@@ -1,6 +1,8 @@
 <template>
-  <div>
-    <div v-show="step === 1">
+  <div class="feeder-wrapper">
+    <div 
+      v-show="step === 1"
+      class="first">
       <h2>Cuales son tus {{ maxSelected }} intereses?</h2>
       <div class="option-wrapper">
         <AppOption
@@ -95,18 +97,41 @@ export default {
       }
     }
   },
+  beforeCreate() {
+    document.body.style.overflowY = 'hidden'
+  },
   methods: {
     next() {
       this.step++
     }
-  }
+  },
 }
 </script>
 
 <style scoped>
+.feeder-wrapper{
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-rows: repeat(auto-fit, minmax(48px, auto));
+  color: #000;
+}
+.first{
+  display: grid;
+  /* grid-template-rows: repeat(auto-fit, minmax(68px, 1fr)); */
+  height: 100%;
+  padding: 19px;
+}
+h2{
+  padding-bottom: 19px;
+}
 .option-wrapper {
   overflow-y: scroll;
-  max-height: 500px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 5px;
+  grid-row-gap: 5px;
+  grid-auto-rows: 139px;
 }
 .button {
   background: #3853ff;

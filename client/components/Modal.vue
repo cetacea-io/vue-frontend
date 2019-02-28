@@ -1,78 +1,95 @@
 <template>
-  <transition name="modal">
+  <!-- <transition name="modal">
     <div
       class="modal-backdrop"
       @click="close">
       <div 
         class="modal"
         role="dialog"
-        aria-labelledby="modalTitle"
-        aria-describedby="modalDescription"
         @click.stop
       >
-        <!-- <header
-          id="modalTitle"
-          class="modal-header"
-        >
-          <slot name="header">
-            This is the default tile!
-
-            <button
-              type="button"
-              class="btn-close"
-              aria-label="Close modal"
-              @click="close"
-            >
-              x
-            </button>
-          </slot>
-        </header> -->
         <section
           id="modalDescription"
           class="modal-body"
         >
-          <slot>
-            I'm the default body!
-          </slot>
+          <component :is="component"/>
         </section>
-        <!-- <footer class="modal-footer">
-          <slot name="footer">
-            I'm the default footer!
-
-            <button
-              type="button"
-              class="btn-green"
-              aria-label="Close modal"
-              @click="close"
-            >
-              Close me!
-            </button>
-          </slot>
-        </footer> -->
       </div>
     </div>
-  </transition>
+  </transition> -->
+
+  <div class="c-appModal">
+    <transition
+      name="custom-classes-transition"
+      enter-active-class="animated fadeIn"
+      leave-active-class="animated fadeOut"
+    >
+      <div
+        v-if="visible"
+        class="c-appModal__overlay"
+      />
+    </transition>
+    <transition
+      name="custom-classes-transition"
+      enter-active-class="animated fadeInUp"
+      leave-active-class="animated fadeOutDown"
+    >
+      <div
+        v-if="visible"
+        class="c-appModal__content"
+        @click.self="hideModal"
+      >
+        <div class="c-appModal__innerContent">
+          <component :is="component"/>
+        </div>
+      </div>
+    </transition>
+  </div>
+
+
 </template>
 
 <script>
+import Vue from 'vue'
+import { mapState, mapMutations } from 'vuex'
+
 export default {
   name: 'Modal',
   data() {
     return {
-      closable: {
-        type: Boolean,
-        required: false,
-        default: true
-      }
+      closable: false,
+      component: null
     }
   },
-  methods: {
-    close() {
-      if (this.closable) {
-        this.$emit('close')
-      }
+  computed: {
+    ...mapState({
+      visible: `modalVisible`,
+      modalComponent: `modalComponent`
+    })
+  },
+  watch: {
+    modalComponent(componentName) {
+      if (!componentName) return
+      
+      Vue.component(componentName, () => import(`./modal/${componentName}`))
+      this.component = componentName
     }
-  }
+  },
+  // created() {
+  //   const escapeHandler = (e) => {
+  //     if (e.key === 'Escape' && this.visible) {
+  //       this.hideModal()
+  //     }
+  //   }
+
+  //   document.addEventListener('keydown', escapeHandler)
+  //   this.$once('hook:destroyed', () => {
+  //     document.removeEventListener('keydown', escapeHandler)
+  //   })
+  // },
+  methods: {
+    ...mapMutations([`hideModal`])
+  },
 }
 </script>
 
@@ -98,6 +115,9 @@ export default {
   display: flex;
   flex-direction: column;
   border-radius: 10px;
+
+  width: 100vh;
+  height: 100vh;
 }
 
 .modal-header,
@@ -119,7 +139,7 @@ export default {
 
 .modal-body {
   position: relative;
-  padding: 20px 10px;
+  /* padding: 20px 10px; */
 }
 
 .btn-close {
@@ -151,5 +171,97 @@ export default {
 .modal-leave-active .modal-container {
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
+}
+</style>
+
+<style lang="scss" scoped>
+.c-appModal {
+  &__overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 900;
+    background-color: rgba(0, 0, 0, 0.65);
+  }
+  &__content {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 901;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &__innerContent {
+    @media only screen and (min-width: 960px) {
+      width: auto;
+      height: auto;
+      min-width: 453px;
+      min-height: 392px;
+    }
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    border-radius: 10px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+.animated {
+  animation-duration: 0.3s;
+  animation-fill-mode: both;
+}
+.fadeIn {
+  animation-name: fadeIn;
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}
+.fadeOut {
+  animation-name: fadeOut;
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+}
+.fadeInUp {
+  animation-name: fadeInUp;
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 100%, 0);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+.fadeOutDown {
+  animation-name: fadeOutDown;
+  @keyframes fadeOutDown {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+      transform: translate3d(0, 100%, 0);
+    }
+  }
 }
 </style>

@@ -8,8 +8,8 @@
             <h1 class="title">Crea tu cuenta</h1>
           </div>
           <div>
-            <GoogleButton/>
-            <FacebookButton/>
+            <GoogleButton @click.native="register"/>
+            <FacebookButton @click.native="register"/>
           </div>
           <p>o</p>
 
@@ -42,6 +42,8 @@ import AppInputField from '@/components/ui/AppInputField'
 import GoogleButton from '@/components/GoogleButton'
 import FacebookButton from '@/components/FacebookButton'
 
+import { mapActions } from 'vuex'
+
 export default {
   layout: 'blank',
   components: {
@@ -57,28 +59,9 @@ export default {
     }
   },
   methods: {
-    register() {
-      console.log('entro')
-
-      this.$apollo.mutate({
-        mutation: gql`mutation ($username: String!, $email: String!, $password: String!) {
-          createUser(username: $username, email: $email, password: $password){
-            user{
-              id
-              username
-              email
-            }
-          }
-        }`,
-        variables: {
-          username: this.username,
-          email: this.email,
-          password: this.password,
-        },
-      })
-
-    }
-
+    ...mapActions({
+      register: 'authentication/register',
+    }),
   },
   // middleware: 'notAuthenticated',
 }

@@ -1,3 +1,4 @@
 export default () => ({
-  mapsScript: false
+  modalVisible: false,
+  modalComponent: null
 })

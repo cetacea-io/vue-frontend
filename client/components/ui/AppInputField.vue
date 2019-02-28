@@ -1,7 +1,8 @@
 <template>
   <input
     :value="value"
-    type="text"
+    :placeholder="placeholder"
+    :type="type"
     @input="$emit('input', $event.target.value)">
 </template>
 
@@ -9,20 +10,33 @@
 export default {
   props: {
     value: {
-      type: Object,
-      required: true
+      type: String,
+      required: true,
+      default: ''
+    },
+    type: {
+      type: String,
+      required: false,
+      default: 'text'
+    },
+    placeholder: {
+      type: String,
+      required: false,
+      default: ''
     }
   }
 }
 </script>
 
 <style scoped>
-input[type="text"]{
-    background: transparent;
-    border: 3px solid #315ee8;
-    padding: 0.9em 1.7em;
-    border-radius: 50px;
-    color: inherit;
-    font-size: 1em;
+input{
+  background: transparent;
+  border: 1px solid #d6d6d6;
+  padding: 0.7em 1.5em;
+  border-radius: 5px;
+  color: inherit;
+  font-size: 1em;
+  font-family: 'Soleil';
+  width: 100%;
 }
 </style>

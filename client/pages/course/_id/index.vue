@@ -4,42 +4,6 @@
       :title="course.title"
       :image="course.coverImage"/>
 
-    <!-- <div class="temp">
-      <h1 
-        class="title">
-        {{ course.title }}
-      </h1>
-      <p>{{ course.quickDesc }}</p>
-
-    </div> -->
-    <!-- <div class="temp">
-      <p>Categoría: {{ course.category }}</p>
-
-      <p>Imparte: {{ course.category }}</p>
-
-      <p>Costo: $500 pesos, público en general; $300 pesos estudiantes, maestros e INAPAM</p>
-
-      <p v-if="course.location">Lugar: {{ course.location }}</p>
-      <p v-else>No se requiere ubicación</p> -->
-
-    <!-- <i class="fas fa-eye"/> 4541
-    <i class="fas fa-heart"/> 24
-    <i class="fas fa-comment-dots"/> 214
-    <i class="fas fa-share-alt"/> 214 -->
-    <!-- </div> -->
-
-    <!-- <p>Equipo:</p> <AppAvatarList/> -->
-
-    <!-- <div class="buttons-wrapper">
-      <AppButton :circle="true"><i class="fas fa-heart"/></AppButton>
-      <AppButton :circle="true"><i class="fas fa-share-alt"/></AppButton>
-      <AppButton 
-        :circle="true"
-        @click.native="loginRequired(showModal)">
-        <i class="fas fa-donate"/>
-      </AppButton>
-      <AppButton :circle="true"><i class="fas fa-user-plus"/></AppButton>
-    </div> -->
     <div class="temp">
 
       <UserSnippet
@@ -85,8 +49,7 @@
         <Card class="card-wrapper">
           <h2 class="title">Cooperación</h2>
           <div style="text-align:center;">
-            <span style="font-size: 30px; font-weight: 600;">$600</span>
-            <span style="color: hsl(216, 16%, 64%);font-size: 15px;">MXN</span>
+            <PriceTag :amount="600" />
           </div>
           <Button
             style="width: 100%;"
@@ -124,40 +87,43 @@
 //@ts-ignore
 import AppCover from '@/components/project/AppCover';
 // @ts-ignore
-import AppSections from '@/components/project/AppSections';
-// @ts-ignore
 import UserSnippet from '@/components/UserSnippet';
 // @ts-ignore
 import VueMarkdown from 'vue-markdown';
 // @ts-ignore
 import SocialShare from '@/components/social-share/SocialShare';
 // @ts-ignore
-import { loginRequired } from '@/utils/authentication';
-// @ts-ignore
 import { meta } from '@/utils/seo/meta';
 
-//@ts-ignore
 import { course } from '@/queries/course';
 
 //@ts-ignore
 import GoogleMap from '@/components/GoogleMap';
 
 //@ts-ignore
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions } from 'vuex';
 
 //@ts-ignore
 import ItemsCarrousel from '@/components/ItemsCarrousel';
+import PriceTag from '@/components/PriceTag'
 
 export default {
-  async asyncData ({error, app, params}) {
+  async asyncData ({store, error, app, params}) {
     try {
-      const { data } = await app.apolloProvider.defaultClient.query({
+      const courseData = await app.apolloProvider.defaultClient.query({
         query: course,
         variables: { id: params.id }
       })
-      return {course: data.course}
+    
+      let similarCoursesData = await store.dispatch('courses/get_courses', courseData.data.course.category[0])
+      
+      return {
+        course: courseData.data.course,
+        similarCourses: similarCoursesData.data.courses
+      }
     } catch(err) {
       error({statusCode: 404, message: 'Not found'})
+      // console.log(err)
     }
   },
   head() {
@@ -174,12 +140,12 @@ export default {
   },
   components: {
     AppCover,
-    AppSections,
     UserSnippet,
     GoogleMap,
     VueMarkdown,
     SocialShare,
-    ItemsCarrousel
+    ItemsCarrousel,
+    PriceTag
   },
   computed: {
     getFullPath(){
@@ -191,14 +157,11 @@ export default {
     getDescription(){
       return this.course.description
     },
-    ...mapGetters({
-      similarCourses: 'courses/similarCourses'
-    })
   },
   methods: {
     ...mapActions({
-      registerUser: 'user/register'
-    })
+      register: 'user/register',
+    }),
   }
 }
 </script>
@@ -246,7 +209,7 @@ export default {
   justify-content: space-between;
   padding: 1em;
   border-color: hsl(217, 32%, 15%);
-  border-style: solid;
+  // border-style: solid;
   border-top-width: 0px;
   border-bottom-width: 1px;
   border-left-width: 0px;

@@ -148,7 +148,9 @@ $shadow-color: #dfe0eb;
     user-select: none;
     border-radius: 10px;
     transition: all 0.3s ease;
-    margin: 5px;
+    width: 100%;
+    height: 100%;
+    min-height: 82px;
 }
 
 .circle{
@@ -189,6 +191,7 @@ label{
   -ms-user-select: none;
   user-select: none;
   height: 100%;
+  width: 100%;
 
 }
 
@@ -206,7 +209,6 @@ label input {
     top: 0;
     left: 0;
 
-    border-radius: 10px;
     background: inherit;
 
     // border: 2px solid #FFF;
@@ -217,8 +219,8 @@ label input {
     border-radius: 10px;
     transition: all 0.3s ease;
 
-    height: 120px;
-    width: 120px;
+    height: 100%;
+    width: 100%;
 }
 
 /* On mouse-over, add a grey background color */
@@ -235,12 +237,12 @@ label input {
   color: #FFFFFF;
   text-shadow: 0px 0px 13px #252525;
   font-weight: 600;
-  font-size: 1.0rem;
+  font-size: 1.2rem;
   bottom: 0;
   position: absolute;
 
-  margin-bottom: 4px;
-  margin-left: 4px;
+  margin-bottom: 6px;
+  margin-left: 11px;
 }
 
 /* When the radio button is checked, add a blue background */

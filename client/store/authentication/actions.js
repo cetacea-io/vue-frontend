@@ -36,13 +36,16 @@ export default {
         .then(({data}) => data)
   
         await commit('user/set_user', response.me, {root: true})
+        commit('isAuthenticated')
+
+        this.app.router.push('/')
   
       } catch (e) {
-        console.error(e)
+        reject(error)
       }
   
     } catch (e) {
-      console.error(e)
+      reject(error)
     }
   
   },
@@ -50,10 +53,24 @@ export default {
   async register({commit}, data) {
     try{
       //TODO: Fix this
-      this.app.$optimizely.track('user_registered', userID)
+      // this.app.$optimizely.track('user_registered', userID)
+      // Register logic
+      this.app.router.push('/')
+      this.app.$loginModal.show()
     } catch (e) {
       console.error(e)
     }
-  }
+  },
+
+  async commit_preferences({commit}, {interests, }) {
+    try{
+      //TODO: Fix this
+      // this.app.$optimizely.track('user_registered', userID)
+      // commmit logic
+      this.app.$loginModal.show()
+    } catch (e) {
+      console.error(e)
+    }
+  },
   
 }

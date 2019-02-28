@@ -17,7 +17,6 @@
 export function loginRequired() {
 
   return function(target:any, propertyKey: string | symbol, descriptor: PropertyDescriptor) {
-  
     var originalMethod = descriptor.value;
     descriptor.value = function() {
       var context = this;

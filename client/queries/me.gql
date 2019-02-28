@@ -1,8 +1,17 @@
 query me {
   me {
     id
+    firstName
+    lastName
     username
     email
     isSuperuser
+    profile {
+      interests {
+        id
+        title
+      }
+      profilePicture
+    }
   }
 }

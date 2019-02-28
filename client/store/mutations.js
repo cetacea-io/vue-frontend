@@ -1,5 +1,9 @@
 export default {
-  setMapsScript (store) {
-    store.mapsScript = true
+  showModal(state, componentName) {
+    state.modalVisible = true
+    state.modalComponent = componentName
+  },
+  hideModal(state) {
+    state.modalVisible = false
   }
 }

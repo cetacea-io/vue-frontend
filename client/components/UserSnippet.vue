@@ -1,11 +1,19 @@
 <template>
   <div class="meta">
-    <Avatar 
-      :image="image"/>
-    <div class="desc">
-      <div>{{ name }}</div>
-      <div class="date">{{ shortTimestamp(date) }}</div>
-    </div>
+    <component
+      v-bind="thingsProps"
+      :is="tag">
+      <Avatar 
+        :image="image"/>
+    </component>
+    <component
+      v-bind="thingsProps"
+      :is="tag">
+      <div class="desc">
+        <div>{{ name }}</div>
+        <div class="date">{{ shortTimestamp(date) }}</div>
+      </div>
+    </component>
     <Button 
       size="small"
       @click.native="join" >
@@ -30,6 +38,32 @@ export default {
       type: String,
       default: null,
       required: false
+    },
+    username: {
+      type: String,
+      default: null,
+      required: false
+    },
+    type: {
+      type: String,
+      default: null,
+      required: false,
+      validator: value => {
+        return value === 'avatar'
+      }
+    }
+  },
+  computed: {
+    tag(){
+      if (this.type === 'user'){
+        return 'nuxt-link'
+      } else {
+        return 'div'
+      }
+    },
+    thingsProps() {
+      if (this.type == "user") return { to: `/user/${this.username}` }
+      else return null
     }
   }
 }
@@ -47,6 +81,7 @@ export default {
 }
 .desc{
   margin: 0 16px;
+  color: #ffffff;
 }
 .date{
   color: #8fa0b9;

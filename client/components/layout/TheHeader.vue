@@ -198,7 +198,7 @@ export default {
 }
 </style>
 
-<style scoped>
+<style scoped lang="scss">
 .home-header-left-side {
   float: left;
   max-width: 600px;
@@ -216,9 +216,12 @@ export default {
   background-repeat: no-repeat;
   background-size: cover;
   display: grid;
-  justify-items: center;
   width: 100%;
   height: 100%;
+
+  > * {
+    justify-self: center;
+  }
 }
 
 .background-header {

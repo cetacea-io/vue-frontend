@@ -22,19 +22,11 @@
 
 
     <div class="temp meta">
-      <Avatar 
-        image="https://s3.us-east-2.amazonaws.com/temporarycetacea/juegos1.png"
-        size="small"
-      />
-      <div class="desc">
-        <div>Juegos de Azar</div>
-        <div class="date">{{ shortTimestamp(project.creationDate) }}</div>
-      </div>
-      <Button 
-        size="small"
-        @click.native="join" >
-        Seguir
-      </Button>
+      <UserSnippet
+        :username="project.author.user.username"
+        :image="project.author.profilePicture"
+        :name="`${project.author.user.firstName} ${project.author.user.lastName}`"
+        type="user"/>
     </div>
 
     <AppSections 
@@ -52,6 +44,7 @@
 import AppCover from '@/components/project/AppCover'
 // @ts-ignore
 import AppSections from '@/components/project/AppSections'
+import UserSnippet from '@/components/UserSnippet'
 // @ts-ignore
 import { loginRequired } from '@/utils/authentication'
 // @ts-ignore
@@ -90,7 +83,8 @@ export default {
   },
   components: {
     AppCover,
-    AppSections
+    AppSections,
+    UserSnippet
   }
 }
 </script>

@@ -64,33 +64,23 @@
 
     <TheNavbar/>
 
-    <div v-if="form">
-      <!-- <DataModal/> -->
-    </div>
-    <login-modal/>
+    <Modal/>
     <nuxt/>
   </div>
 </template>
 
 <script>
 import TheNavbar from '@/components/layout/TheNavbar'
-import LoginModal from '@/components/LoginModal'
-import DataModal from '@/components/DataModal'
+import Modal from '@/components/Modal'
 
-import { mapGetters } from 'vuex'
+import formModal from '@/mixins/form-modal'
 
 export default {
   components: {
     TheNavbar,
-    LoginModal,
-    DataModal
+    Modal,
   },
-  computed:{
-    ...mapGetters({
-      form: 'authentication/funnelResponded'
-    })
-  }
-  // middleware: ['form-modal']
+  // mixins: [formModal]
 }
 </script>
 

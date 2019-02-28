@@ -20,16 +20,22 @@
     <!-- <no-ssr> -->
     <AppCarrousel 
       class="scrolling-wrapper">
-      <MiniProjectCard
+      <ProjectCard
         v-for="(item, index) in items"
         :key="index"
+        :id="item.id"
+        :category="item.category"
+        :author-image="item.author.profilePicture"
+        :author-title="`${item.author.user.firstName} ${item.author.user.lastName}`"
+        :date="item.title"
+        :description="item.quickDesc"
+        :likes="4"
+        :shares="6"
+
         :image="item.coverImage"
         :title="item.title"
-        :category="item.category.title"
-        :author-image="item.author.profilePicture"
-        :date="shortTimestamp(item.startDate)"
-        :route="`/course/${item.id}`"
-        type="nuxt-link"
+        :route="`/project/`"
+        
         class="mini"
       />
     </AppCarrousel>
@@ -39,10 +45,12 @@
 
 <script>
 import AppCarrousel from '@/components/AppCarrousel'
+import MKTProject from '@/components/marketing/MKTProject'
 
 export default {
   components: {
-    AppCarrousel
+    AppCarrousel,
+    MKTProject
   },
   props: {
     items: {
@@ -89,7 +97,8 @@ export default {
 }
 
 .mini{
-  width: 252px;
+  // width: 252px;
+  width: 300px;
   padding: 5px;
 }
 </style>

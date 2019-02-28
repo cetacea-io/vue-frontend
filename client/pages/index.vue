@@ -12,9 +12,13 @@
       <search-box/>
     </div>
 
+    <component
+      v-for="(component, index) in content"
+      :key="index"
+      :is="component.type"
+      v-bind="component.properties"/>
 
-
-    <div 
+  <!-- <div 
       v-if="true"
       class="section">
       <div class="head-title">
@@ -82,81 +86,62 @@
     <Button
       size="large"
       type="button"
-      @click.native="add">
+      @click.native="applyContent">
       Ver mas
-    </Button>
-
-
-    <div
-      class="section"
-      style="text-align: center; padding: 50px 0;">
-      <h1 style="padding-bottom: 20px;">¿Buscas más cursos?</h1>
-      <a
-        href="https://es.surveymonkey.com/r/DJSS2JM" 
-        target="_blank">
-        <Button 
-          size="large"
-          type="a">
-          Cuentanos sobre ti!
-        </Button>
-      </a>
-    </div>
+    </Button> -->
 
   </div>
 </template>
 
 <script>
 import FeaturedProject from '@/components/FeaturedProject'
-import ItemsCarrousel from '@/components/ItemsCarrousel'
 import SearchBox from '@/components/SearchBox'
 
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
   async asyncData ({store, error, app, params}) {
-    let projectsillos = []
 
     return {
       enabled: app.$optimizely.isFeatureEnabled('show_projects', 'bob'),
-      projects: projectsillos,
     }
   },
   async fetch({store}){
-    await store.dispatch('courses/poblate_courses')
+    //
   },
   components: {
     FeaturedProject,
-    ItemsCarrousel,
-    SearchBox
+    SearchBox,
   },
-  data(){
-    return{
-      
+  data(){ 
+    return {
+      content: []
     }
   },
   computed: {
-    ...mapGetters({
-      courses: 'courses/courses'
-    })
+  },
+  beforeMount() {
+    window.addEventListener('scroll', this.handleScroll)
   },
   mounted() {
-    this.scroll()
+    this.applyContent()
   },
-  destroyed() {
-    
+  beforeDestroy() {
+    window.removeEventListener('scroll', this.handleScroll)
   },
   methods: {
     ...mapActions({
-      add: 'courses/poblate_courses',
-      loadCourses: 'courses/load_courses'
+      loadContent: 'dashboard/loadContent'
     }),
-    scroll() {
-      window.onscroll = () => {
-        let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;
+    async applyContent(){
+      let newContent = await this.loadContent()
+      this.content.push(newContent)
+    },
+    handleScroll() {
+      let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight
 
-        if (bottomOfWindow) {
-          this.loadCourses()
-        }
+      if (bottomOfWindow) {
+        this.applyContent()
       }
     }
   }

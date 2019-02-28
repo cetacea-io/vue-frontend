@@ -6,6 +6,7 @@
 
 <script>
 import { mapGetters, mapMutations } from 'vuex';
+import gmapsInit from '@/utils/gmaps'
 
 export default {
   name: 'GoogleMap',
@@ -37,25 +38,31 @@ export default {
       mapsScript: 'mapsScript'
     })
   },
-  mounted() {
-    if(!this.mapsScript){
-      let scriptMounted = new Promise((resolve, reject) => {
-        let recaptchaScript = document.createElement('script')
-        // recaptchaScript.async = true
-        // recaptchaScript.defer = true
-        // recaptchaScript.setAttribute('src', `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAPS_KEY}&callback=initMap`)
-        recaptchaScript.setAttribute('src', `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAPS_KEY}`)
-        document.body.appendChild(recaptchaScript)
-        this.setScript()
-        resolve()
-      })
-      
-      scriptMounted.then(() => {
-        // this.getMap()
-      })
-    } else {
+  async mounted() {
+    try {
+      const google = await gmapsInit()
       this.getMap()
+    } catch (error) {
+      console.error(error)
     }
+    // if(!this.mapsScript){
+    //   let scriptMounted = new Promise((resolve, reject) => {
+    //     let recaptchaScript = document.createElement('script')
+    //     // recaptchaScript.async = true
+    //     // recaptchaScript.defer = true
+    //     // recaptchaScript.setAttribute('src', `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAPS_KEY}&callback=initMap`)
+    //     recaptchaScript.setAttribute('src', `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAPS_KEY}`)
+    //     document.body.appendChild(recaptchaScript)
+    //     this.setScript()
+    //     resolve()
+    //   })
+      
+    //   scriptMounted.then(() => {
+    //     // this.getMap()
+    //   })
+    // } else {
+    //   this.getMap()
+    // }
   },
   methods: {
     ...mapMutations({

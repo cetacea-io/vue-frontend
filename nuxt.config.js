@@ -26,9 +26,9 @@ module.exports = {
   ** Global CSS
   */
   css: [
-    '@/assets/css/main.css',
-    '@/assets/css/variables.css',
-    'cetacea-design-system/dist/system/system.css'
+    '@/assets/css/main',
+    '@/assets/css/variables',
+    'cetacea-design-system/dist/system/system'
   ],
   /*
   ** Plugins to load before mounting the App
@@ -36,8 +36,8 @@ module.exports = {
   plugins: [
     { src: '~/plugins/design-system', ssr: true },
     '@/mixins/mixins',
-    '@/plugins/login-modal',
-    '@/plugins/form-modal',
+    '@/mixins/form-modal',
+    '~/plugins/login-modal',
     { src: '~/plugins/localStorage', ssr: false },
     { src: '~/plugins/segment', ssr: false },
     { src: '~/plugins/optimizely', ssr: true },

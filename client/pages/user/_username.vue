@@ -20,7 +20,7 @@
     </div>
 
     <div class="bio">
-      {{ user.bio }}
+      {{ user.profile.bio }}
       <!-- <div v-if="user.id == $store.getters['authentication/actualUser'].id"> -->
       <!-- {{ user.id }} {{ $store.getters['authentication/actualUser'].id }} -->
       <!-- </div> -->
@@ -31,9 +31,9 @@
       <h2>Intereses</h2>
 
       <Tag 
-        v-for="interest in interests"
-        :key="interest">
-        {{ interest }}
+        v-for="interest in user.profile.interests"
+        :key="interest.id">
+        {{ interest.title }}
       </Tag>
 
       <h2>Habilidades</h2>
@@ -90,32 +90,13 @@
 
     <div class="created"/>
 
-    <Card class="card-wrapper">
+    <div>
       <h1>Colaboraciones</h1>
-      <!-- <AppProjectsList :projects="user.projects"/> -->
-      <div 
-        v-for="(course, index) in courses"
-        :key="index">
-        <no-ssr>
-          <AppCarrousel 
-            class="scrolling-wrapper">
-            <MiniProjectCard
-              v-for="(item, index) in course.items"
-              :key="index"
-              :image="item.coverImage"
-              :title="item.title"
-              :category="item.category"
-              :author-image="item.creatorImage"
-              :date="shortTimestamp(item.startDate)"
-              :route="`course/${item.id}`"
-              type="nuxt-link"
-              class="mini"
-            />
-          </AppCarrousel>
-        </no-ssr>
-
-      </div>
-    </Card>
+      
+      <ItemsProjectsCarrousel
+        :items="user.profile.projectsCreated"
+        title="Contribucions"/>
+    </div>
 
   </div>
 </template>
@@ -125,7 +106,7 @@ import { user } from '@/queries/user'
 
 // import AppPortfolioItem from '~/components/molecules/AppPortfolioItem'
 // import AppEducationCertificateList from '~/components/organisms/AppEducationCertificateList'
-
+import ItemsProjectsCarrousel from '@/components/ItemsProjectsCarrousel'
 import AppProjectsList from '@/components/project/AppProjectsList'
 import AppCarrousel from '@/components/AppCarrousel'
 
@@ -135,6 +116,7 @@ export default {
   components: {
     // AppPortfolioItem,
     // AppEducationCertificateList,
+    ItemsProjectsCarrousel,
     AppProjectsList,
     AppCarrousel
   },
@@ -143,7 +125,7 @@ export default {
       list: null,
       isModalVisible: false,
       links: '',
-      interests: ['Piano', 'Musica', 'Teatro']
+      interests: ['Piano', 'Musica', 'Teatro'],
     }
   },
   async asyncData({error, app, params}) {

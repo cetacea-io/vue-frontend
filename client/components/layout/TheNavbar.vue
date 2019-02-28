@@ -4,16 +4,11 @@
     :style="{ top: computedTop }"
     class="navbar-container">
     <div
-      v-if="user"
-      class="secondary-section container">
-      <!-- <Avatar
-        icon
-        image="/no-avatar.svg"/>
-      {{ user.email }} -->
-      <i class="selected fas fa-home"/>
-      <i class="fas fa-search"/>
-      <i class="fas fa-bell"/>
-      <i class="fas fa-envelope"/>
+      v-if="isAuthenticated"
+      class="normal container">
+      <Avatar
+        :image="user.profile.profilePicture" />
+      {{ userFullName }}
     </div>
     <div
       v-else
@@ -21,17 +16,16 @@
       <img
         style="height:50px;"
         src="~/static/icon.png">
-      <nuxt-link to="/signup">
-        <Button
-          type="a">
-          Comienza
-        </Button>
-      </nuxt-link>
+      <Button @click.native="showModal('ModalLogin')">
+        Registrate
+      </Button>
     </div>
   </nav>
 </template>
 
 <script>
+import { mapMutations, mapGetters } from 'vuex'
+
 export default {
   name: 'TheNavbar',
   data() {
@@ -42,13 +36,16 @@ export default {
     }
   },
   computed: {
+    ...mapGetters({
+      user: 'user/user',
+      isAuthenticated: 'authentication/isAuthenticated'
+    }),
+    userFullName() {
+      return `${this.user.firstName} ${this.user.lastName}`
+    },
     computedTop() {
       return this.top
     },
-    user() {
-      // return this.$store.getters['auth/isAuthenticated']
-      return this.$apolloHelpers.getToken()
-    }
   },
   beforeMount() {
     window.addEventListener('scroll', this.handleScroll)
@@ -57,6 +54,9 @@ export default {
     window.removeEventListener('scroll', this.handleScroll)
   },
   methods: {
+    ...mapMutations({
+      showModal: `showModal`
+    }),
     handleScroll() {
       this.currentScroll = window.scrollY
       if(this.currentScroll > this.prevScroll) {
