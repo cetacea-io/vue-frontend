@@ -122,10 +122,6 @@ module.exports = {
   */
   build: {
     /*
-    ** You can extend webpack config here
-    */
-    publicPath: `/${require('./secrets.json').NODE_ENV}/_nuxt/`,
-    /*
     ** PostCSS
     */
     postcss: {
