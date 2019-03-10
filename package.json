@@ -12,7 +12,8 @@
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "precommit": "npm run lint",
     "deploy": "env-cmd ./.env.production nuxt build && sls deploy",
-    "update": "env-cmd ./.env.production nuxt build && sls deploy --force"
+    "update": "env-cmd ./.env.production nuxt build && sls deploy --force",
+    "heroku-postbuild": "npm run build"
   },
   "dependencies": {
     "@nuxtjs/apollo": "^4.0.0-rc2",

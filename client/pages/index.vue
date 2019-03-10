@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="main">
 
     <div class="container">
       <featured-project/>
@@ -17,6 +17,10 @@
       :key="index"
       :is="component.type"
       v-bind="component.properties"/>
+
+    <img 
+      src="~/assets/img/loader.svg"
+      style="margin: 50px auto 0 auto; width: 60px; display: block;">
 
   <!-- <div 
       v-if="true"
@@ -107,7 +111,7 @@ export default {
     }
   },
   async fetch({store}){
-    //
+    await store.dispatch('dashboard/poblate_categories')
   },
   components: {
     FeaturedProject,
@@ -160,5 +164,9 @@ export default {
   font-size: 1.5em;
   font-weight: 600;
   padding-bottom: 16px;
+}
+
+.main {
+  margin-bottom: 100px;
 }
 </style>

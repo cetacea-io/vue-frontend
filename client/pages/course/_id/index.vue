@@ -49,7 +49,9 @@
         <Card class="card-wrapper">
           <h2 class="title">Cooperación</h2>
           <div style="text-align:center;">
-            <PriceTag :amount="600" />
+            <PriceTag 
+              :amount="600"
+              currency="MXN"/>
           </div>
           <Button
             style="width: 100%;"
@@ -76,7 +78,8 @@
     <div>
 
       <ItemsCarrousel
-        :items="similarCourses"/>
+        :items="similarCourses"
+        title="similar"/>
 
     </div>
 
@@ -115,11 +118,11 @@ export default {
         variables: { id: params.id }
       })
     
-      let similarCoursesData = await store.dispatch('courses/get_courses', courseData.data.course.category[0])
+      let similarCoursesData = await store.dispatch('courses/recommend_courses', courseData.data.course)
       
       return {
         course: courseData.data.course,
-        similarCourses: similarCoursesData.data.courses
+        similarCourses: similarCoursesData.data.recommendCoursesByCourse
       }
     } catch(err) {
       error({statusCode: 404, message: 'Not found'})

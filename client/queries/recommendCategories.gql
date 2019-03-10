@@ -1,0 +1,6 @@
+query recommendCategories {
+  recommendCategories {
+    id
+    title
+  }
+}

@@ -1,4 +1,5 @@
 import ALL_COURSES from '@/queries/allCourses.gql'
+import RECOMMEND_CATEGORIES from '@/queries/recommendCategories.gql'
 
 export default {
   async fetchContent ({dispatch}, category) {
@@ -25,7 +26,7 @@ export default {
         rootState.user.user.profile.interests :
         state.categories
 
-    let category = categories[0]
+    let category = categories[state.iterator]
     let component = null
 
     try {
@@ -47,6 +48,7 @@ export default {
       //error
     }
 
+    state.iterator = state.iterator + 1
     return component
   },
   async load_courses ({commit, state, dispatch, rootState}){
@@ -64,5 +66,19 @@ export default {
     } catch (e) {
       //aqqui va el error gg
     }
+  },
+  async poblate_categories ({state}) {
+    let response
+    try {
+      response = await this.app.apolloProvider.defaultClient.query({
+        query: RECOMMEND_CATEGORIES,
+        error(error) {
+          resolve(error)
+        }
+      })
+    } catch (e) {
+      // Aqui va el error
+    }
+    state.categories = response.data.recommendCategories
   }
 }

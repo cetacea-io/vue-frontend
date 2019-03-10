@@ -3,7 +3,7 @@ query course ($id: Int!) {
     id
     title
     coverImage
-    category {
+    categories {
       id
       title
     }

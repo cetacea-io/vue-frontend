@@ -1,5 +1,5 @@
-query courses ($category: Int!) {
-  courses (category: $category) {
+query recommendCoursesByCourse ($id: Int!) {
+  recommendCoursesByCourse (id: $id) {
     id
     title
     categories {
@@ -7,8 +7,7 @@ query courses ($category: Int!) {
       title
     }
     coverImage
-    author {
-      title
+    author{
       profilePicture
     }
   }

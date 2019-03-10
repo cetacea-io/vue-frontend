@@ -1,4 +1,5 @@
 import ALL_COURSES from '@/queries/allCourses.gql'
+import recommendCoursesByCourse from '@/queries/recommendCoursesByCourse.gql'
 
 export default {
   async get_courses ({dispatch}, category) {
@@ -18,5 +19,23 @@ export default {
       // Aqui va el error
     }
     return response
-  }
+  },
+  async recommend_courses ({dispatch}, course) {
+    let response
+    try {
+      response = await this.app.apolloProvider.defaultClient.query({
+        query: recommendCoursesByCourse,
+        variables: {
+          id: course.id
+        },
+        update: result => result.courses,
+        error(error) {
+          resolve(error)
+        }
+      })
+    } catch (e) {
+      // Aqui va el error
+    }
+    return response
+  },
 }
