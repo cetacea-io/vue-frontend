@@ -1,6 +1,12 @@
-export default function ({app, error}) {
-  const hasToken = !!app.$apolloHelpers.getToken()
-  if (!hasToken) {
-    error({errorCode: 503, message: 'You are not allowed to see this'})
-  }
+// import isLogged from '~/utils/isLogged'
+
+export default function ({next}) {
+  // console.log(isLogged())
+  // if (!hasToken) {
+  //   return next({name: 'index'})
+  // } else {
+  //   next()
+  // }
+  // console.log('mejor fuera que adentro')
+  next('/')
 }

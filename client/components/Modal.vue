@@ -200,11 +200,11 @@ export default {
     @media only screen and (min-width: 960px) {
       width: auto;
       height: auto;
-      min-width: 453px;
-      min-height: 392px;
+      // min-width: 453px;
+      // min-height: 392px;
     }
-    width: 100%;
-    height: 100%;
+    max-width: 80%;
+    max-height: 80%;
     background: #fff;
     border-radius: 10px;
 

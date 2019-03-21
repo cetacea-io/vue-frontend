@@ -14,7 +14,7 @@ export default {
     }
   },
   
-  async login({commit}, {id, password}) {
+  async login({commit, rootState}, {id, password}) {
     try {
       const response = await this.app.apolloProvider.defaultClient.mutate({
         mutation: tokenAuth,
@@ -38,7 +38,12 @@ export default {
         await commit('user/set_user', response.me, {root: true})
         commit('isAuthenticated')
 
-        this.app.router.push('/')
+        await commit('hideModal', true, {root: true})
+        // if(rootState.user.user.profile.interests.length <= 0){
+        //   this.app.router.push('/orientation')
+        // } else {
+          this.app.router.push('/')
+        // }
   
       } catch (e) {
         reject(error)
@@ -56,17 +61,6 @@ export default {
       // this.app.$optimizely.track('user_registered', userID)
       // Register logic
       this.app.router.push('/')
-      this.app.$loginModal.show()
-    } catch (e) {
-      console.error(e)
-    }
-  },
-
-  async commit_preferences({commit}, {interests, }) {
-    try{
-      //TODO: Fix this
-      // this.app.$optimizely.track('user_registered', userID)
-      // commmit logic
       this.app.$loginModal.show()
     } catch (e) {
       console.error(e)

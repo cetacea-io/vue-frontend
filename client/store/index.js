@@ -25,22 +25,40 @@
 //   }
 // }
 
+export const state = () => ({
+  modalVisible: false,
+  modalComponent: null
+})
+
+export const mutations = {
+  showModal(state, componentName) {
+    state.modalVisible = true
+    state.modalComponent = componentName
+  },
+  hideModal(state) {
+    state.modalVisible = false
+  }
+}
+
+
+
+
+
 import Vuex from 'vuex'
 import userModule from './user'
 import coursesModule from './courses'
 import authenticationModule from './authentication'
 import dashboardModule from './dashboard'
 
-import state from './state'
-import getters from './getters'
-import mutations from './mutations'
-import actions from './actions'
+// import state from './state'
+// import getters from './getters'
+// import mutations from './mutations'
+// import actions from './actions'
 
 const createStore = () => {
   return new Vuex.Store({
-    namespaced: true,
-    actions,
-    getters,
+    // actions,
+    // getters,
     state,
     mutations,
     modules: {

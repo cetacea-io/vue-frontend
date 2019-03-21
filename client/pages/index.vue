@@ -1,15 +1,31 @@
 <template>
   <div class="main">
 
-    <div class="container">
+    <!-- <div class="container">
       <featured-project/>
-    </div>
-
+    </div> -->
+    <h1>{{ $store.state.authentication.isAuthenticated }}</h1>
 
     <div
       class="container"
       style="text-align: center;">
       <search-box/>
+    </div>
+
+    <div class="tag-container">
+      <div class="tag-title">Trending:</div>
+      <AppCarrousel>
+        <div class="tag">Blues</div>
+        <div class="tag">Classical</div>
+        <div class="tag">Country</div>
+        <div class="tag">Dance</div>
+        <div class="tag">Electronic</div>
+        <div class="tag">HipHop</div>
+        <div class="tag">Jazz</div>
+        <div class="tag">Zappa</div>
+        <div class="tag">Rock</div>
+        <div class="tag">EDM</div>
+      </AppCarrousel>
     </div>
 
     <component
@@ -18,9 +34,7 @@
       :is="component.type"
       v-bind="component.properties"/>
 
-    <img 
-      src="~/assets/img/loader.svg"
-      style="margin: 50px auto 0 auto; width: 60px; display: block;">
+    <Loader v-if="isLoading"/>
 
   <!-- <div 
       v-if="true"
@@ -100,35 +114,35 @@
 <script>
 import FeaturedProject from '@/components/FeaturedProject'
 import SearchBox from '@/components/SearchBox'
+import Loader from '@/components/Loader'
+import AppCarrousel from '@/components/AppCarrousel'
 
 import { mapGetters, mapActions } from 'vuex'
 
 export default {
   async asyncData ({store, error, app, params}) {
+    await store.dispatch('dashboard/poblate_categories')
 
     return {
       enabled: app.$optimizely.isFeatureEnabled('show_projects', 'bob'),
     }
   },
-  async fetch({store}){
-    await store.dispatch('dashboard/poblate_categories')
-  },
   components: {
     FeaturedProject,
     SearchBox,
+    Loader,
+    AppCarrousel
   },
   data(){ 
     return {
-      content: []
+      content: [],
+      isLoading: false,
     }
   },
   computed: {
   },
   beforeMount() {
     window.addEventListener('scroll', this.handleScroll)
-  },
-  mounted() {
-    this.applyContent()
   },
   beforeDestroy() {
     window.removeEventListener('scroll', this.handleScroll)
@@ -138,21 +152,40 @@ export default {
       loadContent: 'dashboard/loadContent'
     }),
     async applyContent(){
+      this.isLoading = true
       let newContent = await this.loadContent()
       this.content.push(newContent)
+      this.isLoading = false
     },
-    handleScroll() {
+    async handleScroll() {
       let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight
 
       if (bottomOfWindow) {
-        this.applyContent()
+        await this.applyContent()
       }
     }
   }
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+.tag-container{
+  // display: inline-flex;
+  // align-items: center;
+  display: grid;
+  align-items: center;
+  grid-template-columns: auto 1fr;
+
+  .tag-title {
+    margin-right: 10px;
+  }
+  .tag{
+    background: #444;
+    padding: 7px 23px;
+    border-radius: 5px;
+    margin: 5px;
+  }
+}
 
 .section {
   padding: 30px 16px;

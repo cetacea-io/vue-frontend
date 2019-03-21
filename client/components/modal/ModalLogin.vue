@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="margin: 21px 45px;">
     <div style="margin: 0px auto 25px; max-width: 385px;">
       <h3 class="title">Accesa a las mejores ideas del mundo</h3>
     </div>
@@ -72,7 +72,7 @@
 
 
         <div>
-          <div style="border-bottom: 1px solid rgb(239, 239, 239); margin: 20px 0px 15px -68px; width: 404px;"/>
+          <div style="border-bottom: 1px solid rgb(239, 239, 239); margin: 20px auto 15px auto; width: 100%;"/>
           <div>
             <div style="margin: 0px auto 5px; width: fit-content; display: flex; align-items: baseline;">
               <a class="already-member">Ya eres miembro? <span style="color: #0a9ffc;font-weight: 600;">Ingresa aquí</span></a>

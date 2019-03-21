@@ -46,7 +46,6 @@ import AppCover from '@/components/project/AppCover'
 import AppSections from '@/components/project/AppSections'
 import UserSnippet from '@/components/UserSnippet'
 // @ts-ignore
-import { loginRequired } from '@/utils/authentication'
 // @ts-ignore
 import { meta } from '@/utils/seo/meta'
 //@ts-ignore

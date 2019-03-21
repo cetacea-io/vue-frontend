@@ -15,6 +15,7 @@
         :url="getFullPath"
         :title="getTitle"
         :description="getDescription"
+        class="social-share"
         quote="Vue is a progressive framework for building user interfaces."
         hashtags="vuejs,javascript,framework"
         twitter-user="cetacea"/>
@@ -208,9 +209,14 @@ export default {
   border-radius: 10px;
 }
 .temp {
+  @media only screen and (min-width: 960px) {
+    padding: 1em;
+    flex-flow: row;
+    align-items: start;
+  }
   display: flex;
   justify-content: space-between;
-  padding: 1em;
+  padding: 2em 0;
   border-color: hsl(217, 32%, 15%);
   // border-style: solid;
   border-top-width: 0px;
@@ -218,8 +224,17 @@ export default {
   border-left-width: 0px;
   border-right-width: 0px;
   width: 100%;
+  flex-flow: column;
+  align-items: center;
   &:last-child{
     border: none;
   }
+}
+
+.social-share{
+  @media only screen and (min-width: 960px) {
+    padding: 0;
+  }
+  padding-top: 20px;
 }
 </style>

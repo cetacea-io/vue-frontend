@@ -1,59 +1,28 @@
 <template>
   <div class="feeder-wrapper">
-    <div 
-      v-show="step === 1"
-      class="first">
+    <div class="first">
       <h2>Cuales son tus {{ maxSelected }} intereses?</h2>
+      <h3>Ingresa cuales son tus intereses principales que deseas</h3>
       <div class="option-wrapper">
         <AppOption
           v-for="interest in interests"
           ref="option"
           v-model="checkedInterests"
           :key="interest.id"
-          :selected="interest.checked"
           :title="interest.title"
           :name="interest.title"
-          :val="interest.title"
-          :svg="interest.image"
+          :val="interest"
+          :image="interest.image"
         />
       </div>
     </div>
-
-    <div v-show="step === 2">
-      <h2>Tienes algun interes que no se menciono?</h2>
-    </div>
-
-    <div v-show="step === 3">
-      <h2>¿Cuáles son tus habilidades?</h2>
-      <h3>A qué te dedicas, que estudias(o estudiaste), que sabes hacer en general. Ej. Actuación, Piano, Dibujo, Arquitectura, Ilustración, etc. Sé tan específico como gustes.</h3>
-      <form>
-        <input
-          type="text"
-          name="fname" >
-      </form>
-    </div>
-
-    <div v-show="step === 4">
-      <h2>A que tipo de proyectos te gustaria contribuir</h2>
-      <form>
-        <input
-          type="text"
-          name="fname" >
-      </form>
-    </div>
-
-    <Button
-      class="button"
-      @click.native="next">
-      Siguente
-    </Button>
   </div>
 </template>
 
 <script>
 import AppOption from '@/components/AppOption'
 
-import { mapGetters } from 'vuex';
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -61,9 +30,8 @@ export default {
   },
   data() {
     return {
-      step: 1,
       interestsLiked: [],
-      maxSelected: 3
+      maxSelected: 7
     }
   },
   computed: {
@@ -81,56 +49,52 @@ export default {
               this.$refs.option[x].disabled = true
           }
           this.$emit('valid', true)
-          for (var x in this.interests){
-            if( this.$refs.option[x].selected )
-              this.$store.commit('SET_INTEREST', x, true)
-            else
-              this.$store.commit('SET_INTEREST', x, false)
-          }
         } else {
           for (var x in this.interests){
             this.$refs.option[x].disabled = false
           }
           this.$emit('valid', false)
         }
-          this.interestsLiked = val
+        this.interestsLiked = val
       }
     }
   },
-  beforeCreate() {
-    document.body.style.overflowY = 'hidden'
-  },
-  methods: {
-    next() {
-      this.step++
-    }
+  mounted() {
+    this.$emit('mounted', true)
   },
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .feeder-wrapper{
   width: 100%;
   height: 100%;
   display: grid;
   grid-template-rows: repeat(auto-fit, minmax(48px, auto));
-  color: #000;
+  color: inherit;
 }
 .first{
   display: grid;
   /* grid-template-rows: repeat(auto-fit, minmax(68px, 1fr)); */
   height: 100%;
-  padding: 19px;
 }
 h2{
-  padding-bottom: 19px;
+  margin-bottom: 19px;
+  text-align: center;
+}
+h3{
+  text-align: center;
+  margin-bottom: 2em;
+  font-weight: 500;
 }
 .option-wrapper {
-  overflow-y: scroll;
+  @media only screen and (min-width: 768px) {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-column-gap: 5px;
-  grid-row-gap: 5px;
+  grid-column-gap: 9px;
+  grid-row-gap: 9px;
   grid-auto-rows: 139px;
 }
 .button {

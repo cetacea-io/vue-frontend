@@ -37,7 +37,6 @@ module.exports = {
     { src: '~/plugins/design-system', ssr: true },
     '@/mixins/mixins',
     '@/mixins/form-modal',
-    '~/plugins/login-modal',
     { src: '~/plugins/localStorage', ssr: false },
     { src: '~/plugins/segment', ssr: false },
     { src: '~/plugins/optimizely', ssr: true },
@@ -48,9 +47,8 @@ module.exports = {
   ** Nuxt.js modules
   */
   modules: [
+    '@nuxtjs/router',
     '@nuxtjs/dotenv',
-    '@/modules/typescript',
-    '@nuxtjs/onesignal',
     '@nuxtjs/apollo',
     '@nuxtjs/pwa',
     ['nuxt-sass-resources-loader', 'cetacea-design-system/dist/system/system.css'],
@@ -114,9 +112,6 @@ module.exports = {
     }
   },
   srcDir: 'client/',
-  router: {
-    base: `/`
-  },
   /*
   ** Build configuration
   */

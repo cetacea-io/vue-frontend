@@ -19,7 +19,7 @@
         <div class="curtain" />
 
         <div
-          :style="{ 'background-image': 'url(' + svg + ')' }"
+          :style="{ 'background-image': 'url(' + image + ')' }"
           class="content-wrapper">
           <div class="text">
             {{ title }}
@@ -44,29 +44,25 @@ export default {
       required: true
     },
     value: {
-      type: String,
+      type: Array,
       required: false,
-      default: 'none'
+      default: null
     },
     val: {
-      type: String,
-      required: false,
-      default: 'none'
+      type: Object,
+      required: true,
+      default: null
     },
-    svg: {
+    image: {
       type: String,
       required: true,
-    },
-    selected: {
-      type: Boolean,
-      required: false,
-      default: false
     }
   },
   data () {
     return{
-        checkedProxy: false,
-        disabled: false,
+      checkedProxy: false,
+      disabled: false,
+      selected: false,
     }
   },
   computed: {
@@ -98,13 +94,12 @@ $default-font: 'Soleil';
 $shadow-color: #dfe0eb;
 
 .curtain {
-  background: rgba(0,0,0,0.7);
+  background: rgba(0,0,0,0.3);
   align-self: center;
   border-radius: 10px;
   height: 100%;
   width: 100%;
   position: absolute;
-  display: none;
 
   transition: all 0.5s ease;
 }
@@ -116,6 +111,9 @@ $shadow-color: #dfe0eb;
   border-radius: 10px;
   height: 100%;
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .disabled{
@@ -124,13 +122,15 @@ $shadow-color: #dfe0eb;
         color: $shadow-color;
     }
 
+    .content-wrapper{
+      opacity: 0.5;
+      filter: grayscale(100%);
+    }
+
     label:hover input ~ .checkmark {
     border-color: $shadow-color;
     .text{
       color: $shadow-color;
-    }
-    svg{
-      fill: $shadow-color;
     }
 }
 }
@@ -229,20 +229,13 @@ label input {
 //     .text{
 //       color: $accent-color;
 //     }
-//     svg{
-//       fill: $accent-color;
-//     }
 // }
 .text{
   color: #FFFFFF;
   text-shadow: 0px 0px 13px #252525;
   font-weight: 600;
-  font-size: 1.2rem;
-  bottom: 0;
-  position: absolute;
-
-  margin-bottom: 6px;
-  margin-left: 11px;
+  font-size: 1.3rem;
+  z-index: 1;
 }
 
 /* When the radio button is checked, add a blue background */
@@ -251,7 +244,7 @@ label input:checked ~ .checkmark {
     display: flex;
   }
   .curtain {
-    display: block;
+    background: rgba(0,0,0,0.7);
   }
   .text{
     color: #ffffff;
