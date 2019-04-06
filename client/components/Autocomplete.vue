@@ -116,7 +116,7 @@
       @keydown.up="onArrowUp"
       @keydown.enter="onEnter"
     >
-    <ul
+    <!-- <ul
       v-show="isOpen"
       id="autocomplete-results"
       class="autocomplete-results"
@@ -137,16 +137,31 @@
       >
         {{ result }}
       </li>
-    </ul>
+    </ul> -->
   </div>
 </template>
 
 <style scoped>
   .autocomplete {
     position: relative;
+    height: 46px;
   }
 
   .input {
+    vertical-align: middle;
+    width: 100%;
+    height: 100%;
+    padding: 0 17px;
+    font-size: 16px;
+    color: #ffffff;
+    border: 1px solid transparent;
+    transition: border-color 250ms ease, padding 250ms ease;
+    border-radius: 50px;
+    font-family: 'Soleil';
+    background: #13131d;
+  }
+
+  /* .input {
     vertical-align: middle;
     display: inline-block;
     width: auto;
@@ -160,7 +175,7 @@
     -webkit-border-radius: 5px;
     border-radius: 5px;
     font-family: 'Soleil';
-  }
+  } */
 
   .autocomplete-results {
     padding: 0;

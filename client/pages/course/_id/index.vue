@@ -16,8 +16,8 @@
         :title="getTitle"
         :description="getDescription"
         class="social-share"
-        quote="Vue is a progressive framework for building user interfaces."
-        hashtags="vuejs,javascript,framework"
+        quote="Un nuevo curso en Cetacea"
+        hashtags="arte,cultura,talleres"
         twitter-user="cetacea"/>
 
     </div>
@@ -27,13 +27,17 @@
         <Card class="card-wrapper">
           <h2 class="title">Descripción</h2>
           <div class="description">
-            <div v-if="course.overview"><vue-markdown>{{ course.overview }}</vue-markdown></div>
+            <div v-if="course.overview">
+              <span v-html="compiledMarkdown(course.overview)" />
+            </div>
             <div v-else>Por el momento no hay una descripción disponible.</div>
           </div>
           <h2 class="title">Fechas y Horarios</h2>
           <div class="description">
-            <div v-if="course.overview"><vue-markdown>{{ course.overview }}</vue-markdown></div>
-            <div v-else>Por el momento no hay una descripción disponible.</div>
+            <div v-if="course.dateAndTime">
+              <span v-html="compiledMarkdown(course.dateAndTime.text)" />
+            </div>
+            <div v-else>Por el momento no se especifican las fechas.</div>
           </div>
           <div v-if="course.instructors.length > 0">
             <h2 class="title"> Imparte </h2>
@@ -48,16 +52,18 @@
           </div>
         </Card>
         <Card class="card-wrapper">
-          <h2 class="title">Cooperación</h2>
+          <h2 class="title">Costo</h2>
           <div style="text-align:center;">
             <PriceTag 
               :amount="600"
               currency="MXN"/>
           </div>
           <Button
+            :href="course.url"
             style="width: 100%;"
-            @click.native="register">
-            Inscríbete ahora
+            target="_blank"
+            type="a">
+            Más información
           </Button>
         </Card>
       </div>
@@ -93,13 +99,13 @@ import AppCover from '@/components/project/AppCover';
 // @ts-ignore
 import UserSnippet from '@/components/UserSnippet';
 // @ts-ignore
-import VueMarkdown from 'vue-markdown';
-// @ts-ignore
 import SocialShare from '@/components/social-share/SocialShare';
 // @ts-ignore
 import { meta } from '@/utils/seo/meta';
 
 import { course } from '@/queries/course';
+
+import marked from 'marked'
 
 //@ts-ignore
 import GoogleMap from '@/components/GoogleMap';
@@ -146,7 +152,6 @@ export default {
     AppCover,
     UserSnippet,
     GoogleMap,
-    VueMarkdown,
     SocialShare,
     ItemsCarrousel,
     PriceTag
@@ -160,12 +165,19 @@ export default {
     },
     getDescription(){
       return this.course.description
-    },
+    }
   },
   methods: {
-    ...mapActions({
-      register: 'user/register',
-    }),
+    // ...mapActions({
+    //   register: 'user/register',
+    // }),
+    register(){
+      const url = this.course.url
+      window.open(this.course.url, '_blank')
+    },
+    compiledMarkdown(input){
+      return marked(input, { sanitize: true }) 
+    }
   }
 }
 </script>

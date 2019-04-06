@@ -4,30 +4,46 @@
     :style="{ top: computedTop }"
     class="navbar-container">
     <div
-      v-if="isAuthenticated"
+      v-if="isAuth"
       class="normal container">
+
+      <img
+        style="height:50px;"
+        src="~/static/icon.png">
+
+      <NavbarSearch class="searcher"/>
+
       <Avatar
         :image="user.profile.profilePicture" />
-      {{ userFullName }}
+
     </div>
     <div
       v-else
       class="normal container">
+
       <img
         style="height:50px;"
         src="~/static/icon.png">
+
+      <NavbarSearch class="searcher"/>
+
       <Button @click.native="showModal('ModalLogin')">
         Registrate
       </Button>
+
     </div>
   </nav>
 </template>
 
 <script>
 import { mapMutations, mapGetters } from 'vuex'
+import NavbarSearch from '@/components/NavbarSearch'
 
 export default {
   name: 'TheNavbar',
+  components: {
+    NavbarSearch
+  },
   data() {
     return {
       currentScroll: false,
@@ -40,12 +56,12 @@ export default {
       user: 'user/user',
       isAuthenticated: 'authentication/isAuthenticated'
     }),
-    userFullName() {
-      return `${this.user.firstName} ${this.user.lastName}`
-    },
     computedTop() {
       return this.top
     },
+    isAuth() {
+      return !!this.user
+    }
   },
   beforeMount() {
     window.addEventListener('scroll', this.handleScroll)
@@ -73,9 +89,9 @@ export default {
 
 <style lang="scss" scoped>
 .navbar-container {
-  background: #000;
+  background: #2b2c40;
   // background: $color-ucla-gold;
-  height: auto; /* This is for the main menu bit at the top */
+  height: 76px; /* This is for the main menu bit at the top */
   /*width: 100%;			/* This means on every screen no matter the size, the width will cover the top  */
   line-height: normal;
   text-align: center;
@@ -104,6 +120,9 @@ li {
   text-decoration: none;
   list-style: none;
   display: inline-block;
+}
+.searcher {
+  margin: 0 20px;
 }
 .secondary-section {
   width: 100%;

@@ -22,9 +22,14 @@
       class="scrolling-wrapper">
       <component
         v-for="(item, index) in items"
-        :is="item.component"
+        :is="MiniProjectCard"
         :key="index"
-        v-bind="item.properties"
+        :image="item.coverImage"
+        :title="item.title"
+        category="`cursos`"
+        author-image="item.author.profilePicture"
+        date=""
+        route="`/course/${item.id}`"
         type="nuxt-link"
         class="mini"
       />
@@ -35,14 +40,11 @@
 
 <script>
 import AppCarrousel from '@/components/AppCarrousel'
-import AppEventCard from '@/components/AppEventCard'
-import AppProjectCard from '@/components/AppProjectCard'
 
 export default {
   components: {
     AppCarrousel,
-    AppEventCard,
-    AppProjectCard
+    // 'MiniProjectCard': () => import(`./MiniProjectCard`),
   },
   props: {
     items: {
@@ -53,12 +55,7 @@ export default {
       type: String,
       required: true
     }
-  },
-  data() {
-    return {
-      //
-    }
-  },
+  }
 }
 </script>
 
@@ -95,7 +92,7 @@ export default {
 
 .mini{
   // width: 252px;
-  width: 80%;
+  width: 80vw;
   padding: 5px;
 }
 </style>

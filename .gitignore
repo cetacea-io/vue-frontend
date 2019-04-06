@@ -89,3 +89,6 @@ OneSignalSDKWorker.js
 
 #secrets
 secrets.json
+
+#VSCODE
+.vscode/

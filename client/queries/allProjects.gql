@@ -2,7 +2,7 @@ query projects{
   projects {
     id
     title
-    coverImage
+    image: coverImage
     category
     location
     quickDesc

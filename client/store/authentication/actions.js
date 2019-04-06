@@ -9,12 +9,14 @@ export default {
         query: me
       })
       .then(({data}) => data)
+
+      await commit('user/set_user', response.me, {root: true})
     } catch (e) {
       console.error(e)
     }
   },
   
-  async login({commit, rootState}, {id, password}) {
+  async login({commit, rootState, dispatch}, {id, password}) {
     try {
       const response = await this.app.apolloProvider.defaultClient.mutate({
         mutation: tokenAuth,
@@ -27,27 +29,39 @@ export default {
         }
       })
       .then(({data}) => data)
+
       await this.app.$apolloHelpers.onLogin(response.tokenAuth.token)
       
-      try {
-        const response = await this.app.apolloProvider.defaultClient.query({
-          query: me
-        })
-        .then(({data}) => data)
-  
-        await commit('user/set_user', response.me, {root: true})
-        commit('isAuthenticated')
+      dispatch('fetch')
 
         await commit('hideModal', true, {root: true})
+
+          commit('isAuthenticated')
         // if(rootState.user.user.profile.interests.length <= 0){
         //   this.app.router.push('/orientation')
         // } else {
           this.app.router.push('/')
         // }
+
+      // try {
+      //   const response = await this.app.apolloProvider.defaultClient.query({
+      //     query: me
+      //   })
+      //   .then(({data}) => data)
   
-      } catch (e) {
-        reject(error)
-      }
+      //   await commit('user/set_user', response.me, {root: true})
+      //   commit('isAuthenticated')
+
+      //   await commit('hideModal', true, {root: true})
+      //   // if(rootState.user.user.profile.interests.length <= 0){
+      //   //   this.app.router.push('/orientation')
+      //   // } else {
+      //     this.app.router.push('/')
+      //   // }
+  
+      // } catch (e) {
+      //   reject(error)
+      // }
   
     } catch (e) {
       reject(error)

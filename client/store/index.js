@@ -41,6 +41,26 @@ export const mutations = {
 }
 
 
+export const actions = {
+  nuxtServerInit ({dispatch, commit}, context) {
+    return new Promise((resolve, reject) => {
+      // const cookies = cookie.parse(context.req.headers.cookie || '')
+      // if (cookies.hasOwnProperty())
+      if (context.app.$apolloHelpers.getToken()){
+        // context.app.$apolloHelpers.onLogin(context.app.$apolloHelpers.getToken())
+        dispatch('authentication/fetch', {root: true})
+          .then(result => {
+            resolve(true)
+          })
+        // commit('authentication/isAuthenticated', true, {root : true})
+      }
+      else {
+        resolve(true)
+      }
+    })
+  }
+}
+
 
 
 
@@ -57,7 +77,7 @@ import dashboardModule from './dashboard'
 
 const createStore = () => {
   return new Vuex.Store({
-    // actions,
+    actions,
     // getters,
     state,
     mutations,

@@ -26,10 +26,17 @@ module.exports = {
   ** Global CSS
   */
   css: [
-    '@/assets/css/main',
-    '@/assets/css/variables',
+    '~/assets/css/main',
+    '~/assets/css/variables',
     'cetacea-design-system/dist/system/system'
   ],
+
+  styleResources: {
+    scss: [
+      '~/assets/css/main',
+      '~/assets/css/variables',
+    ]
+  },
   /*
   ** Plugins to load before mounting the App
   */
@@ -47,11 +54,10 @@ module.exports = {
   ** Nuxt.js modules
   */
   modules: [
-    '@nuxtjs/router',
     '@nuxtjs/dotenv',
     '@nuxtjs/apollo',
     '@nuxtjs/pwa',
-    ['nuxt-sass-resources-loader', 'cetacea-design-system/dist/system/system.css'],
+    ['@nuxtjs/style-resources','cetacea-design-system/dist/system/system.css'],
     '@nuxtjs/sitemap'
   ],
   /*
@@ -111,11 +117,35 @@ module.exports = {
       treshold: 0
     }
   },
+
+  /**
+   * Router
+   */
+  router: {
+    middleware: ['isAuthenticated']
+  },
   srcDir: 'client/',
   /*
   ** Build configuration
   */
   build: {
+    /**
+     * Babel
+     */
+    babel: {
+      presets({ isServer }) {
+        return [
+          [
+            require.resolve('@nuxt/babel-preset-app'),
+            // require.resolve('@nuxt/babel-preset-app-edge'), // For nuxt-edge users
+            {
+              targets: isServer ? { node: '10' } : { ie: '11' },
+              corejs: { version: 3 }
+            }
+          ]
+        ]
+      }
+    },
     /*
     ** PostCSS
     */

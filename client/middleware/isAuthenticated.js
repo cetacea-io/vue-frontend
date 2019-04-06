@@ -1,12 +1,6 @@
-// import isLogged from '~/utils/isLogged'
-
-export default function ({next}) {
-  // console.log(isLogged())
-  // if (!hasToken) {
-  //   return next({name: 'index'})
-  // } else {
-  //   next()
-  // }
-  // console.log('mejor fuera que adentro')
-  next('/')
+export default function ({store, route, redirect}) {
+  const userIsLoggedIn = !!store.state.user.user
+  if (userIsLoggedIn && route.path !== '/orientation'){
+    return redirect('/orientation')
+  }
 }

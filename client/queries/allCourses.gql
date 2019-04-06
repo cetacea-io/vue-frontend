@@ -1,12 +1,12 @@
 query courses ($category: Int!) {
   courses (category: $category) {
-    id
-    title
+    id: id
+    title: title
     categories {
       id
       title
     }
-    coverImage
+    image: coverImage
     author {
       title
       profilePicture

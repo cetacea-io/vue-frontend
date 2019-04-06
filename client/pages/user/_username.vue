@@ -2,9 +2,28 @@
   <div class="container profile">
 
     <div class="user-wrapper">
-      <Avatar
-        :image="user.profile.profilePicture"
-        class="user-avatar" />
+      <div
+        :style="{ 'background-image': 'url(' + user.profile.profilePicture + ')' }"
+        class="avatar user-avatar">
+        <div 
+          style="
+          z-index: 1;
+          background: #4573fc;
+          width: 45px;
+          height: 45px;
+          border-radius: 100%;
+          position: absolute;
+          bottom: 13px;
+          right: 11px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          box-shadow: 0 0 0 6px #000;
+          padding: 12px;
+          ">
+          <div class="check-icon"/>
+        </div>
+      </div>
 
       <div class="username-wrapper">
         <div class="name-wrapper">
@@ -24,6 +43,37 @@
       <!-- <div v-if="user.id == $store.getters['authentication/actualUser'].id"> -->
       <!-- {{ user.id }} {{ $store.getters['authentication/actualUser'].id }} -->
       <!-- </div> -->
+    </div>
+
+    <div class="card-wrapper">
+      <div
+        style="
+        border: 1px solid #2a3240;
+        border-left: 0;
+        border-right: 0;
+        display: flex;
+        justify-content: space-around;
+      ">
+        <div>
+          <div
+            style="
+            font-size: 1.5em;
+            font-weight: 600;">
+            1,020
+          </div>
+          <div>Posts</div>
+        </div>
+
+        <div>
+          <div>1,020</div>
+          <div>Posts</div>
+        </div>
+        <div>
+          <div>1,020</div>
+          <div>Posts</div>
+        </div>
+
+      </div>   
     </div>
 
     <Card class="card-wrapper">
@@ -153,6 +203,37 @@ export default {
 </script>
 
 <style scoped>
+.avatar{
+  background-size: cover;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  border-radius: 100%;
+  border: 2px solid #b338a3;
+  background-clip: padding-box;
+  box-shadow: inset 0 0 0 11px #000000;
+  position: relative;
+}
+
+.check-icon{
+  mask-image: url('~assets/img/verify-sign.svg');
+  mask-size: cover;
+  background-color: #fff;
+  height: 100%;
+  width: 100%;
+  border-radius: 500px;
+}
+
+.user-avatar{
+  height: 200px !important;
+  width: 200px !important;
+  margin: 0 auto;
+}
+
+.bio{
+  color: #7689a7;
+  text-align: center;
+}
+
 .card-wrapper{
   margin: 20px;
 }

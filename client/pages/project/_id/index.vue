@@ -3,15 +3,6 @@
     <AppCover
       :title="project.title" 
       :image="project.coverImage"/>
-
-    <div class="temp">
-      <!-- <p>{{ project.quickDesc }}</p> -->
-      <nuxt-link to="/register">
-        <Button type="a">
-          Registrate en Cetacea
-        </Button>
-      </nuxt-link>
-    </div>
     <div class="temp">
       <p>Categoría: {{ project.category }}</p>
 
@@ -45,7 +36,6 @@ import AppCover from '@/components/project/AppCover'
 // @ts-ignore
 import AppSections from '@/components/project/AppSections'
 import UserSnippet from '@/components/UserSnippet'
-// @ts-ignore
 // @ts-ignore
 import { meta } from '@/utils/seo/meta'
 //@ts-ignore

@@ -7,7 +7,7 @@
       name="Proyecto">
 
       <Card>
-        <vue-markdown>{{ overview }}</vue-markdown>
+        <!-- <vue-markdown>{{ overview }}</vue-markdown> -->
         <!-- Mi parte -->
         <!-- Ingresos (esperados) -->
         <!-- Riesgos y retos -->
@@ -78,7 +78,7 @@ import AppCreateComment from '@/components/AppCreateComment'
 import AppCommentsList from '@/components/AppCommentsList'
 import AppPositionsList from '@/components/project/AppPositionsList'
 import AppFeedList from '@/components/project/AppFeedList'
-import VueMarkdown from 'vue-markdown'
+// import VueMarkdown from 'vue-markdown'
 
 export default {
   name: 'AppSections',
@@ -89,7 +89,7 @@ export default {
     AppCommentsList,
     AppPositionsList,
     AppFeedList,
-    VueMarkdown
+    // VueMarkdown
   },
   props: {
     id: {

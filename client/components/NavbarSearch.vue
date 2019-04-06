@@ -6,12 +6,6 @@
       :async="true"
       placeholder="Que te interesa?"
       @enter="search(searchbox)"/>
-    <button
-      type="submit"
-      class="main-button"
-      @click="search(searchbox)">
-      Buscar
-    </button>
   </div>
 </template>
 
@@ -19,7 +13,7 @@
 import Autocomplete from '@/components/Autocomplete'
 
 export default {
-  name: 'SearchBox',
+  name: 'NavbarSearch',
   components: {
     Autocomplete
   },
@@ -40,23 +34,6 @@ export default {
 <style scoped>
 .searchbox-wrapper{
   width: 100%;
-}
-
-.main-button{
-  padding: 25px;
-  font-size: 16px;
-  margin: 10px;
-  -webkit-transition: padding 250ms ease;
-  transition: padding 250ms ease;
-  display: inline-block;
-  border: none;
-  font-weight: 600;
-  text-decoration: none;
-  text-align: center;
-  -webkit-border-radius: 4px;
-  border-radius: 4px;
-  /* background-color: #fa6484; */
-  background-color: #00ceb3;
-  color: #fff;
+  height: 46px;
 }
 </style>

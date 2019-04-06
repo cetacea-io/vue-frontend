@@ -205,7 +205,7 @@ export default {
     }
     max-width: 80%;
     max-height: 80%;
-    background: #fff;
+    background: rgba(14,36,57,.98);
     border-radius: 10px;
 
     display: flex;

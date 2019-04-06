@@ -4,37 +4,40 @@
     <!-- <div class="container">
       <featured-project/>
     </div> -->
-    <h1>{{ $store.state.authentication.isAuthenticated }}</h1>
 
-    <div
+    <!-- <div
       class="container"
       style="text-align: center;">
       <search-box/>
-    </div>
+    </div> -->
 
     <div class="tag-container">
-      <div class="tag-title">Trending:</div>
+      <div class="tag-title">
+        <i class="fas fa-sliders-h" />
+      </div>
       <AppCarrousel>
-        <div class="tag">Blues</div>
-        <div class="tag">Classical</div>
-        <div class="tag">Country</div>
-        <div class="tag">Dance</div>
-        <div class="tag">Electronic</div>
-        <div class="tag">HipHop</div>
-        <div class="tag">Jazz</div>
-        <div class="tag">Zappa</div>
-        <div class="tag">Rock</div>
-        <div class="tag">EDM</div>
+        <div 
+          v-for="(category, index) in categories"
+          :key="index"
+          class="tag">
+          {{ category.title }}
+        </div>
       </AppCarrousel>
     </div>
 
-    <component
-      v-for="(component, index) in content"
-      :key="index"
-      :is="component.type"
-      v-bind="component.properties"/>
+    <div class="container">
+      <component
+        v-for="(component, index) in content"
+        :key="index"
+        :is="component.type"
+        v-bind="component.properties"/>
+    </div>
 
     <Loader v-if="isLoading"/>
+
+    <!-- <AppProjectCard
+      v-bind="event"
+    /> -->
 
   <!-- <div 
       v-if="true"
@@ -116,6 +119,7 @@ import FeaturedProject from '@/components/FeaturedProject'
 import SearchBox from '@/components/SearchBox'
 import Loader from '@/components/Loader'
 import AppCarrousel from '@/components/AppCarrousel'
+import AppProjectCard from '@/components/AppProjectCard'
 
 import { mapGetters, mapActions } from 'vuex'
 
@@ -131,18 +135,41 @@ export default {
     FeaturedProject,
     SearchBox,
     Loader,
-    AppCarrousel
+    AppCarrousel,
+    AppProjectCard
   },
   data(){ 
     return {
       content: [],
       isLoading: false,
+      categories: [
+        {title: 'Blues'},
+        {title: 'Zappa'},
+        {title: 'EDM'},
+        {title: 'Chango'},
+        {title: 'changa'},
+      ],
+      event: {
+        image: "https://scontent.fntr3-1.fna.fbcdn.net/v/t1.0-9/19260392_780388468809321_8919585700069935588_n.png?_nc_cat=110&_nc_ht=scontent.fntr3-1.fna&oh=2ecb2aee139efc9b43f79adfc0fc2f59&oe=5D037DB4",
+        title: "Did Procreate change illustration?",
+        category: "`cursos`",
+        authorImage: "item.author.profilePicture",
+        date: "item.author.title",
+        route: "`/course/${item.id}`",
+        type: "nuxt-link"
+      }
     }
   },
   computed: {
   },
+  // middleware: ['isAuthenticated'],
   beforeMount() {
     window.addEventListener('scroll', this.handleScroll)
+  },
+  mounted(){
+    for (let i = 0; i <= 5; i++){
+      this.applyContent()
+    }
   },
   beforeDestroy() {
     window.removeEventListener('scroll', this.handleScroll)
@@ -178,12 +205,20 @@ export default {
 
   .tag-title {
     margin-right: 10px;
-  }
-  .tag{
-    background: #444;
+    background: transparent;
+    color: rgb(0, 153, 255);
     padding: 7px 23px;
     border-radius: 5px;
     margin: 5px;
+    // border: 1px solid rgb(117, 117, 117);
+  }
+  .tag{
+    background: transparent;
+    color: rgb(117, 117, 117);
+    padding: 7px 23px;
+    border-radius: 5px;
+    margin: 5px;
+    border: 1px solid rgb(117, 117, 117);
   }
 }
 

@@ -21,12 +21,14 @@ export default {
     return response
   },
   async loadContent ({commit, dispatch, state, rootState}) {
+    // Get the categories
     let categories
-      = rootState.authentication.isAuthenticated ?
+      = !!rootState.user.user ?
         rootState.user.user.profile.interests :
         state.categories
-
+    console.log(state.iterator)
     let category = categories[state.iterator]
+    
     let component = null
 
     try {
@@ -35,10 +37,20 @@ export default {
 
       let { data } = await dispatch('fetchContent', category)
 
+      let itemsArray = []
+      for (var i = 0; i < data.courses.length; i++) {
+        itemsArray.push(
+          { properties: data.courses[i],
+            component: `AppProjectCard`
+          }
+        )
+      }
+
       let componentProperties = {
         title: category.title,
-        items: data.courses
+        items: itemsArray
       }
+
       component = {
         type: () => import(`../../components/${componentType}`),
         properties: componentProperties,
@@ -49,12 +61,13 @@ export default {
     }
 
     state.iterator = state.iterator + 1
+    console.log(state.iterator)
     return component
   },
   async load_courses ({commit, state, dispatch, rootState}){
     try{
       let categories
-          = rootState.authentication.isAuthenticated ?
+          = !!rootState.user.user ?
             rootState.user.user.profile.interests : 
             state.categories
       for(let interest of categories) {
