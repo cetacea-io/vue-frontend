@@ -1,107 +1,67 @@
 <template>
-  <div class="container">
-    <AppCover
-      :title="project.title" 
-      :image="project.coverImage"/>
-    <div class="temp">
-      <p>Categoría: {{ project.category }}</p>
+  <div>
+    <div style="width: 100%; height: 100%; position: relative;">
+      <no-ssr>
+        <AppCarrousel>
+        
+          <div 
+            v-for="(position, index) in project.positions"
+            :key="index"
+            class="position-schema">
 
-      <p v-if="project.location">Locación: {{ project.location }}</p>
-      <p v-else>No se requiere ubicación</p>
+            <MiniPositionCard
+              :id="position.id"
+              :title="position.title"
+              :description="position.description"
+              :contributors="position.randomContributors"
+              :already-applied="position.alreadyApplied"
+            />
 
+          </div>
+
+        </AppCarrousel>
+      </no-ssr>
     </div>
 
+    <article class="content-wrapper">
 
-    <div class="temp meta">
-      <UserSnippet
-        :username="project.author.user.username"
-        :image="project.author.profilePicture"
-        :name="`${project.author.user.firstName} ${project.author.user.lastName}`"
-        type="user"/>
-    </div>
+      <Card style="background: #071119;">
+        <Markdown :content="project.overview" />
+      </Card>
 
-    <AppSections 
-      :id="project.id"
-      :overview="project.overview"
-      :positions="project.positions"
-      :comments="project.comments"
-    />
-
+    </article>
   </div>
 </template>
 
 <script>
-//@ts-ignore
-import AppCover from '@/components/project/AppCover'
-// @ts-ignore
-import AppSections from '@/components/project/AppSections'
-import UserSnippet from '@/components/UserSnippet'
-// @ts-ignore
-import { meta } from '@/utils/seo/meta'
-//@ts-ignore
-import { project } from '@/queries/project'
+import AppCarrousel from '@/components/AppCarrousel'
+import Markdown from '@/components/Markdown'
+import MiniPositionCard from '@/components/project/MiniPositionCard'
 
 export default {
-  async asyncData ({store, error, app, params}) {
-    try {
-      const { data } = await app.apolloProvider.defaultClient.query({
-        query: project,
-        variables: { id: params.id }
-      })
-      return {project: data.project}
-    } catch(err) {
-      error({statusCode: 404, message: 'Not found'})
-    }
-    //@ts-ignore
-    // analytics.track('Looked project', {
-    //   user: store.getters['user/user'].id,
-    //   project: project.id
-    // })
-  },
-  head() {
-    return meta(
-      //@ts-ignore
-      this.project.title,
-      //@ts-ignore
-      this.project.description,
-      //@ts-ignore
-      this.project.coverImage,
-      //@ts-ignore
-      this.$route.fullPath
-    )
-  },
   components: {
-    AppCover,
-    AppSections,
-    UserSnippet
+    AppCarrousel,
+    Markdown,
+    MiniPositionCard
+  },
+  props: {
+    project: {
+      type: Object,
+      required: true
+    }
   }
 }
 </script>
 
-<style scoped>
-.temp {
-  padding: 1em;
-  border-color: hsl(217, 32%, 15%);
-  border-style: solid;
-  border-top-width: 0px;
-  border-bottom-width: 1px;
-  border-left-width: 0px;
-  border-right-width: 0px;
-  width: 100%;
-}
-.buttons-wrapper {
-  display: flex;
-  justify-content: space-between;
-  margin: 20px 20px;
-}
-.meta{
-  display: inline-flex;
-  align-items: center;
-}
-.desc{
-  margin: 0 16px;
-}
-.date{
-  color: #8fa0b9;
+
+<style lang="scss" scoped>
+.position-schema {
+  width: 80%;
+  &:not(:first-child){
+    margin-left: 10px;
+  }
+  @media only screen and (min-width: 960px) {
+    width: 40%;
+  }
 }
 </style>

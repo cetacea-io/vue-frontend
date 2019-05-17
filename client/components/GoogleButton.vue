@@ -1,13 +1,27 @@
 <template>
   <button 
     type="button" 
-    class="google-button">
+    class="google-button"
+    @click="authenticate('google')">
     <span class="google-button__icon">
       <img src="~/assets/img/google.svg">
     </span>
     <span class="google-button__text">Entra con Google</span>
   </button>
 </template>
+
+<script>
+export default {
+  methods: {
+    authenticate (provider) {
+      this.$auth.authenticate(provider).then(function () {
+        alert('e puto')
+      })
+    }
+  }
+}
+</script>
+
 
 <style scoped lang="scss">
 .google-button {

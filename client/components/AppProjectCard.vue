@@ -7,13 +7,17 @@
       :style="{ 'background-image': 'url(' + image + ')' }"
       class="project-card-featured__hover" />
     <div class="project-card-inline__cover__obscurer" />
-    <div class="user-list-line">
-      <!-- <div class="date-wrapper">
+    <div 
+      v-if="contributors != null"
+      class="user-list-line">
+      <!-- <div
+        v-if="dateAndTime"
+        class="date-wrapper">
         <div class="number">
-          21
+          {{ startDateDay }}
         </div>
         <div class="month">
-          Mayo
+          {{ startDateMonth }}
         </div>
       </div> -->
       <a 
@@ -27,7 +31,7 @@
           class="avatar"/>
       </a>
       <div class="plus-users">
-        <strong>545</strong>
+        <strong>{{ totalContributors }}</strong>
         <span>usuarios</span>
       </div>
     </div>
@@ -35,7 +39,7 @@
       <div
         class="meta"
         style="font-size: 13px;font-weight:600;text-transform:uppercase;">
-        Proyecto • Documental
+        {{ title }} • {{ area }}
       </div>
       <div class="title">
         {{ title }}
@@ -45,13 +49,13 @@
         <div class="icon">
           <i class="far fa-heart" />
           <strong class="icon-text">
-            124
+            {{ currentViews }}
           </strong>
         </div>
         <div class="icon">
           <i class="far fa-eye" />
           <strong class="icon-text">
-            341
+            {{ currentLikes }}
           </strong>
         </div>
       </div>
@@ -67,25 +71,56 @@ export default {
       type: String,
       required: true
     },
+    id: {
+      type: String,
+      required: true
+    },
+    type: {
+      type: String,
+      required: true
+    },
     title: {
       type: String,
       required: true
     },
-    route: {
+    area: {
       type: String,
+      required: true
+    },
+    dateAndTime: {
+      type: Object,
+      required: false,
+      default: null
+    },
+    classification: {
+      type: Object,
+      required: false,
+      default: null
+    },
+    views: {
+      type: Number,
       required: true,
-      default: '/course/1'
+      default: 0
+    },
+    likes: {
+      type: Number,
+      required: true,
+      default: 0
     },
     contributors: {
       type: Array,
-      required: true,
-      default: () => {
-        return [
-          'https://www.famousbirthdays.com/headshots/dasha-taran-2.jpg',
-          'https://i.scdn.co/image/81978c0558206f19795d05f8e678d266cfd8f7eb',
-          'https://www.entornointeligente.com/wp-content/uploads/2019/01/_senti_que_estaba_perdiendo_mi_esencia_en_hollywood_2C_dice_alfonso_cuaron-526x350.jpg'
-        ]
-      }
+      required: false,
+      default: null
+    },
+    totalContributors: {
+      type: Number,
+      required: false,
+      default: null
+    },
+    tipo: {
+      type: String,
+      required: false,
+      default: null
     }
   },
   data() {
@@ -93,6 +128,27 @@ export default {
       
     }
   },
+  computed: {
+    startDateDay(){
+      return this.getDay(this.dateAndTime.startDate)
+    },
+    startDateMonth(){
+      return this.getMonth(this.dateAndTime.startDate)
+    },
+    currentLikes () {
+      return this.abbrNum(this.likes, 2)
+    },
+    currentViews () {
+      return this.abbrNum(this.views, 2)
+    },
+    route() {
+      if (this.tipo == 'ProjectType'){
+        return `/project/${this.id}`
+      } else if (this.tipo == 'CourseType'){
+        return `/course/${this.id}`
+      }
+    }
+  }
 }
 </script>
 
@@ -206,7 +262,7 @@ export default {
     .title {
       @media only screen and (min-width: 960px) {
         font-size: 24px;
-        line-height: 40px;
+        line-height: 30px;
       }
       font-size: 20px;
       line-height: 28px;

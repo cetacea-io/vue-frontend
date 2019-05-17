@@ -48,19 +48,15 @@ export default {
             if( !this.$refs.option[x].selected )
               this.$refs.option[x].disabled = true
           }
-          this.$emit('valid', true)
         } else {
           for (var x in this.interests){
             this.$refs.option[x].disabled = false
           }
-          this.$emit('valid', false)
         }
         this.interestsLiked = val
+        this.$emit('interests-liked', this.interestsLiked)
       }
     }
-  },
-  mounted() {
-    this.$emit('mounted', true)
   },
 }
 </script>

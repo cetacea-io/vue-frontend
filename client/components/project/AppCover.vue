@@ -5,9 +5,11 @@
     <div class="project-card-inline__cover__obscurer" />
     <button class="button" />
     <div class="bottom">
-      <!-- <div class="meta">
-        
-      </div> -->
+      <div
+        class="meta"
+        style="font-size: 17px;font-weight:600;text-transform:uppercase;">
+        {{ classification }} • {{ area }}
+      </div>
       <div class="title">
         {{ title }}
       </div>
@@ -26,6 +28,14 @@ export default {
       type: String,
       required: false,
       default: ''
+    },
+    classification: {
+      type: String,
+      required: true
+    },
+    area: {
+      type: String,
+      required: true
     }
   }
 }
@@ -65,7 +75,7 @@ export default {
     box-sizing: border-box;
     position: relative;
     font-size: 12px;
-    color: hsla(0,0%,100%,.4);
+    color: #fff;
     line-height: 1.3;
   }
 
@@ -111,8 +121,6 @@ export default {
   -webkit-mask-image: linear-gradient(180deg,transparent 0,rgba(0,0,0,.6));
   mask-image: -webkit-gradient(linear,left top,left bottom,from(transparent),to(rgba(0,0,0,.6)));
   mask-image: linear-gradient(180deg,transparent 0,rgba(0,0,0,.6));
-  border-top-left-radius: var(--custom-border-radius);
-  border-top-right-radius: var(--custom-border-radius);
 }
 </style>
 
@@ -127,9 +135,6 @@ export default {
 
   position: relative;
 
-  border-top-left-radius: var(--custom-border-radius);
-  border-top-right-radius: var(--custom-border-radius);
-
   box-shadow: 0 10px 20px rgba(0,0,0,0.2);
   display: flex;
   flex-direction: column;
@@ -137,6 +142,10 @@ export default {
   padding: 24px;
   background-position: 50%;
   overflow: hidden;
+
+  @media only screen and (min-width: 960px) {
+    min-height: 420px;
+  }
 
   & > .button {
     border: 0;

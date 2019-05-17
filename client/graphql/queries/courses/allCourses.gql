@@ -2,9 +2,16 @@ query courses ($category: Int!) {
   courses (category: $category) {
     id: id
     title: title
+    area
+    classification {
+      title
+    }
     categories {
       id
       title
+    }
+    dateAndTime{
+      startDate
     }
     image: coverImage
     author {

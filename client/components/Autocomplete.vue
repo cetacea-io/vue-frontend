@@ -144,7 +144,7 @@
 <style scoped>
   .autocomplete {
     position: relative;
-    height: 46px;
+    height: 100%;
   }
 
   .input {
@@ -156,9 +156,8 @@
     color: #ffffff;
     border: 1px solid transparent;
     transition: border-color 250ms ease, padding 250ms ease;
-    border-radius: 50px;
     font-family: 'Soleil';
-    background: #13131d;
+    background: transparent;
   }
 
   /* .input {

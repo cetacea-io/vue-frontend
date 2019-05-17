@@ -64,8 +64,8 @@ export default {
 
 <style lang="scss" scoped>
 .head-section {
-  border-top: solid 1px rgb(107, 107, 107);
-  margin-top: 20px;
+  // border-top: solid 1px rgb(107, 107, 107);
+  margin: 26px 11px 15px;
   padding: 8px 0;
   display: flex;
   justify-content: space-between;
@@ -83,7 +83,7 @@ export default {
 
 .star {
   align-self: center;
-  background-color: #3853ff;
+  background-color: #4a4a4a;
   width: 30px;
   height: 30px;
   text-align: center;
@@ -91,11 +91,17 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  color: #9c9c9c;
 }
 
 .mini{
   // width: 252px;
-  width: 80%;
-  padding: 5px;
+  @media only screen and (min-width: 960px) {
+    width: 43%;
+    height: 344px;
+  }
+  width: 85%;
+  height: 271px;
+  margin: 0 5px;
 }
 </style>

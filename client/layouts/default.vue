@@ -66,11 +66,15 @@
 
     <Modal/>
     <nuxt/>
+
+    <TheFooter />
+
   </div>
 </template>
 
 <script>
 import TheNavbar from '@/components/layout/TheNavbar'
+import TheFooter from '@/components/layout/TheFooter'
 import Modal from '@/components/Modal'
 
 import formModal from '@/mixins/form-modal'
@@ -78,6 +82,7 @@ import formModal from '@/mixins/form-modal'
 export default {
   components: {
     TheNavbar,
+    TheFooter,
     Modal,
   },
   // mixins: [formModal]
@@ -85,6 +90,6 @@ export default {
 </script>
 
 
-<style>
+<style lang="scss">
 
 </style>

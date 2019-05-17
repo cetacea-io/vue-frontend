@@ -29,25 +29,25 @@ export default {
       if (this.network ==  'facebook') {
         return {
           name: 'Facebook',
-          color: '#0687fc',
+          // color: '#0687fc',
           icon: FacebookIcon,
         }
       } else if (this.network == 'twitter') {
         return {
           name: 'Twitter',
-          color: '#00a7ff',
+          // color: '#00a7ff',
           icon: TwitterIcon,
         }
       } else if (this.network == 'whatsapp') {
         return {
           name: 'WhatsApp',
-          color: '#27c57f',
+          // color: '#27c57f',
           icon: WhatsappIcon,
         }
       } else if (this.network == 'email') {
         return {
           name: 'Email',
-          color: '#00a7ff',
+          // color: '#00a7ff',
           icon: EmailIcon,
         }
       }
@@ -60,7 +60,7 @@ export default {
 .twitter__container{
   height: 40px;
   border-width: 0;
-  background: #0687fc;
+  // background: #0687fc;
   color: #ffffff;
   border-radius: 5px;
   white-space: nowrap;

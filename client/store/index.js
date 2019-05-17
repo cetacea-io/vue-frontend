@@ -75,6 +75,20 @@ import dashboardModule from './dashboard'
 // import mutations from './mutations'
 // import actions from './actions'
 
+const myPlugin = store => {
+  // called when the store is initialized
+  // store.subscribeAction({
+  //   before: (action, state) => {
+  //     console.log(`before action ${action.type}`)
+  //     // commit('showModal', 'ModalFeeder')
+  //     return
+  //   },
+  //   after: (action, state) => {
+  //     console.log(`after action ${action.type}`)
+  //   }
+  // })
+}
+
 const createStore = () => {
   return new Vuex.Store({
     actions,
@@ -86,7 +100,8 @@ const createStore = () => {
       courses: coursesModule,
       authentication: authenticationModule,
       dashboard: dashboardModule
-    }
+    },
+    plugins: [myPlugin]
   })
 }
 

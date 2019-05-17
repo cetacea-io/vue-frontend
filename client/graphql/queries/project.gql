@@ -17,11 +17,14 @@ query project ($id: Int!) {
     creationDate
     overview
     positions {
+      id
+      alreadyApplied
       title
       description
       compensation
       time
       requirements
+      randomContributors
     }
     comments {
       author {

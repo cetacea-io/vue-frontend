@@ -1,0 +1,5 @@
+mutation getAccessToken($redirectUri: String!, $provider: String!, $code: String!) {
+  getAccessToken(redirectUri: $redirectUri, provider: $provider, code: $code) {
+    accessToken
+  }
+}

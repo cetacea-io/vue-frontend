@@ -1,0 +1,24 @@
+fragment ProjectCard on ProjectType {
+  id: id
+  title: title
+  area: category
+#   classification {
+#     title
+#   }
+#   categories {
+#     title
+#   }
+#   dateAndTime {
+#     startDate
+#   }
+  image: coverImage
+  contributors: randomContributors
+  totalContributors: totalContributors
+#   author {
+#     title
+#     profilePicture
+#   }
+  likes: totalLikes
+  views: totalViews
+  tipo: __typename
+}

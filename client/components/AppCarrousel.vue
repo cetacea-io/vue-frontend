@@ -1,19 +1,6 @@
 <template>
-  <div
-    style="
-      position: relative;
-    ">
-    <div 
-      style="
-      width: 26%;
-      height: 100%;
-      display: block;
-      background: linear-gradient(270deg, #000,#fff0);
-      position: absolute;
-      z-index: 1;
-      pointer-events: none;
-      right:0;
-      "/>
+  <div style="position: relative;">
+    <div class="curtain"/>
     <flickity
       :options="flickityOptions">
       <slot/>
@@ -41,3 +28,16 @@ export default {
   }
 }
 </script>
+
+<style>
+.curtain {
+  width: 26%;
+  height: 100%;
+  display: block;
+  background: linear-gradient(270deg, #000,#fff0);
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+  right:0;
+}
+</style>

@@ -1,11 +1,18 @@
-query course ($id: Int!) {
+#import "../../fragments/courseCard.gql"
+
+query course ($id: Int!, $totalRecommended: Int = 10) {
   course (id: $id) {
     id
     title
     coverImage
     url
+    area
+    classification {
+      title
+    }
     dateAndTime{
       text
+      startDate
     }
     categories {
       id
@@ -28,6 +35,9 @@ query course ($id: Int!) {
       text
       latitude
       longitude
+    }
+    recommended(totalRecommended: $totalRecommended) {
+      ...CourseCard
     }
   }
 }

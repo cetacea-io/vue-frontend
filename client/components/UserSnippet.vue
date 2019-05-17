@@ -65,6 +65,11 @@ export default {
       if (this.type == "user") return { to: `/user/${this.username}` }
       else return null
     }
+  },
+  methods: {
+    join () {
+      console.log('joined')
+    }
   }
 }
 </script>

@@ -28,15 +28,19 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 input{
-  background: transparent;
-  border: 1px solid #d6d6d6;
+  background: #071421;
+  border: 1px solid #071421;
   padding: 0.7em 1.5em;
   border-radius: 5px;
   color: inherit;
   font-size: 1em;
   font-family: 'Soleil';
   width: 100%;
+  outline: none;
+  &:focus {
+    box-shadow: 0 0 2px 1px #4a9bff;
+  }
 }
 </style>

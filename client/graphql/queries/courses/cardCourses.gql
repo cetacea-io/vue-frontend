@@ -1,0 +1,7 @@
+#import "../../fragments/courseCard.gql"
+
+query courses ($category: Int!) {
+  courses (category: $category) {
+    ...CourseCard
+  }
+}

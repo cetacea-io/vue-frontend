@@ -20,6 +20,11 @@ export default {
     selected: {
       type: Boolean,
       default: false
+    },
+    tag: {
+      type: String,
+      required: false,
+      default: null
     }
   },
   data() {

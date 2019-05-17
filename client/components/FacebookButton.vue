@@ -1,13 +1,30 @@
 <template>
   <button 
     type="button" 
-    class="google-button">
+    class="google-button"
+    @click="login">
     <span class="google-button__icon">
       <img src="~/assets/img/facebook.svg">
     </span>
     <span class="google-button__text">Entra con Facebook</span>
   </button>
 </template>
+
+<script>
+export default {
+  methods: {
+    login () {
+      let uri = `${process.env.BASE_URL}/complete/facebook/`
+      let clientId = process.env.FACEBOOK_APP_ID
+      let responseType = 'code'
+      let state = '{st=state123abc,ds=123456789}'
+      // let scope = 'email'
+
+      window.location = encodeURI(`https://www.facebook.com/dialog/oauth?client_id=${clientId}&redirect_uri=${uri}&state=${state}&response_type=${responseType}`)
+    }
+  }
+}
+</script>
 
 <style scoped>
 .google-button {

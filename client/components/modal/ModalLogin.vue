@@ -4,7 +4,7 @@
       <h3 class="title">Accesa a las mejores ideas del mundo</h3>
     </div>
     <div style="margin: 0px auto 25px; max-width: 270px;">
-      <h3 style="text-align: center; color: rgb(51, 51, 51); font-size: 16px; font-weight: normal; margin: -15px 0px 20px;">
+      <h3 class="subtitle">
         Ingresa para ver más
       </h3>
     </div>
@@ -51,9 +51,7 @@
         </div>
 
         <div style="margin-top: 15px;">
-          <span
-            class="burocracy"
-            style="-webkit-font-smoothing: antialiased; font-size: 11px; font-weight: normal; text-align: center; transition: opacity 0.2s linear; color: rgb(170, 170, 170); width: 224px;">
+          <span class="burocracy">
             <span>Al continuar, estas de acuerdo con los
               <nuxt-link
                 to="/terms"
@@ -125,8 +123,11 @@ export default {
 </script>
 
 <style scoped lang="scss">
+$def-font-color: rgb(172, 187, 197);
+$def-anchor-color: rgb(60, 177, 255);
+
 .title {
-  color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
   font-size: 32px;
   font-weight: bold;
   -webkit-font-smoothing: antialiased;
@@ -135,9 +136,24 @@ export default {
   text-align: center;
 }
 
+.subtitle {
+  text-align: center;
+  color: $def-font-color;
+  font-size: 16px;
+  font-weight: normal;
+  margin: -15px 0px 20px;
+}
+
 .burocracy {
+  -webkit-font-smoothing: antialiased;
+  font-size: 11px;
+  font-weight: normal;
+  text-align: center;
+  transition: opacity 0.2s linear;
+  color: $def-font-color;
+  width: 224px;
   a {
-    color: #464646;
+    color: $def-anchor-color;
   }
 }
 
@@ -155,11 +171,10 @@ export default {
   cursor: pointer;
   margin-left: 5px;
   font-size: 0.9em;
-  color: #525252;
+  color: $def-font-color;
 }
 
 .form__login {
-  color: black;
   .form__input {
     margin-bottom: 10px;
   }

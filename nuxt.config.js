@@ -44,11 +44,11 @@ module.exports = {
     { src: '~/plugins/design-system', ssr: true },
     '@/mixins/mixins',
     '@/mixins/form-modal',
-    { src: '~/plugins/localStorage', ssr: false },
     { src: '~/plugins/segment', ssr: false },
     { src: '~/plugins/optimizely', ssr: true },
     { src: '~/plugins/flickity', ssr: false },
     { src: '~/plugins/installationPromptPWA', ssr: false },
+    { src: '~/plugins/unauthorized-handler', ssr: false },
   ],
   /*
   ** Nuxt.js modules
@@ -104,9 +104,7 @@ module.exports = {
   apollo: {
     authenticationType: 'JWT',
     clientConfigs: {
-      default: {
-        httpEndpoint: process.env.DEV_GRAPH
-      }
+      default: '~/plugins/apollo-config.js'
     }
   },
   /*
@@ -122,7 +120,7 @@ module.exports = {
    * Router
    */
   router: {
-    middleware: ['isAuthenticated']
+    middleware: ['notCompletedProfile']
   },
   srcDir: 'client/',
   /*
@@ -169,12 +167,19 @@ module.exports = {
     extend(config, ctx) {
       // Run ESLint on save
       if (ctx.isDev && ctx.isClient) {
-        config.module.rules.push({
-          enforce: 'pre',
-          test: /\.(js|vue)$/,
-          loader: 'eslint-loader',
-          exclude: /(node_modules)/
-        })
+        config.module.rules.push(
+          {
+            enforce: 'pre',
+            test: /\.(js|vue)$/,
+            loader: 'eslint-loader',
+            exclude: /(node_modules)/
+          },
+          // {
+          //   test: /\.(graphql|gql)$/,
+          //   exclude: /node_modules/,
+          //   loader: 'graphql-tag/loader'
+          // }
+        )
       }
     }
   },
@@ -184,6 +189,7 @@ module.exports = {
     ONE_SIGNAL_ID: process.env.ONE_SIGNAL_ID,
     SEGMENT_KEY: process.env.SEGMENT_KEY,
     OPTIMIZELY_DATAFILE: process.env.OPTIMIZELY_DATAFILE,
-    GOOGLE_MAPS_KEY: process.env.GOOGLE_MAPS_KEY
+    GOOGLE_MAPS_KEY: process.env.GOOGLE_MAPS_KEY,
+    FACEBOOK_APP_ID: process.env.FACEBOOK_APP_ID
   }
 }

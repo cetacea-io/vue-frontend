@@ -1,4 +1,7 @@
-import { createComment } from '@/queries/createComment'
+import { createComment } from '@/graphql/mutations/createComment'
+import { joinProject } from '@/graphql/mutations/joinProject'
+
+import { applyWithGuard } from '@/helpers/applyWithGuard'
 
 export default {
   async submit_comment ({project, content}) {
@@ -41,11 +44,31 @@ export default {
       commit('showModal', 'ModalLogin', { root: true })
     }
   },
-  async join_project ({project}) {
-    try {
-      alert('Se unio al project')
-    } catch (e) {
-      //
+  join_project:
+    async function ({rootState, commit}, position) {
+      const userIsLogged = !!rootState.user.user
+
+      if(!userIsLogged) {
+        this.app.$handleUnauthorizedAction()
+        return
+      }
+      else {
+        try {
+          await this.app.apolloProvider.defaultClient.mutate({
+            mutation: joinProject,
+            variables: {
+              position: position,
+            },
+            error(error) {
+              resolve(error)
+            }
+          })
+          .then(() => {
+            //somethings
+          })
+        } catch (e) {
+          this.app.router.push('/login')
+        }
+      }
     }
-  }
 }

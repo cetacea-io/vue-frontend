@@ -1,0 +1,5 @@
+mutation joinProject($position: Int!) {
+  joinProject(position: $position) {
+    status
+  }
+}

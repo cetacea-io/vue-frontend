@@ -1,0 +1,5 @@
+mutation updateInterests($categories: [ID]!) {
+  updateInterests(categories: $categories) {
+    user
+  }
+}

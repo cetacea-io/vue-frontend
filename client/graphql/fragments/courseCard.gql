@@ -1,0 +1,15 @@
+fragment CourseCard on CourseType {
+  id: id
+  title: title
+  area
+  classification {
+    title
+  }
+  dateAndTime {
+    startDate
+  }
+  image: coverImage
+  likes: totalLikes
+  views: totalViews
+  tipo: __typename
+}

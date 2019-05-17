@@ -1,33 +1,49 @@
-import ALL_COURSES from '@/queries/allCourses.gql'
-import RECOMMEND_CATEGORIES from '@/queries/recommendCategories.gql'
+import CARD_COURSES from '@/graphql/queries/courses/cardCourses.gql'
+import CARD_PROJECTS from '@/graphql/queries/projects/cardProjects.gql'
+import RECOMMEND_CATEGORIES from '@/graphql/queries/recommendCategories.gql'
 
 export default {
-  async fetchContent ({dispatch}, category) {
+  async fetchContent ({dispatch}, category, proj) {
     let response
-    try {
-      response = await this.app.apolloProvider.defaultClient.query({
-        query: ALL_COURSES,
-        variables: {
-          category: category.id
-        },
-        update: result => result.courses,
-        error(error) {
-          resolve(error)
-        }
-      })
-    } catch (e) {
-      // Aqui va el error
+    if (true) {
+      try {
+        response = await this.app.apolloProvider.defaultClient.query({
+          query: CARD_COURSES,
+          variables: {
+            category: category.id
+          },
+          update: result => result.courses,
+          error(error) {
+            resolve(error)
+          }
+        })
+      } catch (e) {
+        // Aqui va el error
+      }
+    } else {
+      try {
+        response = await this.app.apolloProvider.defaultClient.query({
+          query: CARD_PROJECTS,
+          update: result => result.courses,
+          error(error) {
+            resolve(error)
+          }
+        })
+      } catch (e) {
+        // Aqui va el error
+      }
     }
     return response
   },
-  async loadContent ({commit, dispatch, state, rootState}) {
+  async loadContent ({commit, dispatch, state, rootState}, iterator) {
     // Get the categories
     let categories
       = !!rootState.user.user ?
         rootState.user.user.profile.interests :
         state.categories
-    console.log(state.iterator)
-    let category = categories[state.iterator]
+    console.log(categories)
+    let category = categories[iterator]
+    console.log(category)
     
     let component = null
 
@@ -35,19 +51,22 @@ export default {
 
       let componentType = `ItemsCarrousel`
 
-      let { data } = await dispatch('fetchContent', category)
+      let { data } = await dispatch('fetchContent', category, true)
+      console.log(data)
 
       let itemsArray = []
+
       for (var i = 0; i < data.courses.length; i++) {
         itemsArray.push(
-          { properties: data.courses[i],
-            component: `AppProjectCard`
+          { 
+            properties: data.courses[i],
+            component: `AppProjectCard`,
           }
         )
       }
 
       let componentProperties = {
-        title: category.title,
+        title: `Cursos/Talleres de ${category.title}`,
         items: itemsArray
       }
 
@@ -59,9 +78,6 @@ export default {
     } catch (e) {
       //error
     }
-
-    state.iterator = state.iterator + 1
-    console.log(state.iterator)
     return component
   },
   async load_courses ({commit, state, dispatch, rootState}){

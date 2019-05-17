@@ -57,6 +57,7 @@ export default {
       return this.$store.getters['authentication/isAuthenticated']
     }
   },
+  middleware: 'unauthRequired',
   methods: {
     async submit() {
       const credentials = this.credentials

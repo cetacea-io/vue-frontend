@@ -92,8 +92,8 @@ import FacebookButton from '@/components/FacebookButton'
 import GoogleButton from '@/components/GoogleButton'
 
 import gql from 'graphql-tag'
-import ALL_PROJECTS from '@/queries/allProjects.gql'
-import ALL_COURSES from '@/queries/allCourses.gql'
+import ALL_PROJECTS from '@/graphql/queries/allProjects.gql'
+import ALL_COURSES from '@/graphql/queries/courses/allCourses.gql'
 
 
 import MKTSection from '@/components/marketing/MKTSection'

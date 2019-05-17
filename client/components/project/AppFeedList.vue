@@ -9,13 +9,7 @@
         date="2019-01-07T03:28:03+00:00">
         {{ feed.content }}
       </app-feed>
-      <div
-        style="
-        width: 2px;
-        height: 50px;
-        background: #2c384a;
-        margin: 0 auto;
-      "/>
+      <div style="width: 2px;height: 50px;background: #2c384a;margin: 0 auto;" />
     </div>
   </div>
 </template>

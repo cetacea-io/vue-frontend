@@ -14,8 +14,10 @@
           <p>o</p>
 
           <div>
-            <a href="#">Registrate con correo</a>
+            <div @click="register({username: 'agente', email: 'me@met.com', password: '1234'})">Registrate con correo</div>
           </div>
+
+          <!-- <nuxt-link to="/orientation">registrar</nuxt-link> -->
 
         </div>
       </form>
@@ -36,8 +38,6 @@
 </template>
 
 <script>
-import gql from 'graphql-tag'
-
 import AppInputField from '@/components/ui/AppInputField'
 import GoogleButton from '@/components/GoogleButton'
 import FacebookButton from '@/components/FacebookButton'

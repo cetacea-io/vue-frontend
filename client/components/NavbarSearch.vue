@@ -34,6 +34,6 @@ export default {
 <style scoped>
 .searchbox-wrapper{
   width: 100%;
-  height: 46px;
+  height: 100%;
 }
 </style>

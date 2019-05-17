@@ -9,6 +9,7 @@
       :compensation="position.compensation"
       :description="position.description"
       :requirements="position.requirements"
+      :already-applied="position.alreadyApplied"
       class="item"
       @clicked="clicky(position, i, $event)"
     />
@@ -47,6 +48,14 @@ import { mapActions } from 'vuex'
     & > .item{
       margin: 30px 0;
       width: 100%;
+      
+      &:first-child {
+        margin: 0;
+      }
+
+      &:last-child {
+        margin: 0;
+      }
     }
   }
 </style>
