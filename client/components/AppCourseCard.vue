@@ -3,27 +3,25 @@
     :image="image"
     :title="title"
     :area="area"
-    :classification="classification"
+    :classification="classification.title"
     :views="views"
     :likes="likes"
     :route="route"
   >
 
     <template v-slot:header>
-      <a 
-        v-for="(avatar, index) in contributors"
-        :key="index"
-        class="avatar-link"
-        href="#">
-        <div
-          ref="avatar"
-          :style="{ 'background-image': 'url(' + avatar + ')' }"
-          class="avatar"/>
-      </a>
-      <div class="plus-users">
-        <strong>{{ totalContributors }}</strong>
-        <span>usuarios</span>
+      
+      <div
+        v-if="dateAndTime"
+        class="date-wrapper">
+        <div class="number">
+          {{ startDateDay }}
+        </div>
+        <div class="month">
+          {{ startDateMonth }}
+        </div>
       </div>
+
     </template>
 
   </BaseItemCardLayout>
@@ -39,19 +37,15 @@ export default {
   },
   mixins: [baseItemComponent],
   props: {
-    contributors: {
-      type: Array,
-      required: false,
-      default: null
-    },
-    totalContributors: {
-      type: Number,
+    dateAndTime: {
+      type: Object,
       required: false,
       default: null
     },
   },
   data() {
     return {
+      
     }
   },
   computed: {

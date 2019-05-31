@@ -22,7 +22,7 @@
 <script>
 import AppOption from '@/components/AppOption'
 
-import { mapGetters } from 'vuex'
+import gql from 'graphql-tag'
 
 export default {
   components: {
@@ -31,13 +31,26 @@ export default {
   data() {
     return {
       interestsLiked: [],
-      maxSelected: 7
+      maxSelected: 7,
+      minRequired: 5,
+      isReady: false
+    }
+  },
+  apollo: {
+    interests: { 
+      query: gql`
+        query {
+          mainCategories {
+            id
+            title
+            image: thumbnail
+          }
+        }
+      `,
+      update: data => data.mainCategories,
     }
   },
   computed: {
-    ...mapGetters({
-      interests: 'user/categories'
-    }),
     checkedInterests: {
       get () {
         return this.interestsLiked
@@ -53,9 +66,19 @@ export default {
             this.$refs.option[x].disabled = false
           }
         }
+        if(val.length >= this.minRequired){
+          this.isReady = true
+        } else {
+          this.isReady = false
+        }
         this.interestsLiked = val
         this.$emit('interests-liked', this.interestsLiked)
       }
+    }
+  },
+  watch: {
+    isReady(newValue, oldValue) {
+      this.$emit('ready', newValue)
     }
   },
 }

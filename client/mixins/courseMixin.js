@@ -9,12 +9,6 @@ export default {
         variables: { id: params.id }
       })
    
-      for (var i = 0; i < courseData.data.course.recommended.length; i++) {
-        courseData.data.course.recommended[i] = 
-          { properties: courseData.data.course.recommended[i],
-            component: `AppProjectCard`
-          }
-      }
       return {
         course: courseData.data.course,
       }

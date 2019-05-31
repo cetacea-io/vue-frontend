@@ -1,5 +1,6 @@
 export default () => ({
   user: null,
+  uncompletedProfileList: [],
   categories: [
     {
       id: 1,

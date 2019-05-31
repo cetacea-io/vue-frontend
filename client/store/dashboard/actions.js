@@ -3,9 +3,8 @@ import CARD_PROJECTS from '@/graphql/queries/projects/cardProjects.gql'
 import RECOMMEND_CATEGORIES from '@/graphql/queries/recommendCategories.gql'
 
 export default {
-  async fetchContent ({dispatch}, category, proj) {
+  async fetchContent ({dispatch}, category) {
     let response
-    if (true) {
       try {
         response = await this.app.apolloProvider.defaultClient.query({
           query: CARD_COURSES,
@@ -20,11 +19,14 @@ export default {
       } catch (e) {
         // Aqui va el error
       }
-    } else {
+    return response
+  },
+  async fetchProjectContent ({dispatch}) {
+    let response
       try {
         response = await this.app.apolloProvider.defaultClient.query({
           query: CARD_PROJECTS,
-          update: result => result.courses,
+          update: result => result.projects,
           error(error) {
             resolve(error)
           }
@@ -32,7 +34,6 @@ export default {
       } catch (e) {
         // Aqui va el error
       }
-    }
     return response
   },
   async loadContent ({commit, dispatch, state, rootState}, iterator) {
@@ -41,9 +42,9 @@ export default {
       = !!rootState.user.user ?
         rootState.user.user.profile.interests :
         state.categories
-    console.log(categories)
+    // console.log(categories)
     let category = categories[iterator]
-    console.log(category)
+    // console.log(category)
     
     let component = null
 
@@ -51,28 +52,43 @@ export default {
 
       let componentType = `ItemsCarrousel`
 
-      let { data } = await dispatch('fetchContent', category, true)
-      console.log(data)
+      let { data } = await dispatch('fetchContent', category)
+      // console.log(data)
 
-      let itemsArray = []
-
-      for (var i = 0; i < data.courses.length; i++) {
-        itemsArray.push(
-          { 
-            properties: data.courses[i],
-            component: `AppProjectCard`,
-          }
-        )
-      }
-
-      let componentProperties = {
+      let itemsCarrouselProperties = {
         title: `Cursos/Talleres de ${category.title}`,
-        items: itemsArray
+        description: `Los talleres mas destacados de ${category.title}`,
+        items: data.courses,
       }
 
       component = {
         type: () => import(`../../components/${componentType}`),
-        properties: componentProperties,
+        properties: itemsCarrouselProperties,
+        events: null
+      }
+    } catch (e) {
+      //error
+    }
+    return component
+  },
+  async loadAllProjects ({commit, dispatch, state, rootState}) {
+    let component = null
+    try {
+
+      let componentType = `ItemsCarrousel`
+
+      let { data } = await dispatch('fetchProjectContent', null, true)
+      // console.log(data)
+
+      let itemsCarrouselProperties = {
+        title: `Proyectos destacados`,
+        description: `Los proyectos mas destacados`,
+        items: data.projects
+      }
+
+      component = {
+        type: () => import(`../../components/${componentType}`),
+        properties: itemsCarrouselProperties,
         events: null
       }
     } catch (e) {

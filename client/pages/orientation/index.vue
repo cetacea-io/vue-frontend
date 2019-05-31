@@ -3,17 +3,29 @@
     <div class="container orientation-wrapper">
       <Interests
         v-if="step == 1"
-        @interests-liked="changeInterests" />
-      <Abilities v-if="step == 2"/>
-      <NotMentionedInterests v-if="step == 3"/>
-      <Abilities v-if="step == 4"/>
+        @ready="changeReady"
+        @interests-liked="changeInterests"
+      />
+      <NotMentionedInterests
+        v-if="step == 2"
+        @ready="changeReady"
+        @not-mentioned-interests="changeNotMentionedInterests"
+      />
+      <Abilities
+        v-if="step == 3"
+        @ready="changeReady"
+        @abilities-text="changeAbilitiesText"
+      />
     </div>
     <div class="footer-navbar">
       <div class="container footer-container">
         Paso {{ step }} de {{ numberOfSteps }}
-        <Button @click.native="submit()">
+        <div 
+          :class="{ available: isReady }"
+          class="btn-cus"
+          @click="submit()">
           Continuar
-        </Button>
+        </div>
       </div>
     </div>
   </div>
@@ -33,13 +45,13 @@ export default {
     let { step } = parseInt(query)
     console.log(step)
     console.log(step == null)
-    // if (step == null) {
-    //   step = 1
-    //   redirect({ path: 'orientation', query: { step: step } })
-    // }
-    // return {
-    //   step: step
-    // }
+    if (step == null) {
+      step = 1
+      redirect({ path: 'orientation', query: { step: step } })
+      // return {
+      //   step: step
+      // }
+    }
   },
   validate({params, query}) {
     return true
@@ -59,12 +71,15 @@ export default {
   },
   data() {
     return { 
-      numberOfSteps: 5,
+      numberOfSteps: 3,
       interestsLiked: [],
+      notMentionedInterestsLiked: null,
+      abilitiesText: null,
+      isReady: false,
     }
   },
   layout: 'blank',
-  middleware: ['authRequired'],
+  // middleware: ['authRequired'],
   computed: {
     step() {
       return this.$route.query.step
@@ -74,13 +89,24 @@ export default {
     changeInterests(value){
       this.interestsLiked = value
     },
+    changeNotMentionedInterests(value){
+      this.notMentionedInterestsLiked = value
+    },
+    changeAbilitiesText(value){
+      this.abilitiesText = value
+    },
+    changeReady(value){
+      this.isReady = value
+    },
     submit() {
-      if (this.step < this.numberOfSteps) {
-        let newStep = parseInt(this.step) + 1
-        this.$router.replace({ path: 'orientation', query: { step: newStep } })
-      }
-      else {
-        this.checkout()
+      if (this.isReady) {
+        if (this.step < this.numberOfSteps) {
+          let newStep = parseInt(this.step) + 1
+          this.$router.replace({ path: 'orientation', query: { step: newStep } })
+        }
+        else {
+          this.checkout()
+        }
       }
     },
     checkout() {
@@ -128,5 +154,18 @@ export default {
   width: 100%;
   justify-content: space-between;
   align-items: center;
+}
+
+.btn-cus{
+  background: rgba(93,124,137,.5);
+  padding: 12px 34px;
+  color: #fff;
+  cursor:default;
+  border-radius: 100px;
+}
+
+.available {
+  background: #0043ff;
+  cursor: pointer;
 }
 </style>

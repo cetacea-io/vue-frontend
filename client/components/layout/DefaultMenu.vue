@@ -25,7 +25,7 @@
         <transition name="fade-mobile">
           <div
             v-if="mobileMenu"
-            class="nav_main">
+            class="nav_main container">
 
             <nuxt-link 
               to="/"
@@ -46,10 +46,24 @@
                   class="nav_item"
                   @mouseover="same">
 
-                  <div>Descubre</div>
+                  <div class="nav-text">Descubre</div>
                   <div 
                     ref="one"
                     class="nav_dropdown thingy">
+
+                    <div
+                      class="nav_mobile-back-wrap"
+                      @click="hideThing"
+                    >
+                      <div class="nav_mobile-back">
+                        <img 
+                          src="https://assets-global.website-files.com/5b16310a8abd739dc4fad4af/5b1767e9269b9c05e6d834fd_L.svg"
+                          style="width: 10px;height: 16px;margin-right: 32px;"
+                        >
+                        <div>Descubre</div>
+                      </div>
+                    </div>
+
                     <div class="nav_1">
                       <ul class="products_ul">
 
@@ -58,7 +72,7 @@
                           class="products_li">
                           <div class="curtain" />
                           <nuxt-link 
-                            to="/"
+                            to="/hey"
                             class="products_link-block">
                             <div class="nav_link-inner">
                               <div/>
@@ -121,10 +135,15 @@
 
             </div>
 
-            <Button @click.native="showModal('ModalLogin')">
-              <div class="user-icon" />
-              Registrate
-            </Button>
+            <div class="nav_signup_wrap">
+              <nuxt-link 
+                class="button_main"
+                to="/signup"
+              >
+                <!-- <div class="user-icon" /> -->
+                Registrate
+              </nuxt-link>
+            </div>
 
             <div
               class="nav_x"
@@ -167,7 +186,7 @@ export default {
   },
   methods: {
     ...mapMutations({
-      showModal: `showModal`
+      
     }),
     some () {
       this.$refs.inner.style.height = '460px'
@@ -187,6 +206,12 @@ export default {
       this.$refs.one.style.opacity = '1'
       this.$refs.one.style.display = 'block'
     },
+    hideThing () {
+      this.$refs.one.style.opacity = '0';
+      this.$refs.one.style.display = 'none';
+      this.somo()
+
+    }
   }
 }
 </script>
@@ -215,7 +240,7 @@ export default {
 .nav_position {
   position: relative;
   z-index: 1;
-  max-width: 1100px;
+  // max-width: 1100px;
   flex: 1;
 }
 
@@ -387,6 +412,12 @@ li {
 .nav_list {
   display: flex;
 
+  @media (max-width: 767px) {
+    display: block;
+    margin-bottom: 10vw;
+    flex: 0 0 auto;
+  }
+
   .nav_items {
     display: flex;
     height: 100%;
@@ -394,6 +425,20 @@ li {
     margin-bottom: 0px;
     padding-left: 0px;
     list-style: none;
+
+    @media (max-width: 767px) {
+      display: block;
+      height: auto;
+    }
+
+    .nav-text {
+      @media (max-width: 767px) {
+        position: relative;
+        z-index: 1;
+        padding: 15px 20px;
+        flex: 0 0 auto;
+      }
+    }
 
     .nav_dropdown {
       position: absolute;
@@ -405,18 +450,32 @@ li {
       @media (max-width: 767px) {
         position: absolute;
         left: 0px;
-      top: 0px;
-      right: 0px;
-      bottom: 0px;
-      z-index: 1000;
-      display: none;
-      overflow: scroll;
-      padding-right: 8vw;
-      padding-bottom: 16vw;
-      padding-left: 8vw;
-      background-color: #222;
+        top: 0px;
+        right: 0px;
+        bottom: 0px;
+        z-index: 1000;
+        display: none;
+        overflow: scroll;
+        padding-right: 8vw;
+        padding-bottom: 16vw;
+        padding-left: 8vw;
+        background-color: #000;
       }
     }
+  }
+}
+
+.nav_signup_wrap {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  display: flex;
+  justify-content: flex-end;
+  height: 100%;
+
+  @media (max-width: 767px) {
+    position: relative;
+    display: block;
   }
 }
 
@@ -451,6 +510,39 @@ li {
   font-weight: 500;
   text-decoration: none;
   cursor: pointer;
+
+  @media (max-width: 767px) {
+    display: flex;
+    height: auto;
+    padding-right: 0px;
+    padding-left: 0px;
+    justify-content: flex-start;
+  }
+}
+
+.nav_mobile-back-wrap {
+  position: sticky !important;
+
+  @media (max-width: 767px) {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    right: 0px;
+    display: flex;
+    padding-top: 8vw;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 5;
+  }
+
+  .nav_mobile-back {
+    display: none;
+
+    @media (max-width: 767px) {
+      display: flex;
+      padding: 20px;
+      align-items: center;
+    }
+  }
 }
 
 .nav_1 {
@@ -458,6 +550,12 @@ li {
   height: 400px;
   flex-direction: column;
   flex-wrap: nowrap;
+
+  @media (max-width: 767px) {
+    height: auto;
+    padding-top: 30px;
+    flex-direction: row;
+  }
 }
 
 .products_ul {
@@ -467,6 +565,11 @@ li {
   padding-left: 0px;
   flex: 1;
   list-style: none;
+
+  @media (max-width: 767px) {
+    flex-direction: column;
+  }
+
   .products_li {
     display: flex;
     width: 16.6666%;
@@ -474,6 +577,10 @@ li {
     background-size: cover;
     background-position: center top;
     position: relative;
+
+    @media (max-width: 767px) {
+      width: 100%;
+    }
 
     .products_link-block {
       display: flex;
@@ -541,6 +648,7 @@ li {
   height: 100%;
   width: 100%;
   background: linear-gradient(to top, #000000f5, #0000003b);
+  z-index: 0;
 }
 
 .searcher {
@@ -611,5 +719,16 @@ li {
     content: '';
     position: absolute;
   }
+}
+
+.button_main{
+  padding: 8px 16px;
+  font-size: 16px;
+  cursor: pointer;
+  background: #fff;
+  color: #000;
+  display: flex;
+  align-items: center;
+  line-height: 1;
 }
 </style>

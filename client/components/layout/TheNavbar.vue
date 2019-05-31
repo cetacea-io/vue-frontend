@@ -56,7 +56,7 @@ export default {
 .navbar-container {
   background: transparent;
   // background: $color-ucla-gold;
-  height: 60px; /* This is for the main menu bit at the top */
+  height: auto; /* This is for the main menu bit at the top */
   /*width: 100%;			/* This means on every screen no matter the size, the width will cover the top  */
   line-height: normal;
   text-align: center;
@@ -71,10 +71,6 @@ export default {
   // @media #{$media-query-l}{
   //   background: red;
   // }
-
-  @media only screen and (min-width: 960px) {
-    height: 76px;
-  }
 
   transition: all 0.3s ease;
 

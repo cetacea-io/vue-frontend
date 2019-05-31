@@ -1,13 +1,7 @@
 <template>
   <div>
-    <h2 class="title">Ubicación</h2>
-    <p v-if="course.location && course.location.text">Dirección: {{ course.location.text }}</p>
-    <p v-else>Dirección no especificada</p>
-    <google-map
-      v-if="course.location && course.location.latitude && course.location.longitude"
-      :latitude="course.location.latitude"
-      :longitude="course.location.longitude"
-      name="example"/>
+    <h2 class="title">Comentarios</h2>
+    <p>No hay comentarios</p>
   </div>
 </template>
 

@@ -58,6 +58,7 @@ export default {
       password: null,
     }
   },
+  middleware: 'unauthRequired',
   methods: {
     ...mapActions({
       register: 'authentication/register',

@@ -107,16 +107,10 @@ export default {
     
       dispatch('fetch')
 
-      //   await commit('hideModal', true, {root: true})
+      this.app.router.push('/')
 
-      //     commit('isAuthenticated')
-      //   // if(rootState.user.user.profile.interests.length <= 0){
-      //   //   this.app.router.push('/orientation')
-      //   // } else {
-      //     this.app.router.push('/')
+      location.reload()
 
-      //     location.reload()
-        // }
   
     } catch (e) {
       console.log(e)

@@ -7,11 +7,7 @@
         :area="area"
         :image="coverImage"/>
 
-      <div
-        style="cursor: pointer; background: #3853ff;text-align: center;padding: 13px 0; display: block; color: #fff;"
-        @click="onClick">
-        Ver mas informacion
-      </div>
+      <slot/>
 
       <div class="temp">
 
@@ -165,9 +161,6 @@ export default {
   computed: {
   },
   methods: {
-    onClick() {
-      this.$router.push('/')
-    },
   }
 }
 </script>

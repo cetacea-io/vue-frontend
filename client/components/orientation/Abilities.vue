@@ -2,7 +2,15 @@
   <div class="feeder-wrapper">
 
     <div>
-      <h2>Tienes algun interes que no se menciono?</h2>
+      <h2>¿Cuáles son tus habilidades?</h2>
+      <h3>A qué te dedicas, cuales son tus estudios, que sabes hacer en general.</h3>
+      <form>
+        <textarea
+          v-model="abilitiesText"
+          placeholder="Ej. Actuación, Piano, Dibujo, Arquitectura, Ilustración, etc. Sé tan específico como gustes."
+          class="style-textarea"
+          name="fname" />
+      </form>
     </div>
 
   </div>
@@ -19,56 +27,45 @@ export default {
   },
   data() {
     return {
-      interestsLiked: [],
-      maxSelected: 3
+      abilitiesText: null,
+      minCharacters: 7,
+      isReady: false,
     }
   },
   computed: {
     ...mapGetters({
       interests: 'user/categories'
     }),
-    checkedInterests: {
-      get () {
-        return this.interestsLiked
-      },
-      set (val) {
-        if(val.length >= this.maxSelected){
-          for (var x in this.interests){
-            if( !this.$refs.option[x].selected )
-              this.$refs.option[x].disabled = true
-          }
-          this.$emit('valid', true)
-          for (var x in this.interests){
-            if( this.$refs.option[x].selected )
-              this.$store.commit('SET_INTEREST', x, true)
-            else
-              this.$store.commit('SET_INTEREST', x, false)
-          }
-        } else {
-          for (var x in this.interests){
-            this.$refs.option[x].disabled = false
-          }
-          this.$emit('valid', false)
-        }
-          this.interestsLiked = val
+  },
+  watch: {
+    isReady(newValue, oldValue) {
+      this.$emit('ready', newValue)
+    },
+    abilitiesText(newValue, oldValue) {
+      this.$emit('abilities-text', newValue)
+      if (newValue.length >= this.minCharacters) {
+        this.isReady = true
+      } else {
+        this.isReady = false
       }
     }
   },
+  mounted() {
+    this.isReady = false
+    this.$emit('ready', false)
+  },
   methods: {
-    next() {
-      this.step++
-    }
   },
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .feeder-wrapper{
   width: 100%;
   height: 100%;
   display: grid;
   grid-template-rows: repeat(auto-fit, minmax(48px, auto));
-  color: #fff;
+  color: inherit;
 }
 .first{
   display: grid;
@@ -80,10 +77,13 @@ h2{
   padding-bottom: 19px;
 }
 .option-wrapper {
+  @media only screen and (min-width: 768px) {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-column-gap: 5px;
-  grid-row-gap: 5px;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 9px;
+  grid-row-gap: 9px;
   grid-auto-rows: 139px;
 }
 .button {
@@ -91,5 +91,13 @@ h2{
   width: 100%;
   border-radius: 100px;
   font-size: 1.2em;
+}
+
+.style-textarea {
+  border-radius: 10px;
+  font-family: 'Soleil';
+  font-size: 1.0em;
+  padding: 1em;
+  width: 100%;
 }
 </style>

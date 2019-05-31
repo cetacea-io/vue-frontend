@@ -10,18 +10,26 @@
       :author-picture="course.author.profilePicture"
       :current-route="`/course/${course.id}`"
       :tabs="tabs"
-    />
+    >
+      <a
+        v-if="course.url"
+        :href="course.url"
+        target="_blank"
+        rel="noreferrer"
+        style="cursor: pointer; background: #3853ff;text-align: center;padding: 13px 0; display: block; color: #fff;"
+      >
+        Ver mas informacion
+      </a>
+    </CourseHeader>
 
 
 
-    <div style="background: #071119; padding: 20px 0;">
+    <div
+      class="content-wrapper"
+      style="background: #071119; padding: 20px 0;">
 
       <div class="container">
-        <div class="first-row">
-          
-          <nuxt-child :course="course"/>
-
-        </div>
+        <nuxt-child :course="course"/>
       </div>
 
     </div>
@@ -31,7 +39,8 @@
 
       <ItemsCarrousel
         :items="course.recommended"
-        title="similar"/>
+        title="similar"
+      />
 
     </div>
 
@@ -75,6 +84,13 @@ export default {
     CourseHeader,
   },
   mixins: [courseMixin],
+  props: {
+    url: {
+      type: String,
+      required: false,
+      default: null
+    }
+  },
   data(){
     return {
       tabs: [
@@ -117,6 +133,29 @@ export default {
 </script>
 
 <style lang="scss">
+.content-wrapper {
+  .first-row{
+    @media only screen and (min-width: 960px) {
+      grid-template-columns: 1fr 0.5fr;
+      .card-wrapper{
+        margin-right: 20px;
+        &:nth-child(2){
+          margin-right: 0;
+        }
+      }
+    }
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  .card-wrapper{
+    background: #071119 !important;
+    margin-bottom: 20px;
+  }
+}
+</style>
+
+
+<style lang="scss" scoped>
 .main-course{
   // margin-top: 50px;
   margin-bottom: 50px;
@@ -135,24 +174,6 @@ export default {
   display: inline-block;
   padding: 1em;
   border-radius: 10px;
-}
-.first-row{
-  @media only screen and (min-width: 960px) {
-    grid-template-columns: 1fr 0.5fr;
-    .card-wrapper{
-      margin-right: 20px;
-      &:nth-child(2){
-        margin-right: 0;
-      }
-    }
-  }
-  display: grid;
-  grid-template-columns: 1fr;
-}
-
-.card-wrapper{
-  background: #071119 !important;
-  margin-bottom: 20px;
 }
 </style>
 

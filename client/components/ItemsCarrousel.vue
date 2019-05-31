@@ -7,7 +7,7 @@
           {{ title }}
         </div>
         <div class="section-description">
-          Los talleres más destacados de {{ title }}
+          {{ description }}
         </div>
       </div>
 
@@ -22,9 +22,9 @@
       class="scrolling-wrapper">
       <component
         v-for="(item, index) in items"
-        :is="item.component"
+        :is="actualComponent(item.tipo)"
         :key="index"
-        v-bind="item.properties"
+        v-bind="item"
         type="nuxt-link"
         class="mini"
       />
@@ -37,12 +37,14 @@
 import AppCarrousel from '@/components/AppCarrousel'
 import AppEventCard from '@/components/AppEventCard'
 import AppProjectCard from '@/components/AppProjectCard'
+import AppCourseCard from '@/components/AppCourseCard'
 
 export default {
   components: {
     AppCarrousel,
     AppEventCard,
-    AppProjectCard
+    AppProjectCard,
+    AppCourseCard
   },
   props: {
     items: {
@@ -52,6 +54,11 @@ export default {
     title: {
       type: String,
       required: true
+    },
+    description: {
+      type: String,
+      required: false,
+      default: ''
     }
   },
   data() {
@@ -59,6 +66,15 @@ export default {
       //
     }
   },
+  methods:{
+    actualComponent (type) {
+      if (type == 'CourseType') {
+        return 'AppCourseCard'
+      } else if (type == 'ProjectType') {
+        return 'AppProjectCard'
+      }
+    }
+  }
 }
 </script>
 
@@ -98,6 +114,10 @@ export default {
   // width: 252px;
   @media only screen and (min-width: 960px) {
     width: 43%;
+    height: 344px;
+  }
+  @media only screen and (min-width: 1024px) {
+    width: 34%;
     height: 344px;
   }
   width: 85%;

@@ -1,66 +1,88 @@
 <template>
-  <BaseItemCardLayout
-    :image="image"
-    :title="title"
-    :area="area"
-    :classification="classification"
-    :views="views"
-    :likes="likes"
-    :route="route"
-  >
+  <nuxt-link
+    :style="{ 'background-image': 'url(' + image + ')' }"
+    :to="route"
+    class="project-card-featured">
+    <div
+      :style="{ 'background-image': 'url(' + image + ')' }"
+      class="project-card-featured__hover" />
+    <div class="project-card-inline__cover__obscurer" />
+    <div 
+      class="user-list-line">
 
-    <template v-slot:header>
-      <a 
-        v-for="(avatar, index) in contributors"
-        :key="index"
-        class="avatar-link"
-        href="#">
-        <div
-          ref="avatar"
-          :style="{ 'background-image': 'url(' + avatar + ')' }"
-          class="avatar"/>
-      </a>
-      <div class="plus-users">
-        <strong>{{ totalContributors }}</strong>
-        <span>usuarios</span>
+      <slot name="header"/>
+
+    </div>
+    <div class="bottom">
+      <div
+        class="meta"
+        style="font-size: 13px;font-weight:600;text-transform:uppercase;">
+        {{ classification }} • {{ area }}
       </div>
-    </template>
-
-  </BaseItemCardLayout>
+      <div class="title">
+        {{ title }}
+      </div>
+      <div class="line-separator"/>
+      <div class="meta">
+        <div class="icon">
+          <i class="far fa-heart" />
+          <strong class="icon-text">
+            {{ currentViews }}
+          </strong>
+        </div>
+        <div class="icon">
+          <i class="far fa-eye" />
+          <strong class="icon-text">
+            {{ currentLikes }}
+          </strong>
+        </div>
+      </div>
+    </div>
+  </nuxt-link>
 </template>
 
 <script>
-import BaseItemCardLayout from '@/components/BaseItemCardLayout'
-import baseItemComponent from '@/mixins/baseItemComponent'
-
 export default {
-  components: {
-    BaseItemCardLayout
-  },
-  mixins: [baseItemComponent],
   props: {
-    contributors: {
-      type: Array,
-      required: false,
-      default: null
+    route: {
+      type: String,
+      required: true
     },
-    totalContributors: {
+    image: {
+      type: String,
+      required: true
+    },
+    title: {
+      type: String,
+      required: true
+    },
+    area: {
+      type: String,
+      required: true
+    },
+    classification: {
+      type: String,
+      required: false,
+      default: ''
+    },
+    views: {
       type: Number,
-      required: false,
-      default: null
+      required: true,
+      default: 0
     },
-  },
-  data() {
-    return {
-    }
+    likes: {
+      type: Number,
+      required: true,
+      default: 0
+    },
   },
   computed: {
-    startDateDay(){
-      return this.getDay(this.dateAndTime.startDate)
+    currentLikes () {
+      return this.abbrNum(this.likes, 2)
     },
-    startDateMonth(){
-      return this.getMonth(this.dateAndTime.startDate)
-    },
+    currentViews () {
+      return this.abbrNum(this.views, 2)
+    }
   }
 }
 </script>

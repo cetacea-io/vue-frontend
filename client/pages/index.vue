@@ -2,13 +2,7 @@
   <div class="main">
 
     <FeaturedProject
-      :images="['https://images.unsplash.com/photo-1535223289827-42f1e9919769?ixlib=rb-1.2.1&auto=format&fit=crop&w=1234&q=80','https://www.rmcmedia.co.uk/assets/images/vibe/page-banners/Nov%2017/Algorave-1000x600.jpg']"
-      :classifications="['taller', 'curso']"
-      :titles="['Arma tu propio visor de realidad virtual analogico y digital', 'Introduccion a Super Collider: Musica Algoritmica']"
-      :areas="['tecnologia', 'musica']"
-      :authors="['Escuela Adolfo Prieto', 'Recycled Robots']"
-      :likes="[124, 1225]"
-      :views="[341, 88500]"
+      :list="cover_list"
     />
     <!-- <div 
       style="width: 100%;height: 50vh;padding: 9% 4%;max-width: 56%;">
@@ -63,6 +57,12 @@
     </div> -->
 
     <!-- <div class="container"> -->
+    <component
+      v-for="(component, index) in projectsContent"
+      :key="index"
+      :is="component.type"
+      v-bind="component.properties"/>
+
     <component
       v-for="(component, index) in content"
       :key="index"
@@ -166,6 +166,7 @@ import Loader from '@/components/Loader'
 import AppCarrousel from '@/components/AppCarrousel'
 import AppProjectCard from '@/components/AppProjectCard'
 import FeaturedProject from '@/components/FeaturedProject'
+import gql from 'graphql-tag'
 
 import { mapGetters, mapActions } from 'vuex'
 
@@ -173,24 +174,31 @@ export default {
   async asyncData ({store, error, app, params}) {
     await store.dispatch('dashboard/poblate_categories')
 
-    // let serverIterator = 0
+    let cover_item = await app.apolloProvider.defaultClient.query({
+      query: gql`
+        query {
+          cover {
+            id
+            title
+            author
+            image
+            classification
+            area
+          }
+        }
+      `,
+      error(error) {
+        resolve(error)
+      }
+    })
 
-    // let serverContent = []
+    let cover_list = []
 
-    // for (let i = 0; i <= 5; i++){
-    //   let newContent = await store.dispatch('dashboard/loadContent', serverIterator)
-    //   // let newContent = ['hey']
-    //   serverContent.push(newContent)
-    //   serverIterator = serverIterator + 1
-    // }
-
-    // console.log(serverContent)
-    // console.log(serverIterator)
+    cover_list.push(cover_item.data.cover)
 
     return {
       enabled: app.$optimizely.isFeatureEnabled('show_projects', 'bob'),
-      // content: serverContent,
-      // iterator: serverIterator
+      cover_list: cover_list,
     }
   },
   components: {
@@ -204,6 +212,7 @@ export default {
       endOfContent: false,
       isLoading: false,
       content: [],
+      projectsContent: [],
       iterator: 0
     }
   },
@@ -221,6 +230,11 @@ export default {
   async beforeCreate(){
     this.iterator = 0
 
+    //Just projects
+    let newProjectContent = await this.$store.dispatch('dashboard/loadAllProjects')
+    this.projectsContent.push(newProjectContent)
+
+    // Now courses
     for (let i = 0; i <= 5; i++){
       let newContent = await this.$store.dispatch('dashboard/loadContent', this.iterator)
       this.content.push(newContent)
@@ -232,7 +246,7 @@ export default {
   },
   methods: {
     ...mapActions({
-      loadContent: 'dashboard/loadContent'
+      loadContent: 'dashboard/loadContent',
     }),
     async applyContent(){
       this.isLoading = true

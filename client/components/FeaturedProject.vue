@@ -17,10 +17,11 @@
         </div>
 
         <div style="display: flex;">
-          <div 
+          <nuxt-link
+            :to="`/course/${currentId}`" 
             style="background: #fff;color: #000;padding: 11px 20px;border-radius: 5px;display: inline-block;">
             Me interesa
-          </div>
+          </nuxt-link>
           <div class="meta">
             <div class="icon">
               <i class="far fa-heart"/>
@@ -50,34 +51,10 @@
 
 export default {
   props: {
-    images: {
+    list: {
       type: Array,
       required: true
     },
-    classifications: {
-      type: Array,
-      required: true,
-    },
-    areas: {
-      type: Array,
-      required: true,
-    },
-    titles: {
-      type: Array,
-      required: true,
-    },
-    authors: {
-      type: Array,
-      required: true,
-    },
-    likes: {
-      type: Array,
-      required: true
-    },
-    views: {
-      type: Array,
-      required: true
-    }
   },
   data() {
     return {
@@ -87,32 +64,35 @@ export default {
     }
   },
   computed: {
+    currentId () {
+      return this.list[Math.abs(this.currentNumber) % this.list.length].id
+    },
     currentTitle () {
-      return this.titles[Math.abs(this.currentNumber) % this.titles.length]
+      return this.list[Math.abs(this.currentNumber) % this.list.length].title
     },
     currentArea () {
-      return this.areas[Math.abs(this.currentNumber) % this.areas.length]
+      return this.list[Math.abs(this.currentNumber) % this.list.length].area
     },
     currentImage () {
-      return this.images[Math.abs(this.currentNumber) % this.images.length]
+      return this.list[Math.abs(this.currentNumber) % this.list.length].image
     },
     currentClassification () {
-      return this.classifications[Math.abs(this.currentNumber) % this.classifications.length]
+      return this.list[Math.abs(this.currentNumber) % this.list.length].classification
     },
     currentAuthor () {
-      return this.authors[Math.abs(this.currentNumber) % this.authors.length]
+      return this.list[Math.abs(this.currentNumber) % this.list.length].author
     },
     currentLikes () {
-      let rawLikes = this.likes[Math.abs(this.currentNumber) % this.likes.length]
+      let rawLikes = this.list[Math.abs(this.currentNumber) % this.list.length].likes
       return this.abbrNum(rawLikes, 2)
     },
     currentViews () {
-      let rawViews = this.views[Math.abs(this.currentNumber) % this.views.length]
+      let rawViews = this.list[Math.abs(this.currentNumber) % this.list.length].views
       return this.abbrNum(rawViews, 2)
     },
   },
   mounted () {
-    this.startRotation()
+    // this.startRotation()
   },
   methods: {
     startRotation() {
@@ -210,8 +190,9 @@ export default {
 .cover-image {
   height: 80vh;
   width: 64%;
-  background-position: center;
-  background-size: cover;
+  background-position: center; //52% 28%
+  background-size: cover; //100%
+  background-color: #000;
   position: absolute;
   top: 0;
   right: 0;
