@@ -5,8 +5,8 @@
       :cover-image="project.coverImage"
       :classification="`proyecto`"
       :area="project.category"
-      :author-title="`${project.author.user.firstName} ${project.author.user.lastName}`"
-      :author-picture="project.author.profilePicture"
+      :author-title="project.author.title"
+      :author-picture="project.author.picture"
       :current-route="`/project/${project.id}`"
       :tabs="tabs"
     />

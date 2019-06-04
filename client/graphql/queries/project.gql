@@ -6,12 +6,8 @@ query project ($id: Int!) {
     category
     author {
       id
-      profilePicture
-      user {
-        username
-        firstName
-        lastName
-      }
+      title
+      picture
     }
     location
     creationDate
