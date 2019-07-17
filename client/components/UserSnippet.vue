@@ -11,14 +11,18 @@
       :is="tag">
       <div class="desc">
         <div>{{ name }}</div>
-        <div class="date">{{ shortTimestamp(date) }}</div>
+        <div
+          v-if="extra"
+          class="date">
+          {{ extra }}
+        </div>
       </div>
     </component>
-    <Button 
+    <!-- <Button 
       size="small"
       @click.native="join" >
       Seguir
-    </Button>
+    </Button> -->
   </div>
 </template>
 
@@ -34,7 +38,7 @@ export default {
       type: String,
       required: true
     },
-    date: {
+    extra: {
       type: String,
       default: null,
       required: false

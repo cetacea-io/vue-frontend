@@ -102,6 +102,7 @@ module.exports = {
   **  Apollo module
   */
   apollo: {
+    includeNodeModules: true,
     authenticationType: 'JWT',
     clientConfigs: {
       default: '~/plugins/apollo-config.js'

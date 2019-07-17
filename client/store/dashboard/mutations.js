@@ -4,5 +4,8 @@ export default {
   },
   add_content(store, item) {
     store.content.push(item)
-  }
+  },
+  set_after (store, data) {
+    store.after = data
+  },
 }

@@ -1,4 +1,5 @@
 #import "../../fragments/courseCard.gql"
+#import "../../fragments/authorData.gql"
 
 query course ($id: Int!, $totalRecommended: Int = 10) {
   course (id: $id) {
@@ -7,6 +8,7 @@ query course ($id: Int!, $totalRecommended: Int = 10) {
     coverImage
     url
     area
+    gallery
     classification {
       title
     }
@@ -20,8 +22,7 @@ query course ($id: Int!, $totalRecommended: Int = 10) {
     }
     overview
     author {
-      title
-      profilePicture
+      ...AuthorData
     }
     instructors {
       id

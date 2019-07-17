@@ -1,0 +1,5 @@
+fragment OrganizationProfile on OrganizationType {
+  id
+  title
+  username
+}

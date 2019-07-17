@@ -57,11 +57,6 @@
     </div> -->
 
     <!-- <div class="container"> -->
-    <component
-      v-for="(component, index) in projectsContent"
-      :key="index"
-      :is="component.type"
-      v-bind="component.properties"/>
 
     <component
       v-for="(component, index) in content"
@@ -172,7 +167,6 @@ import { mapGetters, mapActions } from 'vuex'
 
 export default {
   async asyncData ({store, error, app, params}) {
-    await store.dispatch('dashboard/poblate_categories')
 
     let cover_item = await app.apolloProvider.defaultClient.query({
       query: gql`
@@ -212,17 +206,13 @@ export default {
       endOfContent: false,
       isLoading: false,
       content: [],
-      projectsContent: [],
       iterator: 0
     }
   },
   computed: {
     ...mapGetters({
-      storeCategories: 'dashboard/categories'
+      //
     }),
-    categories() {
-      return this.storeCategories.slice(0, 10)
-    }
   },
   beforeMount() {
     window.addEventListener('scroll', this.handleScroll)
@@ -230,12 +220,7 @@ export default {
   async beforeCreate(){
     this.iterator = 0
 
-    //Just projects
-    let newProjectContent = await this.$store.dispatch('dashboard/loadAllProjects')
-    this.projectsContent.push(newProjectContent)
-
-    // Now courses
-    for (let i = 0; i <= 5; i++){
+    for (let i = 0; i <= 3; i++){
       let newContent = await this.$store.dispatch('dashboard/loadContent', this.iterator)
       this.content.push(newContent)
       this.iterator = this.iterator + 1
@@ -243,6 +228,7 @@ export default {
   },
   beforeDestroy() {
     window.removeEventListener('scroll', this.handleScroll)
+    this.$store.commit('dashboard/set_after', '')
   },
   methods: {
     ...mapActions({

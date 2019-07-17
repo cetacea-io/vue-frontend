@@ -1,0 +1,5 @@
+mutation purchase($nonce: String!, $amount: Float!) {
+  purchase(nonce: $nonce, amount: $amount) {
+    nonce
+  }
+}

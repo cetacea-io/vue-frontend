@@ -1,0 +1,298 @@
+{
+  "__schema": {
+    "types": [
+      {
+        "name": "Query",
+        "kind": "OBJECT",
+        "possibleTypes": null
+      },
+      {
+        "name": "MainCategoryType",
+        "kind": "OBJECT",
+        "possibleTypes": null
+      },
+      {
+        "name": "CategoryType",
+        "kind": "OBJECT",
+        "possibleTypes": null
+      },
+      {
+        "name": "ID",
+        "kind": "SCALAR",
+        "possibleTypes": null
+      },
+      {
+        "name": "String",
+        "kind": "SCALAR",
+        "possibleTypes": null
+      },
+      {
+        "name": "TagType",
+        "kind": "OBJECT",
+        "possibleTypes": null
+      },
+      {
+        "name": "CourseType",
+        "kind": "OBJECT",
+        "possibleTypes": null
+      },
+      {
+        "name": "Common",
+        "kind": "INTERFACE",
+        "possibleTypes": [
+          {
+            "name": "CourseType",
+            "description": null
+          },
+          {
+            "name": "ProjectType",
+            "description": null
+          }
+        ]
+      },
+      {
+        "name": "AuthorType",
+        "kind": "OBJECT",
+        "possibleTypes": null
+      },
+      {
+        "name": "Int",
+        "kind": "SCALAR",
+        "possibleTypes": null
+      },
+      {
+        "name": "DateTime",
+        "kind": "SCALAR",
+        "possibleTypes": null
+      },
+      {
+        "name": "DateAndTimeType",
+        "kind": "OBJECT",
+        "possibleTypes": null
+      },
+      {
+        "name": "ProjectType",
+        "kind": "OBJECT",
+        "possibleTypes": null
+      },
+      {
+        "name": "Boolean",
+        "kind": "SCALAR",
+        "possibleTypes": null
+      },
+      {
+        "name": "PositionType",
+        "kind": "OBJECT",
+        "possibleTypes": null
+      },
+      {
+        "name": "UserType",
+        "kind": "OBJECT",
+        "possibleTypes": null
+      },
+      {
+        "name": "SocialNodeConnection",
+        "kind": "OBJECT",
+        "possibleTypes": null
+      },
+      {
+        "name": "PageInfo",
+        "kind": "OBJECT",
+        "possibleTypes": null
+      },
+      {
+        "name": "SocialNodeEdge",
+        "kind": "OBJECT",
+        "possibleTypes": null
+      },
+      {
+        "name": "SocialNode",
+        "kind": "OBJECT",
+        "possibleTypes": null
+      },
+      {
+        "name": "Node",
+        "kind": "INTERFACE",
+        "possibleTypes": [
+          {
+            "name": "SocialNode",
+            "description": null
+          },
+          {
+            "name": "Carrousel",
+            "description": null
+          }
+        ]
+      },
+      {
+        "name": "SocialCamelJSON",
+        "kind": "SCALAR",
+        "possibleTypes": null
+      },
+      {
+        "name": "ProfileType",
+        "kind": "OBJECT",
+        "possibleTypes": null
+      },
+      {
+        "name": "CommentType",
+        "kind": "OBJECT",
+        "possibleTypes": null
+      },
+      {
+        "name": "LocationType",
+        "kind": "OBJECT",
+        "possibleTypes": null
+      },
+      {
+        "name": "Float",
+        "kind": "SCALAR",
+        "possibleTypes": null
+      },
+      {
+        "name": "CourseClassificationType",
+        "kind": "OBJECT",
+        "possibleTypes": null
+      },
+      {
+        "name": "CarrouselConnection",
+        "kind": "OBJECT",
+        "possibleTypes": null
+      },
+      {
+        "name": "CarrouselEdge",
+        "kind": "OBJECT",
+        "possibleTypes": null
+      },
+      {
+        "name": "Carrousel",
+        "kind": "OBJECT",
+        "possibleTypes": null
+      },
+      {
+        "name": "ItemUnion",
+        "kind": "UNION",
+        "possibleTypes": [
+          {
+            "name": "CourseType",
+            "description": null
+          },
+          {
+            "name": "ProjectType",
+            "description": null
+          }
+        ]
+      },
+      {
+        "name": "CoverItemType",
+        "kind": "OBJECT",
+        "possibleTypes": null
+      },
+      {
+        "name": "Mutation",
+        "kind": "OBJECT",
+        "possibleTypes": null
+      },
+      {
+        "name": "CreateComment",
+        "kind": "OBJECT",
+        "possibleTypes": null
+      },
+      {
+        "name": "CreateProject",
+        "kind": "OBJECT",
+        "possibleTypes": null
+      },
+      {
+        "name": "JoinProject",
+        "kind": "OBJECT",
+        "possibleTypes": null
+      },
+      {
+        "name": "CreateUser",
+        "kind": "OBJECT",
+        "possibleTypes": null
+      },
+      {
+        "name": "GetAccessToken",
+        "kind": "OBJECT",
+        "possibleTypes": null
+      },
+      {
+        "name": "UpdateInterests",
+        "kind": "OBJECT",
+        "possibleTypes": null
+      },
+      {
+        "name": "ObtainJSONWebToken",
+        "kind": "OBJECT",
+        "possibleTypes": null
+      },
+      {
+        "name": "Verify",
+        "kind": "OBJECT",
+        "possibleTypes": null
+      },
+      {
+        "name": "GenericScalar",
+        "kind": "SCALAR",
+        "possibleTypes": null
+      },
+      {
+        "name": "SocialAuthJWT",
+        "kind": "OBJECT",
+        "possibleTypes": null
+      },
+      {
+        "name": "SocialType",
+        "kind": "OBJECT",
+        "possibleTypes": null
+      },
+      {
+        "name": "Refresh",
+        "kind": "OBJECT",
+        "possibleTypes": null
+      },
+      {
+        "name": "__Schema",
+        "kind": "OBJECT",
+        "possibleTypes": null
+      },
+      {
+        "name": "__Type",
+        "kind": "OBJECT",
+        "possibleTypes": null
+      },
+      {
+        "name": "__TypeKind",
+        "kind": "ENUM",
+        "possibleTypes": null
+      },
+      {
+        "name": "__Field",
+        "kind": "OBJECT",
+        "possibleTypes": null
+      },
+      {
+        "name": "__InputValue",
+        "kind": "OBJECT",
+        "possibleTypes": null
+      },
+      {
+        "name": "__EnumValue",
+        "kind": "OBJECT",
+        "possibleTypes": null
+      },
+      {
+        "name": "__Directive",
+        "kind": "OBJECT",
+        "possibleTypes": null
+      },
+      {
+        "name": "__DirectiveLocation",
+        "kind": "ENUM",
+        "possibleTypes": null
+      }
+    ]
+  }
+}

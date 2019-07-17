@@ -1,46 +1,27 @@
 <template>
   <div class="container">
-    Busqueda: {{ query }}
-    <SearchTabs>
 
-      <AppTabPane 
-        :selected="true"
-        :id-key="1"
-        :tag="16"
-        name="Cursos/Talleres">
+    <div class="search-container">
+      <form
+        class="search-form"
+        action=""
+        @submit.prevent="search"
+      >
+        <input 
+          v-model="query"
+          class="search-input">
+        <input 
+          type="submit"
+          value=""
+          class="search-submit"
+        >
+      </form>
+    </div>
 
-        <div class="slot-wrapp">
-          <ItemsGrid />
-        </div>
+    <div class="slot-wrapp">
+      <ItemsGrid :items="items.edges[0].node.content"/>
+    </div>
 
-      </AppTabPane>
-
-      <AppTabPane 
-        :id-key="2"
-        :tag="1"
-        name="Eventos">
-
-        <div
-          class="slot-wrapp"
-          style="text-align: center; font-size: 1.2em;">
-          Lamentablemente aun no hay eventos 😥
-          <p>Pero puedes agregar uno <a href="#">aqui</a> 😃</p>
-        </div>
-
-      </AppTabPane>
-
-      <AppTabPane 
-        :id-key="3"
-        :tag="8"
-        name="Proyectos">
-
-        <div class="slot-wrapp">
-          <ItemsGrid />
-        </div>
-
-      </AppTabPane>
-
-    </SearchTabs>
   </div>
 </template>
 
@@ -49,17 +30,31 @@ import AppCarrousel from '@/components/AppCarrousel'
 import AppTabPane from '@/components/AppTabPane'
 import SearchTabs from '@/components/SearchTabs'
 import ItemsGrid from '@/components/ItemsGrid'
+import SEARCH from '@/graphql/queries/search.gql'
 
 import { mapGetters, mapActions } from 'vuex';
 
 export default {
   async asyncData ({store, error, app, params, query}) {
+    let response = await app.apolloProvider.defaultClient.query({
+      query: SEARCH,
+      variables: {
+        first: 1,
+        after: '',
+        query: query.q
+      },
+      update: result => result.items,
+      error(error) {
+        resolve(error)
+      }
+    })
     return {
-      query: query.q
+      query: query.q,
+      items: response.data.search
     }
   },
   async fetch({store}){
-    // await store.dispatch('courses/poblate_courses')
+    //
   },
   components: {
     AppCarrousel,
@@ -74,7 +69,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      courses: 'courses/courses'
+      //
     })
   },
   mounted() {
@@ -82,13 +77,29 @@ export default {
   },
   methods: {
     ...mapActions({
-      add: 'courses/poblate_courses'
+      //
     }),
+    async search() {
+      let response = await this.$apollo.query({
+        query: SEARCH,
+        variables: {
+          first: 1,
+          after: '',
+          query: this.query
+        },
+        update: result => result.items,
+        error(error) {
+          resolve(error)
+        }
+      })
+      this.$router.push({ path: '/search', query: { q: this.query } })
+      this.items = response.data.search
+    },
   }
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .slot-wrapp {
   margin-top: 40px;
 }
@@ -107,5 +118,53 @@ export default {
   -webkit-border-radius: 5px;
   border-radius: 5px;
   font-family: 'Soleil';
+}
+
+.search-container {
+  padding: 60px 0;
+  margin: 0 auto;
+  width: 90%;
+  max-width: 550px;
+
+  .search-form {
+    width: 100%;
+    margin-bottom: 0;
+    position: relative;
+    display: block;
+    flex: 0 0 auto;
+
+    .search-input {
+      background: #3a3a3a;
+      border: 0;
+      color: #fff;
+      padding: 14px 14px;
+      height: 60px;
+      font-size: 15px;
+      width: 100%;
+      outline: none;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background: #242424;
+      }
+    }
+
+    .search-submit {
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      bottom: 0px;
+      width: 54px;
+      height: 100%;
+      background-color: transparent;
+      background-image: url("https://assets-global.website-files.com/583347ca8f6c7ee058111b3b/5a25bcdea945fe00015c9039_b-nav-icon-1-white.svg");
+      background-position: 50% 50%;
+      background-size: 20px;
+      background-repeat: no-repeat;
+      box-shadow: none;
+      opacity: 1;
+      border: 0;
+    }
+  }
 }
 </style>

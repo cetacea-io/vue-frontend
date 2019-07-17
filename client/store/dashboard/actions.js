@@ -1,17 +1,76 @@
 import CARD_COURSES from '@/graphql/queries/courses/cardCourses.gql'
 import CARD_PROJECTS from '@/graphql/queries/projects/cardProjects.gql'
 import RECOMMEND_CATEGORIES from '@/graphql/queries/recommendCategories.gql'
+import gql from 'graphql-tag'
 
 export default {
-  async fetchContent ({dispatch}, category) {
+  async fetchContent ({dispatch, state}, first, after) {
     let response
       try {
         response = await this.app.apolloProvider.defaultClient.query({
-          query: CARD_COURSES,
+          query: gql`
+            query items ($first: Int, $after: String){
+              items (first: $first, after: $after){
+                pageInfo{
+                  startCursor
+                }
+                edges {
+                  cursor
+                  node {
+                    title
+                    description
+                    content {
+                      
+                      ... on CourseType {
+                        id: id
+                        title: title
+                        area
+                        classification {
+                          title
+                        }
+                        dateAndTime {
+                          startDate
+                        }
+                        image: coverImage
+                        likes: totalLikes
+                        views: totalViews
+                        tipo: __typename
+                      }
+                      ... on ProjectType {
+                        id: id
+                        title: title
+                        category
+                      #   classification {
+                      #     title
+                      #   }
+                      #   categories {
+                      #     title
+                      #   }
+                      #   dateAndTime {
+                      #     startDate
+                      #   }
+                        image: coverImage
+                        contributors: randomContributors
+                        totalContributors: totalContributors
+                      #   author {
+                      #     title
+                      #     profilePicture
+                      #   }
+                        likes: totalLikes
+                        views: totalViews
+                        tipo: __typename
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          `,
           variables: {
-            category: category.id
+            first: first,
+            after: state.after
           },
-          update: result => result.courses,
+          update: result => result.items,
           error(error) {
             resolve(error)
           }
@@ -21,30 +80,7 @@ export default {
       }
     return response
   },
-  async fetchProjectContent ({dispatch}) {
-    let response
-      try {
-        response = await this.app.apolloProvider.defaultClient.query({
-          query: CARD_PROJECTS,
-          update: result => result.projects,
-          error(error) {
-            resolve(error)
-          }
-        })
-      } catch (e) {
-        // Aqui va el error
-      }
-    return response
-  },
-  async loadContent ({commit, dispatch, state, rootState}, iterator) {
-    // Get the categories
-    let categories
-      = !!rootState.user.user ?
-        rootState.user.user.profile.interests :
-        state.categories
-    // console.log(categories)
-    let category = categories[iterator]
-    // console.log(category)
+  async loadContent ({commit, dispatch, state}, first, after) {
     
     let component = null
 
@@ -52,13 +88,15 @@ export default {
 
       let componentType = `ItemsCarrousel`
 
-      let { data } = await dispatch('fetchContent', category)
+      let { data } = await dispatch('fetchContent', state.first, state.after)
+      commit('set_after', data.items.pageInfo.startCursor)
+
       // console.log(data)
 
       let itemsCarrouselProperties = {
-        title: `Cursos/Talleres de ${category.title}`,
-        description: `Los talleres mas destacados de ${category.title}`,
-        items: data.courses,
+        title: data.items.edges[0].node.title,
+        description: data.items.edges[0].node.description,
+        items: data.items.edges[0].node.content,
       }
 
       component = {
@@ -71,59 +109,4 @@ export default {
     }
     return component
   },
-  async loadAllProjects ({commit, dispatch, state, rootState}) {
-    let component = null
-    try {
-
-      let componentType = `ItemsCarrousel`
-
-      let { data } = await dispatch('fetchProjectContent', null, true)
-      // console.log(data)
-
-      let itemsCarrouselProperties = {
-        title: `Proyectos destacados`,
-        description: `Los proyectos mas destacados`,
-        items: data.projects
-      }
-
-      component = {
-        type: () => import(`../../components/${componentType}`),
-        properties: itemsCarrouselProperties,
-        events: null
-      }
-    } catch (e) {
-      //error
-    }
-    return component
-  },
-  async load_courses ({commit, state, dispatch, rootState}){
-    try{
-      let categories
-          = !!rootState.user.user ?
-            rootState.user.user.profile.interests : 
-            state.categories
-      for(let interest of categories) {
-        await dispatch('courses/get_courses', interest, {root: true})
-        .then(({ data }) => {
-          commit('add_courses', { category: interest.title, courses_list: data.courses })
-        })
-      }
-    } catch (e) {
-      //aqqui va el error gg
-    }
-  },
-  async poblate_categories ({state}) {
-    let response
-    try {
-      response = await this.app.apolloProvider.defaultClient.query({
-        query: RECOMMEND_CATEGORIES,
-        error(error) {
-          resolve(error)
-        }
-      })
-    } catch (e) {
-      // Aqui va el error
-    }
-    state.categories = response.data.recommendCategories
-  }
 }

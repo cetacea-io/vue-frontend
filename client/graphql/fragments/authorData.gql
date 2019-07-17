@@ -1,0 +1,5 @@
+fragment AuthorData on AuthorType {
+  id
+  title
+  picture
+}

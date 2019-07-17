@@ -1,158 +1,175 @@
 <template>
-  <div class="container profile">
+  <div>
+    
+    <div
+      v-if="account && account.__typename == 'OrganizationType'"
+      class="container profile">
 
-    <div class="user-wrapper">
-      <div
-        :style="{ 'background-image': 'url(' + user.profile.profilePicture + ')' }"
-        class="avatar user-avatar">
-        <div 
-          style="
-          z-index: 1;
-          background: #4573fc;
-          width: 45px;
-          height: 45px;
-          border-radius: 100%;
-          position: absolute;
-          bottom: 13px;
-          right: 11px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          box-shadow: 0 0 0 6px #000;
-          padding: 12px;
-          ">
-          <div class="check-icon"/>
-        </div>
-      </div>
+      <h1>{{ account.title }}</h1>
 
-      <div class="username-wrapper">
-        <div class="name-wrapper">
-          <h1 class="name">
-            {{ user.firstName }} {{ user.lastName }}
-          </h1>
-          <i
-            v-if="user.verified"
-            class="badge fas fa-check-circle"/>
-        </div>
-        <h2>@{{ user.username }}</h2>
-      </div>
     </div>
+    
+    <div
+      v-if="account && account.__typename == 'UserType'"
+      class="container profile">
 
-    <div class="bio">
-      {{ user.profile.bio }}
-      <!-- <div v-if="user.id == $store.getters['authentication/actualUser'].id"> -->
-      <!-- {{ user.id }} {{ $store.getters['authentication/actualUser'].id }} -->
-      <!-- </div> -->
-    </div>
-
-    <div class="card-wrapper">
-      <div
-        style="
-        border: 1px solid #2a3240;
-        border-left: 0;
-        border-right: 0;
-        display: flex;
-        justify-content: space-around;
-      ">
-        <div>
-          <div
+      <div class="user-wrapper">
+        <div
+          :style="{ 'background-image': 'url(' + account.profile.profilePicture + ')' }"
+          class="avatar user-avatar">
+          <div 
             style="
-            font-size: 1.5em;
-            font-weight: 600;">
-            1,020
-          </div>
-          <div>Posts</div>
-        </div>
-
-        <div>
-          <div>1,020</div>
-          <div>Posts</div>
-        </div>
-        <div>
-          <div>1,020</div>
-          <div>Posts</div>
-        </div>
-
-      </div>   
-    </div>
-
-    <Card class="card-wrapper">
-
-      <h2>Intereses</h2>
-
-      <Tag 
-        v-for="interest in user.profile.interests"
-        :key="interest.id">
-        {{ interest.title }}
-      </Tag>
-
-      <h2>Habilidades</h2>
-
-      <Tag 
-        v-for="interest in interests"
-        :key="interest">
-        {{ interest }}
-      </Tag>
-    </Card>
-
-    <Card class="card-wrapper">
-      <h1>Portafolio</h1>
-
-      <div class="portfolio-grid">
-
-        <div class="portfolio-item">
-          <div class="portfolio-meta">
-            Musica
-          </div>
-        </div>
-        <div class="portfolio-item">
-          <div class="portfolio-meta">
-            Teatro
-          </div>
-        </div>
-        <div class="portfolio-item">
-          <div class="portfolio-meta">
-            Musica
-          </div>
-        </div>
-        <div class="portfolio-item">
-          <div class="portfolio-meta">
-            4 +
+            z-index: 1;
+            background: #4573fc;
+            width: 45px;
+            height: 45px;
+            border-radius: 100%;
+            position: absolute;
+            bottom: 13px;
+            right: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 0 6px #000;
+            padding: 12px;
+            ">
+            <div class="check-icon"/>
           </div>
         </div>
 
+        <div class="username-wrapper">
+          <div class="name-wrapper">
+            <h1 class="name">
+              {{ account.firstName }} {{ account.lastName }}
+            </h1>
+            <i
+              v-if="account.verified"
+              class="badge fas fa-check-circle"/>
+          </div>
+          <h2>@{{ account.username }}</h2>
+        </div>
       </div>
 
-      <AppPortfolioItem
-        thumbnail="http://www.ivancdg.com/images/etudeno1_videostill_stefan_botez_2017.jpg"
-        title="Musica" />
+      <div class="bio">
+        {{ account.profile.bio }}
+        <!-- <div v-if="user.id == $store.getters['authentication/actualUser'].id"> -->
+        <!-- {{ user.id }} {{ $store.getters['authentication/actualUser'].id }} -->
+        <!-- </div> -->
+      </div>
 
-    </Card>
+      <div class="card-wrapper">
+        <div
+          style="
+          border: 1px solid #2a3240;
+          border-left: 0;
+          border-right: 0;
+          display: flex;
+          justify-content: space-around;
+        ">
+          <div>
+            <div
+              style="
+              font-size: 1.5em;
+              font-weight: 600;">
+              1,020
+            </div>
+            <div>Posts</div>
+          </div>
 
-    <!-- <div class="education">
+          <div>
+            <div>1,020</div>
+            <div>Posts</div>
+          </div>
+          <div>
+            <div>1,020</div>
+            <div>Posts</div>
+          </div>
 
-      <h2>Educacion</h2>
+        </div>   
+      </div>
 
-      <AppEducationCertificateList :certificates="user.certificates"/>
+      <Card class="card-wrapper">
 
-    </div> -->
+        <h2>Intereses</h2>
+
+        <Tag 
+          v-for="interest in account.profile.interests"
+          :key="interest.id">
+          {{ interest.title }}
+        </Tag>
+
+        <h2>Habilidades</h2>
+
+        <Tag 
+          v-for="interest in interests"
+          :key="interest">
+          {{ interest }}
+        </Tag>
+      </Card>
+
+      <Card class="card-wrapper">
+        <h1>Portafolio</h1>
+
+        <div class="portfolio-grid">
+
+          <div class="portfolio-item">
+            <div class="portfolio-meta">
+              Musica
+            </div>
+          </div>
+          <div class="portfolio-item">
+            <div class="portfolio-meta">
+              Teatro
+            </div>
+          </div>
+          <div class="portfolio-item">
+            <div class="portfolio-meta">
+              Musica
+            </div>
+          </div>
+          <div class="portfolio-item">
+            <div class="portfolio-meta">
+              4 +
+            </div>
+          </div>
+
+        </div>
+
+        <AppPortfolioItem
+          thumbnail="http://www.ivancdg.com/images/etudeno1_videostill_stefan_botez_2017.jpg"
+          title="Musica" />
+
+      </Card>
+
+      <!-- <div class="education">
+
+        <h2>Educacion</h2>
+
+        <AppEducationCertificateList :certificates="account.certificates"/>
+
+      </div> -->
 
 
-    <div class="created"/>
+      <div class="created"/>
 
-    <div>
-      <h1>Colaboraciones</h1>
-      
-      <ItemsProjectsCarrousel
-        :items="user.profile.projectsCreated"
-        title="Contribucions"/>
+      <div>
+        <h1>Colaboraciones</h1>
+        
+        <ItemsProjectsCarrousel
+          :items="account.profile.projectsCreated"
+          title="Contribucions"/>
+      </div>
+
     </div>
+
 
   </div>
 </template>
 
 <script>
+import { account } from '@/graphql/queries/account'
 import { user } from '@/graphql/queries/user/user'
+import gql from 'graphql-tag'
 
 // import AppPortfolioItem from '~/components/molecules/AppPortfolioItem'
 // import AppEducationCertificateList from '~/components/organisms/AppEducationCertificateList'
@@ -179,15 +196,83 @@ export default {
     }
   },
   async asyncData({error, app, params}) {
-    try {
-      const { data } = await app.apolloProvider.defaultClient.query({
-        query: user,
-        variables: { username: params.username }
-      })
-      return { user: data.user }
-    } catch(err) {
-      error({statusCode: 404, message: 'Not found'})
+    if(params.username[0] == '@') {
+      let actualUsername = params.username.substring(1)
+
+      // try {
+      //   const { data } = await app.apolloProvider.defaultClient.query({
+      //     query: account,
+      //     variables: { username: actualUsername }
+      //   })
+
+      //   return { account: data.account }
+      // } catch(err) {
+
+      //   error({statusCode: 404, message: 'Not found'})
+      // }
+
+      try {
+        const { data } = await app.apolloProvider.defaultClient.query({
+          query: gql`
+            #import "../queries/fragments/userProfile.gql"
+            #import "../queries/fragments/organizationProfile.gql"
+            query account($username: String!) {
+              account(username: $username) {
+                __typename
+                ...on UserType {
+                  id
+                  firstName
+                  lastName
+                  username
+                  profile {
+                    profilePicture
+                    bio
+                    interests {
+                      id
+                      title
+                    }
+                    coursesTaught {
+                      title
+                    }
+                    # projectsCreated {
+                    #   id
+                    #   title
+                    #   coverImage
+                    #   category
+                    #   author {
+                    #     id
+                    #     profilePicture
+                    #     user {
+                    #       username
+                    #       firstName
+                    #       lastName
+                    #     }
+                    #   }
+                    #   location
+                    #   creationDate
+                    #   quickDesc
+                    # }
+                  }
+                }
+                ...on OrganizationType {
+                  id
+                  title
+                  username
+                }
+              }
+            }
+          `,
+          variables: { username: actualUsername }
+        })
+
+        return { account: data.account }
+      } catch(err) {
+
+        error({statusCode: 404, message: 'Not found'})
+      }
+
     }
+    else  { error({statusCode: 404, message: 'Not found'}) } 
   },
   computed: {
     ...mapGetters({

@@ -14,24 +14,24 @@ query user($username: String!) {
         coursesTaught {
           title
         }
-        projectsCreated {
-          id
-          title
-          coverImage
-          category
-          author {
-            id
-            profilePicture
-            user {
-              username
-              firstName
-              lastName
-            }
-          }
-          location
-          creationDate
-          quickDesc
-        }
+        # projectsCreated {
+        #   id
+        #   title
+        #   coverImage
+        #   category
+        #   author {
+        #     id
+        #     profilePicture
+        #     user {
+        #       username
+        #       firstName
+        #       lastName
+        #     }
+        #   }
+        #   location
+        #   creationDate
+        #   quickDesc
+        # }
     }
   }
 }

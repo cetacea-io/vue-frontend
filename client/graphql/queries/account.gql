@@ -1,0 +1,14 @@
+#import "../fragments/userProfile.gql"
+#import "../fragments/organizationProfile.gql"
+
+query account($username: String!) {
+  account(username: $username) {
+    __typename
+    ...on UserType {
+      ...userProfile
+    }
+    ...on OrganizationType {
+      ...organizationProfile
+    }
+  }
+}

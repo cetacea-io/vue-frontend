@@ -78,7 +78,7 @@ export default {
       const response = await this.app.apolloProvider.defaultClient.mutate({
         mutation: getAccessToken,
         variables: {
-          redirectUri: 'http://localhost:3333/complete/facebook/',
+          redirectUri: `${process.env.BASE_URL}/complete/facebook/`,
           provider: 'facebook',
           code: code
         },
@@ -87,8 +87,10 @@ export default {
         }
       })
       .then(({data}) => data)
+      
 
       let accessToken = response.getAccessToken.accessToken
+
 
       const response2 = await this.app.apolloProvider.defaultClient.mutate({
         mutation: socialAuth,

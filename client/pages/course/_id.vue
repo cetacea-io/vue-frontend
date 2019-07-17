@@ -1,13 +1,25 @@
 <template>
   <div class="main-course">
 
-    <CourseHeader
+    <NewCourseHeader
       :title="course.title"
       :cover-image="course.coverImage"
       :classification="course.classification.title"
       :area="course.area"
       :author-title="course.author.title"
-      :author-picture="course.author.profilePicture"
+      :author-picture="course.author.picture"
+      :current-route="`/course/${course.id}`"
+      :tabs="tabs"
+      @call-to-action="callToAction"
+    />
+
+    <!-- <CourseHeader
+      :title="course.title"
+      :cover-image="course.coverImage"
+      :classification="course.classification.title"
+      :area="course.area"
+      :author-title="course.author.title"
+      :author-picture="course.author.picture"
       :current-route="`/course/${course.id}`"
       :tabs="tabs"
     >
@@ -20,13 +32,12 @@
       >
         Ver mas informacion
       </a>
-    </CourseHeader>
-
+    </CourseHeader> -->
 
 
     <div
       class="content-wrapper"
-      style="background: #071119; padding: 20px 0;">
+      style="background: #000000; padding: 20px 0;">
 
       <div class="container">
         <nuxt-child :course="course"/>
@@ -71,17 +82,19 @@
 <script>
 import courseMixin from '@/mixins/courseMixin'
 
-import { mapActions } from 'vuex'
+import { mapActions, mapMutations } from 'vuex'
 
 import ItemsCarrousel from '@/components/ItemsCarrousel'
 import PriceTag from '@/components/PriceTag'
 import CourseHeader from '@/components/course/CourseHeader'
+import NewCourseHeader from '@/components/course/NewCourseHeader'
 
 export default {
   components: {
     ItemsCarrousel,
     PriceTag,
     CourseHeader,
+    NewCourseHeader,
   },
   mixins: [courseMixin],
   props: {
@@ -103,7 +116,7 @@ export default {
           route: `/location`
         },
         {
-          title: `Costos`,
+          title: `Inscripciones`,
           route: `/price`
         },
         {
@@ -128,12 +141,39 @@ export default {
     // ...mapActions({
     //   register: 'user/register',
     // }),
+    ...mapMutations({
+      add: 'shopping/add_item'
+    }),
+    async callToAction(){
+      await this.add({
+        title: this.course.title,
+        image: this.course.coverImage,
+        price: 4.10
+      })
+      const userIsLoggedIn = !!this.$store.state.user.user
+      if (userIsLoggedIn) {
+        this.$router.push('/checkout')
+      } else {
+        this.$router.push('/signup')
+      }
+      return
+    }
   }
 }
 </script>
 
 <style lang="scss">
 .content-wrapper {
+
+  .section {
+    margin-bottom: 60px;
+  }
+
+  .title{
+    margin-bottom: 26px;
+  }
+
+
   .first-row{
     @media only screen and (min-width: 960px) {
       grid-template-columns: 1fr 0.5fr;
@@ -147,8 +187,10 @@ export default {
     display: grid;
     grid-template-columns: 1fr;
   }
+
   .card-wrapper{
-    background: #071119 !important;
+    // background: #071119 !important;
+    background: #000000 !important;
     margin-bottom: 20px;
   }
 }
@@ -168,12 +210,6 @@ export default {
 .description{
   color: hsla(207, 11%, 66%, 1);
   margin-bottom: 20px;
-}
-.user-container{
-  background: #2b3c56;
-  display: inline-block;
-  padding: 1em;
-  border-radius: 10px;
 }
 </style>
 

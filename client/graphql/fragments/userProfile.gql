@@ -1,0 +1,35 @@
+fragment UserProfile on UserType {
+  id
+  firstName
+  lastName
+  username
+  profile {
+    profilePicture
+    bio
+    interests {
+      id
+      title
+    }
+    coursesTaught {
+      title
+    }
+    # projectsCreated {
+    #   id
+    #   title
+    #   coverImage
+    #   category
+    #   author {
+    #     id
+    #     profilePicture
+    #     user {
+    #       username
+    #       firstName
+    #       lastName
+    #     }
+    #   }
+    #   location
+    #   creationDate
+    #   quickDesc
+    # }
+  }
+}
