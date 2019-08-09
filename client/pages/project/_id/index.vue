@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div style="width: 100%; height: 100%; position: relative;">
+    <div style="width: 100%; height: 100%; position: relative; margin: 33px 0px;">
       <no-ssr>
         <AppCarrousel>
         
@@ -25,7 +25,7 @@
 
     <article class="content-wrapper">
 
-      <Card style="background: #071119;">
+      <Card style="background: #000;">
         <Markdown :content="project.overview" />
       </Card>
 

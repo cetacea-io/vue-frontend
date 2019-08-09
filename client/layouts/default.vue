@@ -67,7 +67,7 @@
     <Modal/>
     <nuxt/>
 
-    <TheFooter />
+    <!-- <TheFooter /> -->
 
   </div>
 </template>

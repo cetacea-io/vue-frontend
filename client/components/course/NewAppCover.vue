@@ -3,7 +3,9 @@
     name="fade"
     class="container meta-wrapper"
     tag="div">
-    <div class="featured-wrap">
+    <div
+      :class="['featured-wrap', {'unavailable': !available}]"
+    >
       
       <div class="featured-inner">
         <h1 class="subtitle"> <span class="type">{{ classification }}</span> • {{ area }} </h1>
@@ -71,7 +73,7 @@
             <span style="display: block;font-size: 1.2em;font-weight: 600;">Inscribirme</span>
             <span style="display: block;font-size: 0.9em;">Empieza en dos dias</span>
           </div>
-          <div class="meta">
+          <!-- <div class="meta">
             <div class="icon">
               <i class="far fa-heart"/>
               <strong class="icon-text">{{ currentLikes }}</strong>
@@ -80,7 +82,7 @@
               <i class="far fa-eye"/>
               <strong class="icon-text">{{ currentViews }}</strong>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
 
@@ -89,7 +91,8 @@
 
     <div
       :style="{ 'background-image': 'url(' + image + ')' }"
-      class="cover-image">
+      :class="['cover-image', {'unavailable': !available}]"
+    >
 
       <div class="cover-curtain" />
 
@@ -129,6 +132,10 @@ export default {
     authorPicture: {
       type: String,
       required: true
+    },
+    available: {
+      type: Boolean,
+      required: true
     }
   },
 }
@@ -162,6 +169,10 @@ export default {
       width: 100%;
       padding: 0 19px;
     }
+  }
+
+  &.unavailable {
+    opacity: 0.7;
   }
 }
 
@@ -239,6 +250,11 @@ export default {
     height: 300px;
     width: 100%;
     background-position: none;
+  }
+
+  &.unavailable {
+    filter: grayscale(1);
+    opacity: 0.7;
   }
 
 }

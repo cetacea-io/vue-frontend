@@ -117,7 +117,7 @@ export default {
 }
 
 .position-wrap{
-  background-color: #071119 !important;
+  background-color: #000 !important;
   color: #fff;
   font-family: Soleil, Helvetica, Arial, sans-serif;
   padding: 24px;
@@ -133,7 +133,7 @@ export default {
     position: relative;
   }
   .cortina {
-    background: linear-gradient(to top, #071119, #07111900);
+    background: linear-gradient(to top, rgb(0, 0, 0), rgba(0, 0, 0, 0));
     position: absolute;
     width: 100%;
     height: 100%;

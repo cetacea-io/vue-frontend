@@ -15,6 +15,7 @@ export default {
   },
   mounted(){
     this.$store.dispatch('authentication/socialAuth', this.code)
+    // console.log(this.code)
     this.$router.push('/')
   }
 }

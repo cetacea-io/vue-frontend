@@ -9,6 +9,7 @@
       :author-title="course.author.title"
       :author-picture="course.author.picture"
       :current-route="`/course/${course.id}`"
+      :available="false"
       :tabs="tabs"
       @call-to-action="callToAction"
     />

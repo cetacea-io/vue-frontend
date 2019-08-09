@@ -1,11 +1,11 @@
 <template>
   <div class="searchbox-wrapper">
-    <autocomplete
+    <!-- <autocomplete
       v-model="searchbox"
       :items="options"
       :async="true"
       placeholder="Que te interesa?"
-      @enter="search(searchbox)"/>
+      @enter="search(searchbox)"/> -->
   </div>
 </template>
 

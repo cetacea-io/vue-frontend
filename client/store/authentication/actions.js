@@ -87,10 +87,10 @@ export default {
         }
       })
       .then(({data}) => data)
-      
 
       let accessToken = response.getAccessToken.accessToken
 
+      // console.log(accessToken)
 
       const response2 = await this.app.apolloProvider.defaultClient.mutate({
         mutation: socialAuth,

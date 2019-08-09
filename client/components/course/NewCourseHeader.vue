@@ -8,6 +8,7 @@
         :author-title="authorTitle"
         :author-picture="authorPicture"
         :image="coverImage"
+        :available="available"
         @call-to-action="$emit('call-to-action')"
       />
 
@@ -28,7 +29,9 @@
     
     </div>
 
-    <SecondNavbar style="background: #000;">
+    <SecondNavbar
+      v-if="available"
+      style="background: #000;">
       <div class="container custom-header">
         <div
           style="
@@ -152,6 +155,10 @@ export default {
     },
     authorPicture: {
       type: String,
+      required: true
+    },
+    available: {
+      type: Boolean,
       required: true
     }
   },

@@ -367,12 +367,12 @@
           :class="['cd-main-search', {'is-visible': searchActive}]"
         >
           <form @submit.prevent="submitSearchForm">
-            <input
+            <!-- <input
               ref="searchInput"
               v-model="searchForm.query"
               type="search"
               placeholder="Search..."
-            >
+            > -->
 
             <div class="cd-select">
               <span>in</span>
