@@ -1,8 +1,8 @@
 <template>
   <div>
-    <app-feed-list 
+    <!-- <app-feed-list 
       :feed-list="feedList"
-    />
+    /> -->
   </div>
 </template>
 
