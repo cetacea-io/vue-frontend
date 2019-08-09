@@ -18,9 +18,9 @@
     </div>
 
     <!-- <no-ssr> -->
-    <AppCarrousel 
-      class="scrolling-wrapper">
-      <!-- <ProjectCard
+    <!-- <AppCarrousel 
+    class="scrolling-wrapper"> -->
+    <!-- <ProjectCard
         v-for="(item, index) in items"
         :key="index"
         :id="item.id"
@@ -39,43 +39,43 @@
         class="mini"
       /> -->
 
-      <div
-        v-for="(item, index) in items"
-        :key="index"
-        class="mini"
-      >
+    <div
+      v-for="(item, index) in items"
+      :key="index"
+      class="mini"
+    >
 
-        <div class="project-card">
+      <div class="project-card">
 
-          <div class="curtain" />
+        <div class="curtain" />
 
-          <div
-            :style="{ 'background-image': 'url(' + item.coverImage + ')' }"
-            class="cover-image" />
+        <div
+          :style="{ 'background-image': 'url(' + item.coverImage + ')' }"
+          class="cover-image" />
 
-          <div class="project-wrapper">
-            <div class="space"/>
+        <div class="project-wrapper">
+          <div class="space"/>
 
-            <div class="project-content">
-              <div class="category">{{ item.category }}</div>
-              <div class="title">{{ item.title }}</div>
-              <div class="avatar-wrapper">
-                <div
-                  :style="{ 'background-image': 'url(' + item.userImage + ')' }"
-                  class="user-avatar"/>
-                <div class="skills">
-                  {{ item.skills }}
-                </div>
+          <div class="project-content">
+            <div class="category">{{ item.category }}</div>
+            <div class="title">{{ item.title }}</div>
+            <div class="avatar-wrapper">
+              <div
+                :style="{ 'background-image': 'url(' + item.userImage + ')' }"
+                class="user-avatar"/>
+              <div class="skills">
+                {{ item.skills }}
               </div>
-              <div>{{ item.time }}</div>
             </div>
+            <div>{{ item.time }}</div>
           </div>
-
         </div>
 
       </div>
 
-    </AppCarrousel>
+    </div>
+
+    <!-- </AppCarrousel> -->
     <!-- </no-ssr> -->
   </div>
 </template>
@@ -156,7 +156,6 @@ export default {
         justify-items: center;
         align-content: center;
         align-items: center;
-        margin-top: 20px;
         width: 100%;
 
         .user-avatar{
@@ -229,7 +228,15 @@ export default {
 
 .mini{
   // width: 252px;
-  width: 350px;
+  position: relative;
+  display: inline-flex;
+  width: 33.33%;
   padding: 5px;
+  @media (max-width: 767px) {
+    width: 50%;
+  }
+  @media (max-width: 667px) {
+    width: 100%;
+  }
 }
 </style>
