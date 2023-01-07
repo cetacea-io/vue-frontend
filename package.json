@@ -30,7 +30,7 @@
     "gsap": "^2.1.2",
     "marked": "^0.6.2",
     "moment": "^2.24.0",
-    "nuxt": "^2.8.1",
+    "nuxt": "^2.15.8",
     "postcss-preset-env": "^6.0.6",
     "vue-flickity": "^1.1.2"
   },
